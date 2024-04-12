@@ -5,8 +5,8 @@ let IS_DRAWING = false;
 let peer = null;  // Moved to top for global scope reuse
 let dataConnection = null;
 let paths = [];
-const canvas = document.getElementById('drawingCanvas');
-const ctx = canvas.getContext('2d');
+let canvas = null;
+let ctx = null;
 
 function closeExistingConnections() {
     if (peer && !peer.destroyed) {
@@ -51,6 +51,7 @@ function setupPeerEventHandlers() {
 function shareButtonListener(shareButton) {
     shareButton.addEventListener('click', () => {
         console.log('Share button clicked');
+        ipcRenderer.send('request-player');
         ipcRenderer.send('request-screens');
     });
 }
@@ -58,7 +59,8 @@ function shareButtonListener(shareButton) {
 function viewButtonListener(viewButton) {
     viewButton.addEventListener('click', () => {
         console.log('View button clicked');
-        CanvasManager.init();
+        ipcRenderer.send('request-player');
+        CanvasManager.init(canvas, ctx);
 
         const peerId = document.getElementById('inputField').value;
         if (!peerId) return;
@@ -82,6 +84,9 @@ const CanvasManager = {
     fadeTimeout: null, // Store fade timeout to manage fading effect.
 
     init() {
+
+        canvas = document.getElementById('drawingCanvas');
+        ctx = canvas.getContext('2d');
         this.resizeCanvas(); // Adjust canvas size.
         this.drawPaths(); // Start the drawing process.
         window.onresize = this.resizeCanvas.bind(this); // Ensure canvas resizes properly on window resize.

@@ -69,12 +69,6 @@ function initializePeer() {
 
 function handleCall(call) {
     call.answer(localStream);
-    call.on('stream', remoteStream => {
-        // localVideo.srcObject = remoteStream;
-    });
-    call.on('close', () => {
-        console.log('Call ended.');
-    });
     call.on('error', err => {
         console.error('Call error:', err);
     });
@@ -84,7 +78,15 @@ function handleCall(call) {
 shareButtonListener(shareButton);
 viewButtonListener(viewButton);
 
+
+
+ipcRenderer.on('load-player', (event) => {
+    var containerDiv = document.getElementById("videoContainer");
+    containerDiv.style.display = "block";
+});
+
 // IPC event handlers for screen sharing.
+
 ipcRenderer.on('show-picker', (event, sources) => {
     const screenList = document.getElementById('screen-list');
     screenList.innerHTML = '';

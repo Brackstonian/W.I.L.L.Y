@@ -5,7 +5,11 @@ const { createMainWindow, createOverlayWindow, getOverlayWindow } = require('./w
 
 // Define a function to set up event listeners for various IPC events.
 function setupListeners() {
-    // Listener for 'request-screens' to get and send screen sources for screen sharing or capture.
+
+    ipcMain.on('request-player', async (event) => {
+        event.reply('load-player');
+    });
+
     ipcMain.on('request-screens', async (event) => {
         const sources = await desktopCapturer.getSources({ types: ['screen'] }); // Fetch available screen sources.
         event.reply('show-picker', sources); // Send the screen sources back to the renderer to display a picker.
