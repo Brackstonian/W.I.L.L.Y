@@ -1,6 +1,6 @@
 {
   "name": "screen",
-  "version": "1.0.0",
+  "version": "pre-alpha-1.0.0",
   "description": "",
   "main": "src/main/main.js",
   "scripts": {
