@@ -16,7 +16,7 @@ function createMainWindow() {
     });
 
     mainWindow.loadFile('views/index.html'); // Load the HTML file for the main window.
-    // mainWindow.webContents.openDevTools(); // Open Developer Tools
+    mainWindow.webContents.openDevTools(); // Open Developer Tools
 }
 
 

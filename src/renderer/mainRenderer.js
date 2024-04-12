@@ -3,6 +3,9 @@ const { ipcRenderer } = require('electron');
 const io = require('socket.io-client');
 const Peer = require('peerjs').Peer;
 
+const { shareButtonListener } = require('../src/renderer/ui.js');
+
+
 // Connect to a signaling server using socket.io.
 const socket = io.connect('https://w-i-l-l-y-server.onrender.com:443');
 
@@ -116,10 +119,11 @@ function sendData(data) {
 }
 
 // Event listeners for share and view buttons.
-shareButton.addEventListener('click', () => {
-    console.log('Share button clicked');
-    ipcRenderer.send('request-screens'); // Request available screens to share.
-});
+shareButtonListener(shareButton);
+// shareButton.addEventListener('click', () => {
+//     console.log('Share button clicked');
+//     ipcRenderer.send('request-screens'); // Request available screens to share.
+// });
 
 viewButton.addEventListener('click', () => {
     console.log('View button clicked');
