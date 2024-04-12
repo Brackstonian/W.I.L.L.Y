@@ -19,20 +19,7 @@ function createMainWindow() {
     // mainWindow.webContents.openDevTools(); // Open Developer Tools
 }
 
-// Function to create a smaller window intended for user input.
-function createInputWindow() {
-    let inputWindow = new BrowserWindow({
-        width: 400, // Set the width of the input window.
-        height: 200, // Set the height of the input window.
-        webPreferences: {
-            nodeIntegration: true, // Enable Node.js integration.
-            contextIsolation: false // Disable context isolation.
-        }
-    });
 
-    inputWindow.loadFile('views/input.html'); // Load the HTML file for the input window.
-    return inputWindow; // Return the created input window.
-}
 
 // Function to create an overlay window.
 function createOverlayWindow() {
@@ -71,4 +58,4 @@ function getOverlayWindow() {
 }
 
 // Export functions to be used in other parts of the application.
-module.exports = { createMainWindow, createInputWindow, createOverlayWindow, getOverlayWindow };
+module.exports = { createMainWindow, createOverlayWindow, getOverlayWindow };

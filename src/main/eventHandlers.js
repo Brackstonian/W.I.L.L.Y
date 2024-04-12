@@ -5,18 +5,6 @@ const { createMainWindow, createOverlayWindow, getOverlayWindow } = require('./w
 
 // Define a function to set up event listeners for various IPC events.
 function setupListeners() {
-    // Listener for 'input-submitted' event, logs the input and sends a response back to the sender.
-    ipcMain.on('input-submitted', (event, input) => {
-        console.log(input);  // Log the input received from the renderer process.
-        event.sender.send('input-received', input);  // Send a confirmation back to the renderer.
-    });
-
-    // Listener for 'open-input-window' event to create and manage an input window.
-    ipcMain.on('open-input-window', () => {
-        let inputWindow = createInputWindow(); // Create an input window.
-        ipcMain.once('input-submitted', () => inputWindow.close()); // Close the input window once input is submitted.
-    });
-
     // Listener for 'request-screens' to get and send screen sources for screen sharing or capture.
     ipcMain.on('request-screens', async (event) => {
         const sources = await desktopCapturer.getSources({ types: ['screen'] }); // Fetch available screen sources.
