@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+
+<body>
+    <input id="inputField" type="text">
+    <button onclick="submitInput()">Submit</button>
+    <script>
+        const { ipcRenderer } = require('electron');
+        function submitInput() {
+            const input = document.getElementById('inputField').value;
+            ipcRenderer.send('input-submitted', input);
+        }
+    </script>
+</body>
+
+</html>

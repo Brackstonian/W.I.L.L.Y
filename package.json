@@ -1,0 +1,16 @@
+{
+  "name": "screen",
+  "version": "1.0.0",
+  "description": "",
+  "main": "src/main/main.js",
+  "scripts": {
+    "start": "electron ."
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "electron": "^29.3.0",
+    "peerjs": "^1.5.2",
+    "socket.io-client": "^4.7.5"
+  }
+}
