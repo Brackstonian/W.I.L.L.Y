@@ -8,6 +8,7 @@ module.exports = {
         path: path.resolve(__dirname, 'public'),
         filename: 'bundle.js'
     },
+    watch: true,  // This line enables Webpack's watch mode
     externals: {
         electron: 'commonjs2 electron', // This prevents bundling of Electron
     },
