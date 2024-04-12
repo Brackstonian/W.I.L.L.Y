@@ -1,0 +1,60 @@
+// html, body {
+//     width: 100vw;
+//     height: 100vh;
+//     margin: 0;
+//     padding: 0;
+//     background-color: rgba(0, 0, 0, 0.5);
+//     color: rgb(255, 255, 255);
+//     backdrop-filter: blur(4px);
+// }
+
+html, body {
+  background: #0F110C;
+  margin: 0px;
+  padding: 0px;
+}
+
+h1,h2,h3,h4,h5,h6,p {
+  color: #FDECEF;
+  font-family: monospace;
+}
+
+.app-main {
+  &__title {
+    margin-top: 2rem;
+    font-size: 2rem;
+    text-align: center;
+  }
+  
+  &__version {
+    text-align: center;
+    margin: 0px;
+  }
+}
+
+#videoContainer {
+    position: relative;
+    height: 700px;
+    aspect-ratio: 16 / 9;
+
+    /* display: none; */
+}
+
+#localVideo,
+#drawingCanvas {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+}
+
+#drawingCanvas {
+    height: calc(100% - 15px);
+    display: flex;
+    margin-top: 15px;
+}
+
+
+
+

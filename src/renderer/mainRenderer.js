@@ -3,7 +3,7 @@ const { ipcRenderer } = require('electron');
 const io = require('socket.io-client');
 const Peer = require('peerjs').Peer;
 
-const { shareButtonListener, viewButtonListener } = require('../src/renderer/ui.js');
+const { shareButtonListener, viewButtonListener } = require('./ui.js');
 
 // Connect to a signaling server using socket.io.
 const socket = io.connect('https://w-i-l-l-y-server.onrender.com:443');
