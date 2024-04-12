@@ -70,7 +70,7 @@ function initializePeer() {
 function handleCall(call) {
     call.answer(localStream);
     call.on('stream', remoteStream => {
-        localVideo.srcObject = remoteStream;
+        // localVideo.srcObject = remoteStream;
     });
     call.on('close', () => {
         console.log('Call ended.');

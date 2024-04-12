@@ -1,6 +1,9 @@
 // Import required modules from Electron for creating and managing browser windows and for screen information.
 const { BrowserWindow, screen } = require('electron');
 
+const path = require('path');
+const iconPath = path.join(__dirname, '..', '..', 'public', 'icons', 'mac', 'icon.ics');
+
 let overlayWindow; // Define a module-level variable to hold the overlay window instance.
 
 // Function to create the main application window.
@@ -8,12 +11,15 @@ function createMainWindow() {
     const mainWindow = new BrowserWindow({
         width: 800, // Set the width of the window.
         height: 600, // Set the height of the window.
+        icon: iconPath,
         webPreferences: {
             nodeIntegration: true, // Enable Node.js integration.
             contextIsolation: false, // Disable context isolation.
             enableRemoteModule: true // Enable the remote module (should be used cautiously due to security implications).
         }
     });
+
+    console.log(iconPath);
 
     mainWindow.loadFile('views/index.html'); // Load the HTML file for the main window.
     mainWindow.webContents.openDevTools(); // Open Developer Tools
