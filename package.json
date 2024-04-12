@@ -1,16 +1,30 @@
 {
-  "name": "screen",
-  "version": "pre-alpha-1.0.0",
-  "description": "",
+  "name": "W.I.L.L.Y",
+  "version": "0.1.0",
+  "description": "WebRTC Interactive Live Layer Yard",
   "main": "src/main/main.js",
   "scripts": {
-    "start": "electron ."
+    "start": "electron .",
+    "pack": "electron-builder --dir",
+    "dist": "electron-builder"
   },
-  "author": "",
+  "build": {
+    "appId": "com.brackstonian.willy",
+    "mac": {
+      "category": "public.app-category.utilities",
+      "target": "dmg",
+      "icon": "public/icons/mac/icon.icns"
+    }
+  },
+  "author": "Ethan Brackstone",
   "license": "ISC",
   "dependencies": {
-    "electron": "^29.3.0",
     "peerjs": "^1.5.2",
     "socket.io-client": "^4.7.5"
+  },
+  "devDependencies": {
+    "electron": "^29.3.0",
+    "electron-builder": "^24.13.3",
+    "electron-packager": "^17.1.2"
   }
 }
