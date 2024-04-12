@@ -1,34 +1,41 @@
-// html, body {
-//     width: 100vw;
-//     height: 100vh;
-//     margin: 0;
-//     padding: 0;
-//     background-color: rgba(0, 0, 0, 0.5);
-//     color: rgb(255, 255, 255);
-//     backdrop-filter: blur(4px);
-// }
+:root {
+  --c-black: #1E2019;
+  --c-yellow: #E2C044;
+  --c-green: #109648;
+  --c-red: #D62828;
+}
 
 html, body {
-  background: #0F110C;
+  background: var(--c-black);
   margin: 0px;
   padding: 0px;
 }
 
 h1,h2,h3,h4,h5,h6,p {
-  color: #FDECEF;
+  color: #E2C044;
   font-family: monospace;
 }
 
 .app-main {
   &__title {
     margin-top: 2rem;
+    margin-bottom: 0px;
     font-size: 2rem;
     text-align: center;
+
   }
   
   &__version {
     text-align: center;
     margin: 0px;
+    color: var(--c-green);
+
+    margin-bottom: 2em;
+  }
+
+  &__input-container {
+    display: flex;
+    justify-content: center;
   }
 }
 
@@ -36,8 +43,9 @@ h1,h2,h3,h4,h5,h6,p {
     position: relative;
     height: 700px;
     aspect-ratio: 16 / 9;
-
     display: none;
+  margin: auto;
+    border: solid 2px red;
 }
 
 #localVideo,
@@ -56,5 +64,18 @@ h1,h2,h3,h4,h5,h6,p {
 }
 
 
+#screen-picker {
+  position: absolute;
+  background-color: white;
 
+  bottom: 0;
+}
 
+#uniqueId {
+  text-align: center;
+  color: green;
+  font-weight: bold;
+  text-transform: uppercase;
+  font-family: monospace;
+  margin: 0.5em;
+}

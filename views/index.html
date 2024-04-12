@@ -6,31 +6,36 @@
 </head>
 
 <body>
-<main class="app-main">
-    <h1 class="app-main__title">W.I.L.L.Y</h1>
-    <h6 class="app-main__version">Version: 0.1.1</h6>
+    <main class="app-main">
+        <!-- Titles -->
+        <h1 class="app-main__title">W.I.L.L.Y</h1>
+        <h6 class="app-main__version">Version: 0.1.1</h6>
+        
+        <!-- Stream Player / Canvas-->
+        <div id="videoContainer" class="videoContainer">
+            <video class="localVideo" id="localVideo" autoplay playsinline></video>
+            <canvas class="drawingCanvas" id="drawingCanvas"></canvas>
 
-</main>
+            <!-- Screen Picker -->
+            <div id="screen-picker">
+                <ul id="screen-list"></ul>
+            </div>
+        </div>
 
-    <div id="screen-picker">
-        <ul id="screen-list"></ul>
-    </div>
+        <div id="uniqueId"></div>
 
-    <div id="videoContainer" class="videoContainer">
-        <video class="localVideo" id="localVideo" autoplay playsinline></video>
-        <canvas class="drawingCanvas" id="drawingCanvas"></canvas>
-    </div>
 
-    <div id="uniqueId"></div>
-
-    <h3>Share Screen</h3>
-    <button id="shareButton">Share</button>
-    
-    <h3>Watch Screen</h3>
-    <input id="inputField" type="text">
-    <button id="viewButton">View</button>
-
-    <div id="uniqueId"></div>
+        <div class="app-main__input-container">
+            <div class="app-main__input-container-share">
+                <h3>Watch Screen</h3>
+                <input id="inputField" type="text">
+                <button id="viewButton">View</button>
+            </div>
+            <div class="app-main__input-container-view"></div>
+                <h3>Share Screen</h3>
+                <button id="shareButton">Share</button>
+        </div>
+    </main>
 
     <script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
     <script src="../public/bundle.js"></script>

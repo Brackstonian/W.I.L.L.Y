@@ -39,7 +39,7 @@ function initializePeer() {
 
     peer.on('open', id => {
         console.log('Peer ID:', id);
-        uniqueIdDisplay.innerText = `Your unique ID: ${id}`; // Display peer ID
+        uniqueIdDisplay.innerText = `Share this ID  : ${id}`; // Display peer ID
     });
 
     peer.on('error', err => {
