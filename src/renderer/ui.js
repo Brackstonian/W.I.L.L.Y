@@ -1,5 +1,53 @@
 const { ipcRenderer } = require('electron');
 
+let IS_DRAWING = false;
+
+let peer = null;  // Moved to top for global scope reuse
+let dataConnection = null;
+let paths = [];
+const canvas = document.getElementById('drawingCanvas');
+const ctx = canvas.getContext('2d');
+
+function closeExistingConnections() {
+    if (peer && !peer.destroyed) {
+        peer.destroy(); // Closes the peer and all associated connections
+        console.log('Existing peer connection destroyed.');
+    }
+}
+
+function initializePeerConnection() {
+    closeExistingConnections(); // Ensure any existing connection is closed before initializing a new one
+
+    peer = new Peer(null, {
+        host: 'w-i-l-l-y-server.onrender.com',
+        port: 443,
+        path: '/peerjs',
+        secure: true,
+        config: {
+            'iceServers': [
+                { urls: 'stun:stun1.l.google.com:19302' },
+                { urls: 'turn:numb.viagenie.ca', credential: 'muazkh', username: 'webrtc@live.com' }
+            ]
+        }
+    });
+    setupPeerEventHandlers();
+}
+
+function setupPeerEventHandlers() {
+    peer.on('open', id => {
+        console.log('Peer connection established with ID:', id);
+    });
+
+    peer.on('error', err => {
+        closeExistingConnections();
+        console.error('Peer error:', err);
+    });
+
+    peer.on('connection', conn => {
+        handleDataConnection(conn);
+    });
+}
+
 function shareButtonListener(shareButton) {
     shareButton.addEventListener('click', () => {
         console.log('Share button clicked');
@@ -10,56 +58,25 @@ function shareButtonListener(shareButton) {
 function viewButtonListener(viewButton) {
     viewButton.addEventListener('click', () => {
         console.log('View button clicked');
-        CanvasManager.init(); // Initialize the canvas manager on view click.
+        CanvasManager.init();
 
-        const peerId = document.getElementById('inputField').value; // Get the peer ID from input field.
-        if (!peerId) return; // Return if no ID is entered.
+        const peerId = document.getElementById('inputField').value;
+        if (!peerId) return;
 
-        if (!peer) {
-            // Create a new Peer instance if one does not exist.
-            peer = new Peer(null, {
-                host: 'w-i-l-l-y-server.onrender.com',
-                port: 443,
-                path: '/peerjs',
-                secure: true, // Use HTTPS.
-                config: {
-                    'iceServers': [ // ICE servers for handling NAT traversal.
-                        { urls: 'stun:stun1.l.google.com:19302' },
-                        { urls: 'turn:numb.viagenie.ca', credential: 'muazkh', username: 'webrtc@live.com' }
-                    ]
-                }
-            });
-        }
+        initializePeerConnection();  // Initialize or reuse peer connection
 
-        // Peer event handlers.
-        peer.on('open', id => {
-            navigator.mediaDevices.getUserMedia({ video: true })
-                .then(stream => {
-                    const call = peer.call(peerId, stream); // Make a call with local video stream.
-                    call.on('stream', remoteStream => {
-                        localVideo.srcObject = remoteStream; // Display the remote video stream.
-                    });
-                    setupDataConnection(peerId); // Setup data connection.
-                }).catch(err => {
-                    console.error('Failed to get local stream', err);
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                const call = peer.call(peerId, stream);
+                call.on('stream', remoteStream => {
+                    document.getElementById('localVideo').srcObject = remoteStream;
                 });
-        });
-
-        peer.on('error', err => {
-            console.error('Peer error:', err); // Log peer errors.
-        });
+                setupDataConnection(peerId);
+            }).catch(err => {
+                console.error('Failed to get local stream', err);
+            });
     });
 }
-
-let IS_DRAWING = false;
-
-
-let dataConnection = null;
-let paths = [];
-let peer = null;
-
-const canvas = document.getElementById('drawingCanvas');
-const ctx = canvas.getContext('2d');
 
 const CanvasManager = {
     fadeTimeout: null, // Store fade timeout to manage fading effect.
@@ -141,6 +158,31 @@ const CanvasManager = {
     },
 };
 
+function setupDataConnection(otherPeerId) {
+    if (!dataConnection || dataConnection.peer !== otherPeerId) {
+        if (dataConnection) {
+            dataConnection.close();  // Close existing connection if different peerId
+        }
+        dataConnection = peer.connect(otherPeerId);
+        handleDataConnection(dataConnection);
+    }
+}
+
+function handleDataConnection(conn) {
+    conn.on('open', () => {
+        console.log('Data connection established with:', conn.peer);
+    });
+
+    conn.on('data', data => {
+        console.log('Received data:', data);
+        handleReceivedData(data);
+    });
+
+    conn.on('error', err => {
+        console.error('Data connection error:', err);
+    });
+}
+
 // Function to send data over the data connection.
 function sendData(data) {
     console.log('sending data');
@@ -152,26 +194,6 @@ function sendData(data) {
     }
 }
 
-
-function setupDataConnection(otherPeerId) {
-    // Function to establish and handle a data connection to another peer.
-    dataConnection = peer.connect(otherPeerId);
-    dataConnection.on('open', () => {
-        console.log('Data connection established with:', otherPeerId);
-    });
-
-    peer.on('connection', function (conn) {
-        conn.on('data', function (data) {
-            console.log('Received data:', data); // Log received data.
-            handleReceivedData(data); // Process received data.
-            ipcRenderer.send('send-draw-data', data); // Send drawing data via IPC.
-        });
-    });
-
-    dataConnection.on('error', err => {
-        console.error('Data connection error:', err); // Log data connection errors.
-    });
-}
 
 function handleReceivedData(data) {
     console.log('Data received:', data); // Log received data.
