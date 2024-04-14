@@ -28,6 +28,7 @@
     "electron": "^29.3.0",
     "electron-builder": "^24.13.3",
     "electron-packager": "^17.1.2",
+    "mini-css-extract-plugin": "^2.8.1",
     "sass": "^1.75.0",
     "sass-loader": "^14.2.0",
     "style-loader": "^4.0.0",

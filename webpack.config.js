@@ -1,29 +1,39 @@
 const path = require('path');
+const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     mode: 'development',
-    target: 'electron-main', // or 'electron-renderer' depending on the context
-    entry: ['./src/renderer/mainRenderer.js', './styles/main.scss'],
+    target: 'electron-renderer',
+    entry: {
+        home: ['./src/renderer/pages/homePage.js', './styles/pages/homePage.scss'],
+        share: ['./src/renderer/pages/sharePage.js', './styles/pages/sharePage.scss'],
+        view: ['./src/renderer/pages/viewPage.js', './styles/pages/viewPage.scss']
+    },
     output: {
         path: path.resolve(__dirname, 'public'),
-        filename: 'bundle.js'
+        filename: '[name].bundle.js'
     },
-    watch: true,  // This line enables Webpack's watch mode
+    watch: true,
     externals: {
-        electron: 'commonjs2 electron', // This prevents bundling of Electron
+        electron: 'commonjs2 electron',
     },
     module: {
         rules: [
             {
                 test: /\.scss$/,
-                use: ['style-loader', 'css-loader', 'sass-loader']
+                use: [MiniCssExtractPlugin.loader, 'css-loader', 'sass-loader']
             }
         ]
     },
+    plugins: [
+        new MiniCssExtractPlugin({
+            filename: '[name].css'
+        })
+    ],
     resolve: {
         fallback: {
-            "fs": false, // Ignore fs as well
-            "path": require.resolve("path-browserify") // Provide a browser-compatible version of path
+            "fs": false,
+            "path": require.resolve("path-browserify")
         }
     }
 };

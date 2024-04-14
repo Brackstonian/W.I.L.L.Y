@@ -1,0 +1,22 @@
+@import "../main.scss";
+
+@import "../components/video-player.scss";
+
+.sharePage {
+    background-color: var(--c-dark-green);
+    min-height: 100vh;
+
+    &__title {
+        margin: 0px;
+        font-size: 4em;
+        text-align: center;
+    }
+
+    &__button-wrapper {
+        text-align: center;
+    }
+
+    &__button {
+        background-color: var(--c-light-green);
+    }
+}

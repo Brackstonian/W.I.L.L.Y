@@ -1,0 +1,119 @@
+/*!*********************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./styles/pages/viewPage.scss ***!
+  \*********************************************************************************************************************/
+@import url(https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap);
+/*!*************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./styles/pages/viewPage.scss (1) ***!
+  \*************************************************************************************************************************/
+:root {
+  --c-black: #140d0a;
+  --c-yellow: #faea31;
+  --c-green: #109648;
+  --c-red: #D62828;
+  --c-light-green: #2a6365;
+  --c-light-yellow: #eee8b8;
+  --c-dark-green: #004b4f;
+}
+
+html, body {
+  margin: 0px;
+  padding: 0px;
+}
+
+h1, h2, h3, h4, h5, h6, p {
+  font-family: "Poppins", sans-serif;
+  color: var(--c-light-yellow);
+  margin: 0px;
+}
+
+.app__button {
+  background: var(--c-dark-green);
+  border: unset;
+  padding: 0.5em;
+  font-size: 1.5em;
+  text-transform: uppercase;
+  color: var(--c-light-yellow);
+  font-weight: 900;
+  box-shadow: var(--c-black) 10px 10px;
+  transition: all 0.1s;
+  transform: translate(-10px, -10px);
+}
+.app__button:hover {
+  box-shadow: var(--c-black) 0px 0px;
+  transform: translate(0px, 0px);
+  border: solid 2px var(--c-light-yellow);
+  cursor: pointer;
+}
+
+#videoContainer {
+  position: relative;
+  height: 700px;
+  aspect-ratio: 16/9;
+  display: none;
+  margin: auto;
+  border: solid 5px var(--c-red);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+#localVideo,
+#drawingCanvas {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#drawingCanvas {
+  height: calc(100% - 15px);
+  display: flex;
+  margin-top: 15px;
+}
+
+.viewPage {
+  background-color: var(--c-dark-green);
+  min-height: 100vh;
+}
+.viewPage__title {
+  margin: 0px;
+  font-size: 4em;
+  text-align: center;
+}
+.viewPage__button-wrapper {
+  text-align: center;
+}
+.viewPage__button {
+  background-color: var(--c-light-green);
+  width: 8em;
+}
+.viewPage__button--connect {
+  transform: translate(0, 0);
+  box-shadow: unset;
+  border: solid 2px var(--c-light-yellow);
+  transition: all 0.4s;
+}
+.viewPage__button--connect:hover {
+  background: var(--c-light-yellow);
+  color: var(--c-dark-green);
+}
+.viewPage__input-wrapper {
+  display: flex;
+  flex-direction: row;
+  width: 26em;
+  gap: 2em;
+  margin: 6em auto;
+}
+
+#inputField {
+  font-size: 1.75em;
+  color: var(--c-light-yellow);
+  background: transparent;
+  border: solid 2px var(--c-light-yellow);
+  font-weight: 900;
+  text-transform: uppercase;
+}
+
+#videoContainer {
+  display: block;
+}

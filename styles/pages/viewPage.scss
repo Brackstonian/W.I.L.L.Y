@@ -1,0 +1,56 @@
+@import "../main.scss";
+
+@import "../components/video-player.scss";
+
+.viewPage {
+    background-color: var(--c-dark-green);
+    min-height: 100vh;
+
+    &__title {
+        margin: 0px;
+        font-size: 4em;
+        text-align: center;
+    }
+
+    &__button-wrapper {
+        text-align: center;
+    }
+    
+    &__button {
+        background-color: var(--c-light-green);
+        width: 8em;
+
+        &--connect {
+            transform: translate(0,0);
+            box-shadow: unset;
+            border: solid 2px var(--c-light-yellow);
+            transition: all .4s;
+
+            &:hover {
+                background: var(--c-light-yellow);
+                color: var(--c-dark-green);
+            }
+        }
+    }
+
+    &__input-wrapper {
+        display: flex;
+        flex-direction: row;
+        width: 26em;
+        gap: 2em;
+        margin: 6em auto;
+    }
+}
+
+#inputField {
+    font-size: 1.75em;
+    color: var(--c-light-yellow);
+    background: transparent;
+    border: solid 2px var(--c-light-yellow);
+    font-weight: 900;
+    text-transform: uppercase;
+}
+
+#videoContainer {
+display: block;
+}

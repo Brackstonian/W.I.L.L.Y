@@ -2,12 +2,15 @@
 const { ipcMain, desktopCapturer } = require('electron');
 // Import functions from windowManager to manage application windows.
 const { createMainWindow, createOverlayWindow, getOverlayWindow } = require('./windowManager');
-
 // Define a function to set up event listeners for various IPC events.
 function setupListeners() {
 
     ipcMain.on('request-player', async (event) => {
         event.reply('load-player');
+    });
+
+    ipcMain.on('init-canvas-object', async (event) => {
+        event.reply('init-canvas');
     });
 
     ipcMain.on('request-screens', async (event) => {
@@ -25,6 +28,10 @@ function setupListeners() {
     // Listener for 'create-overlay-window' to handle the creation of an overlay window.
     ipcMain.on('create-overlay-window', (event) => {
         createOverlayWindow(); // Call to create an overlay window.
+    });
+
+    ipcMain.on('create-share-id', (event, data) => {
+        event.reply('display-unique-id', data); // Send the selected source ID back to the renderer.
     });
 
     // Listener for 'send-draw-data' to send drawing data to the overlay window if it exists and is not destroyed.

@@ -7,16 +7,15 @@ const { shareButtonListener, viewButtonListener } = require('./ui.js');
 
 // Connect to a signaling server using socket.io.
 const socket = io.connect('https://w-i-l-l-y-server.onrender.com:443');
+let dataConnection = null;
+let localStream = null;
+let peer = null;
 
 // Get references to HTML elements to interact with the DOM.
 const shareButton = document.getElementById('shareButton');
 const viewButton = document.getElementById('viewButton');
 const uniqueIdDisplay = document.getElementById('uniqueId');
 const localVideo = document.getElementById('localVideo');
-
-let dataConnection = null;
-let localStream = null;
-let peer = null;
 
 // Ensure only one peer instance and manage its lifecycle.
 function initializePeer() {

@@ -1,12 +1,24 @@
 const { ipcRenderer } = require('electron');
+const Peer = require('peerjs').Peer;
+
 
 let IS_DRAWING = false;
 
+let localStream = null;
 let peer = null;  // Moved to top for global scope reuse
 let dataConnection = null;
 let paths = [];
 let canvas = null;
 let ctx = null;
+
+const { setupPlayer, setupShowPicker, setupSceenSelected } = require('../renderer');
+// const { setupDataConnection, initializePeerConnection } = require('../peerSetup.js');
+
+ipcRenderer.send('open-view-page-maximized');
+
+const viewButton = document.getElementById('viewButton');
+const localVideo = document.getElementById('localVideo');
+const backButton = document.getElementById('backButton');
 
 function closeExistingConnections() {
     if (peer && !peer.destroyed) {
@@ -48,6 +60,28 @@ function setupPeerEventHandlers() {
     });
 }
 
+
+viewButton.addEventListener('click', () => {
+    console.log('View button clicked');
+    ipcRenderer.send('request-player');
+    CanvasManager.init(canvas, ctx);
+
+    const peerId = document.getElementById('inputField').value;
+    if (!peerId) return;
+
+    initializePeerConnection();  // Initialize or reuse peer connection
+
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+            const call = peer.call(peerId, stream);
+            call.on('stream', remoteStream => {
+                document.getElementById('localVideo').srcObject = remoteStream;
+            });
+            setupDataConnection(peerId);
+        }).catch(err => {
+            console.error('Failed to get local stream', err);
+        });
+});
 
 
 const CanvasManager = {
@@ -133,8 +167,15 @@ const CanvasManager = {
     },
 };
 
-
-
+function setupDataConnection(otherPeerId) {
+    if (!dataConnection || dataConnection.peer !== otherPeerId) {
+        if (dataConnection) {
+            dataConnection.close();  // Close existing connection if different peerId
+        }
+        dataConnection = peer.connect(otherPeerId);
+        handleDataConnection(dataConnection);
+    }
+}
 
 function handleDataConnection(conn) {
     conn.on('open', () => {
@@ -196,5 +237,3 @@ function simulateDrawing(data) {
     }
     CanvasManager.drawPaths(); // Redraw paths.
 }
-
-module.exports = { viewButtonListener };

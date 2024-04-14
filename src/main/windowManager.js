@@ -1,5 +1,5 @@
 // Import required modules from Electron for creating and managing browser windows and for screen information.
-const { BrowserWindow, screen } = require('electron');
+const { BrowserWindow, screen, ipcMain } = require('electron');
 
 const path = require('path');
 const iconPath = path.join(__dirname, '..', '..', 'public', 'icons', 'mac', 'icon.ics');
@@ -9,8 +9,8 @@ let overlayWindow; // Define a module-level variable to hold the overlay window 
 // Function to create the main application window.
 function createMainWindow() {
     const mainWindow = new BrowserWindow({
-        width: 1400, // Set the width of the window.
-        height: 1200, // Set the height of the window.
+        width: 550, // Set the width of the window.
+        height: 400, // Set the height of the window.
         icon: iconPath,
         webPreferences: {
             nodeIntegration: true, // Enable Node.js integration.
@@ -19,10 +19,24 @@ function createMainWindow() {
         }
     });
 
-    console.log(iconPath);
+    ipcMain.on('open-view-page-default', () => {
+        // mainWindow.loadFile('path/to/view.html');
+        mainWindow.setSize(550, 400); // Correct method to set window size
+        mainWindow.center(); // Optionally center the window after resizing
+    });
 
+    ipcMain.on('open-view-page-maximized', () => {
+        // mainWindow.loadFile('path/to/view.html');
+        mainWindow.maximize();
+    });
+
+    mainWindow.on('restore', function () {
+        mainWindow.show();
+    });
+
+    mainWindow.center()
     mainWindow.loadFile('views/index.html'); // Load the HTML file for the main window.
-    // mainWindow.webContents.openDevTools(); // Open Developer Tools
+    mainWindow.webContents.openDevTools(); // Open Developer Tools
 }
 
 // Function to create an overlay window.
