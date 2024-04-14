@@ -23,7 +23,7 @@ function createMainWindow() {
     mainWindow.loadFile('views/index.html');
 
     // Open Developer Tools 
-    // mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
 
     // Event triggered when the window is asked to close (e.g., clicking the red close button).
     mainWindow.on('close', (event) => {
