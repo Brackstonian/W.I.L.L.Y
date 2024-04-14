@@ -9,7 +9,7 @@ let overlayWindow; // Define a module-level variable to hold the overlay window 
 // Function to create the main application window.
 function createMainWindow() {
     const mainWindow = new BrowserWindow({
-        width: 100, // Set the width of the window.
+        width: 1400, // Set the width of the window.
         height: 1200, // Set the height of the window.
         icon: iconPath,
         webPreferences: {
