@@ -29,7 +29,7 @@ function setupShowPicker() {
         });
     });
 }
-function setupSceenSelected() {
+function setupScreenSelected() {
     return ipcRenderer.on('screen-selected', (event, sourceId) => {
         navigator.mediaDevices.getUserMedia({
             video: {
@@ -62,6 +62,6 @@ function initCanvas() {
 }
 
 module.exports = {
-    setupPlayer, setupShowPicker, setupSceenSelected, setupUniqueIdDisplay, initCanvas
+    setupPlayer, setupShowPicker, setupScreenSelected, setupUniqueIdDisplay, initCanvas
 };
 

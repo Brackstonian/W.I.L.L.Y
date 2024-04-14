@@ -9,7 +9,7 @@ const { setupPlayer, setupShowPicker, setupSceenSelected, setupUniqueIdDisplay }
 
 setupPlayer();
 setupShowPicker();
-setupSceenSelected();
+setupScreenSelected();
 setupUniqueIdDisplay();
 
 const shareButton = document.getElementById('shareButton');
