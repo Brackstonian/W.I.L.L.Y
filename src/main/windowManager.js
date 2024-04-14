@@ -1,5 +1,5 @@
 // Import required modules from Electron for creating and managing browser windows and for screen information.
-const { BrowserWindow, screen, ipcMain } = require('electron');
+const { BrowserWindow, screen, ipcMain, app } = require('electron');
 
 const path = require('path');
 const iconPath = path.join(__dirname, '..', '..', 'public', 'icons', 'mac', 'icon.ics');
@@ -9,35 +9,48 @@ let overlayWindow; // Define a module-level variable to hold the overlay window 
 // Function to create the main application window.
 function createMainWindow() {
     const mainWindow = new BrowserWindow({
-        width: 550, // Set the width of the window.
-        height: 400, // Set the height of the window.
+        width: 550,
+        height: 400,
         icon: iconPath,
         webPreferences: {
-            nodeIntegration: true, // Enable Node.js integration.
-            contextIsolation: false, // Disable context isolation.
-            enableRemoteModule: true // Enable the remote module (should be used cautiously due to security implications).
+            nodeIntegration: true, // Consider security implications of this setting.
+            contextIsolation: false, // Recommend enabling contextIsolation for security.
+            enableRemoteModule: true // Evaluate if necessary due to security risks.
         }
     });
 
+    // Load the initial HTML file into the window.
+    mainWindow.loadFile('views/index.html');
+
+    // Open Developer Tools 
+    // mainWindow.webContents.openDevTools();
+
+    // Event triggered when the window is asked to close (e.g., clicking the red close button).
+    mainWindow.on('close', (event) => {
+        // Uncomment the next line if you want to prompt the user before closing the window.
+        // event.preventDefault(); // Prevent default close operation and handle manually.
+
+        // This ensures that the application will quit when the window is closed.
+        app.quit();
+    });
+
     ipcMain.on('open-view-page-default', () => {
-        // mainWindow.loadFile('path/to/view.html');
-        mainWindow.setSize(550, 400); // Correct method to set window size
-        mainWindow.center(); // Optionally center the window after resizing
+        mainWindow.setSize(550, 400);
+        mainWindow.center();
     });
 
     ipcMain.on('open-view-page-maximized', () => {
-        // mainWindow.loadFile('path/to/view.html');
         mainWindow.maximize();
     });
 
-    mainWindow.on('restore', function () {
+    mainWindow.on('restore', () => {
         mainWindow.show();
     });
 
-    mainWindow.center()
-    mainWindow.loadFile('views/index.html'); // Load the HTML file for the main window.
-    mainWindow.webContents.openDevTools(); // Open Developer Tools
+    // Center the window initially.
+    mainWindow.center();
 }
+
 
 // Function to create an overlay window.
 function createOverlayWindow() {
