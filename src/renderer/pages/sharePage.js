@@ -5,7 +5,7 @@ let dataConnection = null;
 let localStream = null;
 let peer = null;
 
-const { setupPlayer, setupShowPicker, setupSceenSelected, setupUniqueIdDisplay } = require('../renderer.js');
+const { setupPlayer, setupShowPicker, setupScreenSelected, setupUniqueIdDisplay } = require('../renderer.js');
 
 setupPlayer();
 setupShowPicker();
