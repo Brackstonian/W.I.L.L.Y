@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			{% block title %}W.I.L.L.Y
+			{% endblock %}
+		</title>
+		{% block styles %}{% endblock %}
+	</head>
+	<body>
+		{% include 'header.twig' %}
+
+		{% block content %}{% endblock %}
+
+		{% block scripts %}{% endblock %}
+
+		{% include 'footer.twig' %}
+	</body>
+</html>

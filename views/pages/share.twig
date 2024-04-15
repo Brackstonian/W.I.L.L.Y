@@ -1,0 +1,36 @@
+{% extends '../layouts/base.twig' %}
+
+{% block title %}W.I.L.L.Y Share
+{% endblock %}
+
+{% block styles %}
+	<link rel="stylesheet" type="text/css" href="{{ assetPath }}/css/share.css">
+{% endblock %}
+
+
+{% block content %}
+	<main class="app-main sharePage">
+		<h1 class="sharePage__title">Share Your Screen</h1>
+		<div id="videoContainer" class="videoContainer">
+			<video class="localVideo" id="localVideo" autoplay playsinline></video>
+			<canvas class="drawingCanvas" id="drawingCanvas"></canvas>
+		</div>
+
+		<!-- Screen Picker -->
+		<div id="screen-picker">
+			<ul id="screen-list"></ul>
+		</div>
+
+		<div id="uniqueId"></div>
+
+		<div class="sharePage__button-wrapper">
+			<button id="backButton" class="app__button sharePage__button" onclick="location.href='index.html'">Go Back</button>
+		</div>
+	</main>
+
+{% endblock %}
+
+
+{% block scripts %}
+	<script src="{{ assetPath }}/js/share.bundle.js"></script>
+{% endblock %}

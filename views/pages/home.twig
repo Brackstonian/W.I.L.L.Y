@@ -1,0 +1,32 @@
+{% extends '../layouts/base.twig' %}
+
+{% block title %}W.I.L.L.Y Home
+{% endblock %}
+
+{% block styles %}
+	<link rel="stylesheet" type="text/css" href="{{ assetPath }}/css/home.css">
+{% endblock %}
+
+{% block content %}
+	<main class="app-main homePage">
+		<div class="homePage__inner">
+			<h1 class="homePage__title">W.I.L.L.Y twig</h1>
+			<h6 class="homePage__version">Version: 0.1.2</h6>
+			<div class="homePage__function-selector">
+				<div class="homePage__function-selector-inner">
+					<div class="homePage__function-selector-left">
+						<button id="shareScreenButton" class="app__button">Share Screen</button>
+					</div>
+					<div class="homePage__function-selector-right">
+						<button id="viewScreenButton" class="app__button">View Screen</button>
+					</div>
+				</div>
+			</div>
+		</div>
+	</main>
+{% endblock %}
+
+
+{% block scripts %}
+	<script src="{{ assetPath }}/js/home.bundle.js"></script>
+{% endblock %}

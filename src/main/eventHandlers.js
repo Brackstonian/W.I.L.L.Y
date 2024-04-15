@@ -1,5 +1,13 @@
 // Import ipcMain for inter-process communication and desktopCapturer for capturing screen/media sources.
-const { ipcMain, desktopCapturer, screen } = require('electron');
+const { app, ipcMain, desktopCapturer, screen } = require('electron');
+
+
+const path = require('path');
+const fs = require('fs');
+const Twig = require('twig');
+
+const assetPath = path.join(__dirname, '..', '..', 'public');
+
 // Import functions from windowManager to manage application windows.
 const { createMainWindow, createOverlayWindow, getOverlayWindow } = require('./windowManager');
 // Define a function to set up event listeners for various IPC events.
@@ -55,6 +63,32 @@ function setupListeners() {
         event.reply('display-unique-id', data); // Send the selected source ID back to the renderer.
     });
 
+    ipcMain.on('load-view-page', (event) => {
+        Twig.renderFile(path.join(__dirname, '../../views/pages/view.twig'), { assetPath: assetPath }, (err, html) => {
+            if (err) {
+                console.error('Error rendering Twig template:', err);
+                return;
+            }
+            // Save the rendered HTML to a temporary file or use `data:` URI
+            const tempHtmlPath = path.join(app.getPath('temp'), 'view.html');
+            fs.writeFileSync(tempHtmlPath, html);
+            event.sender.send('navigate-to', tempHtmlPath);
+        });
+    });
+
+    ipcMain.on('load-share-page', (event) => {
+        Twig.renderFile(path.join(__dirname, '../../views/pages/share.twig'), { assetPath: assetPath }, (err, html) => {
+            if (err) {
+                console.error('Error rendering Twig template:', err);
+                return;
+            }
+            // Save the rendered HTML to a temporary file or use `data:` URI
+            const tempHtmlPath = path.join(app.getPath('temp'), 'share.html');
+            fs.writeFileSync(tempHtmlPath, html);
+            event.sender.send('navigate-to', tempHtmlPath);
+        });
+    });
+
     // Listener for 'send-draw-data' to send drawing data to the overlay window if it exists and is not destroyed.
     ipcMain.on('send-draw-data', (event, data) => {
         const overlayWindow = getOverlayWindow(); // Retrieve the overlay window.
@@ -67,5 +101,10 @@ function setupListeners() {
 
 }
 
+function createPeer() {
+    return new Peer();
+}
+
+
 // Export the setupListeners function to be used elsewhere in the application.
-module.exports = { setupListeners };
+module.exports = { setupListeners, createPeer };

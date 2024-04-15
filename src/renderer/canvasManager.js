@@ -1,7 +1,4 @@
-const { ipcRenderer } = require('electron');
-const PeerManager = require('./peerManager.js');
-
-class CanvasManager {
+export default class CanvasManager {
     constructor(sendDataCallback) {
         this.canvas = document.getElementById('drawingCanvas');
         this.ctx = this.canvas.getContext('2d');
@@ -128,4 +125,4 @@ class CanvasManager {
     }
 }
 
-module.exports = CanvasManager;
+

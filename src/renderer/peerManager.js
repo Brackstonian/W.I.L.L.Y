@@ -1,10 +1,7 @@
-const { Peer } = require('peerjs');
-const { ipcRenderer } = require('electron');
-
-const CanvasManager = require('./canvasManager.js');
+import CanvasManager from './canvasManager.js';
 const canvasManager = new CanvasManager();
 
-class PeerManager {
+export default class PeerManager {
     constructor() {
         this.peer = null;
         this.dataConnection = null;
@@ -40,7 +37,7 @@ class PeerManager {
     setupStreamPeerEventHandlers() {
         this.peer.on('open', id => {
             console.log('Peer ID:', id);
-            ipcRenderer.send('create-share-id', id); // Send drawing data.
+            window.api.send('create-share-id', id); // Send drawing data.
         });
 
         this.peer.on('error', err => {
@@ -55,7 +52,7 @@ class PeerManager {
             this.dataConnection = conn;
             this.dataConnection.on('data', data => {
                 console.log('Received data:', data);
-                ipcRenderer.send('send-draw-data', data); // Send drawing data.
+                window.api.send('send-draw-data', data); // Send drawing data.
             });
             this.dataConnection.on('open', () => {
                 console.log('Data connection established with:', conn.peer);
@@ -126,5 +123,3 @@ class PeerManager {
         canvasManager.simulateDrawing(data); // Simulate drawing based on received data.
     }
 }
-
-module.exports = PeerManager;

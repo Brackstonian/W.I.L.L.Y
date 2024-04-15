@@ -1,15 +1,67 @@
-const { ipcRenderer } = require('electron');
-const Peer = require('peerjs').Peer;
+import Peer from 'peerjs';
+import PeerManager from '../peerManager.js';
+import CanvasManager from '../canvasManager.js';
 
-const { setupPlayer, setupShowPicker, setupScreenSelected, setupUniqueIdDisplay } = require('../renderer.js');
 
-setupPlayer();
-setupShowPicker();
-setupScreenSelected();
-setupUniqueIdDisplay();
+const peerManager = new PeerManager();
+const canvasManager = new CanvasManager();
 
 document.addEventListener('DOMContentLoaded', () => {
-    ipcRenderer.send('open-view-page-maximized');
-    ipcRenderer.send('request-player');
-    ipcRenderer.send('request-screens');
+    window.api.send('open-view-page-maximized');
+    window.api.send('request-player');
+    window.api.send('request-screens');
+
+    window.api.on('load-player', (event) => {
+        var containerDiv = document.getElementById("videoContainer");
+        containerDiv.style.display = "block";
+    });
+    window.api.on('show-picker', (sources) => {
+        const screenList = document.getElementById('screen-list');
+        screenList.innerHTML = '';
+        sources.forEach((source, index) => {
+            const li = document.createElement('li');
+            li.textContent = `Screen ${index + 1}: ${source.name}`;
+            li.addEventListener('click', () => {
+                window.api.send('select-screen', index);
+            });
+            screenList.appendChild(li);
+        });
+    });
+    window.api.on('screen-selected', (sourceId) => {
+        // Attempt to get media stream with the selected screen source ID
+
+        navigator.mediaDevices.getUserMedia({
+            video: {
+                mandatory: {
+                    chromeMediaSource: 'desktop',
+                    chromeMediaSourceId: sourceId
+                }
+            }
+        }).then(stream => {
+
+            localStream = stream;
+            localVideo.srcObject = stream;
+            // Update the stream in any existing calls
+            if (peerManager.currentCall) {
+                peerManager.updateStreamInCall(stream);
+            }
+            const type = 'stream';
+            peerManager.initializePeer(type);
+
+            console.log('Screen stream has been initialized and peer connection set up.');
+        }).catch(err => {
+            console.error('Failed to get screen stream', err);
+            // Optionally, inform the user that the stream could not be obtained
+            alert('Unable to capture the screen. Please check console for more details.');
+        });
+    });
+    window.api.on('display-unique-id', (event, sourceId) => {
+        const uniqueIdDisplay = document.getElementById('uniqueId');
+        uniqueIdDisplay.innerText = `Share this ID  : ${sourceId}`; // Display peer ID
+    });
+    window.api.on('init-canvas', (event, sourceId) => {
+        CanvasManager.init(canvas, ctx);
+    });
+
 });
+

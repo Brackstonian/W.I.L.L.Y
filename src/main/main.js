@@ -1,5 +1,6 @@
 // Import 'app' from the 'electron' module to control the application's lifecycle.
 const { app } = require('electron');
+
 // Import functions from windowManager to manage application windows.
 const { createMainWindow, createOverlayWindow } = require('./windowManager');
 // Import the setupListeners function to configure inter-process communication.
@@ -9,6 +10,7 @@ const { setupListeners } = require('./eventHandlers');
 app.whenReady().then(() => {
     createMainWindow();  // Call to create the main window of the application.
     setupListeners();    // Initialize IPC event listeners defined in eventHandlers.
+
 });
 
 // Add an event listener that triggers when all windows have been closed.

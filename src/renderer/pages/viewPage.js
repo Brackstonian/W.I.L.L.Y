@@ -1,18 +1,18 @@
-const { ipcRenderer } = require('electron');
-const Peer = require('peerjs').Peer;
-
-ipcRenderer.send('open-view-page-maximized');
+window.api.send('open-view-page-maximized');
 
 const viewButton = document.getElementById('viewButton');
+import Peer from 'peerjs';
 
-const PeerManager = require('../peerManager.js');
+import PeerManager from '../peerManager.js';
 const peerManager = new PeerManager();
-const CanvasManager = require('../canvasManager.js');
+
+import CanvasManager from '../canvasManager.js';
+
 const canvasManager = new CanvasManager(sendData);
 
 viewButton.addEventListener('click', () => {
     console.log('View button clicked');
-    ipcRenderer.send('request-player');
+    window.api.send('request-player');
     canvasManager.init();
 
     const peerId = document.getElementById('inputField').value;
@@ -26,15 +26,15 @@ viewButton.addEventListener('click', () => {
 
 function initializeViewing(peerId) {
     peerManager.initializePeer('view');
-    navigator.mediaDevices.getUserMedia({ video: true })
-        .then(stream => {
-            const call = peerManager.peer.call(peerId, stream);
-            setupCallHandlers(call);
-            peerManager.setupDataConnection(peerId);
-        }).catch(err => {
-            console.error('Failed to get local stream', err);
-            alert('Could not access your camera. Please check device permissions.');
-        });
+    // navigator.mediaDevices.getUserMedia({ video: true })
+    //     .then(stream => {
+    //         const call = peerManager.peer.call(peerId, stream);
+    //         setupCallHandlers(call);
+    //         peerManager.setupDataConnection(peerId);
+    //     }).catch(err => {
+    //         console.error('Failed to get local stream', err);
+    //         alert('Could not access your camera. Please check device permissions.');
+    //     });
 }
 
 function setupCallHandlers(call) {
