@@ -158,7 +158,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \****************************************/
 /***/ ((__unused_webpack_module, __unused_webpack_exports, __webpack_require__) => {
 
-eval("const { ipcRenderer } = __webpack_require__(/*! electron */ \"electron\");\nconst Peer = (__webpack_require__(/*! peerjs */ \"./node_modules/peerjs/dist/bundler.mjs\").Peer);\n\ndocument.addEventListener('DOMContentLoaded', () => {\n    ipcRenderer.send('open-view-page-default');\n});\n\n//# sourceURL=webpack://W.I.L.L.Y/./src/renderer/pages/homePage.js?");
+eval("const { ipcRenderer } = __webpack_require__(/*! electron */ \"electron\");\nconst Peer = (__webpack_require__(/*! peerjs */ \"./node_modules/peerjs/dist/bundler.mjs\").Peer);\n\ndocument.addEventListener('DOMContentLoaded', () => {\n    ipcRenderer.send('close-overlay-window');\n    ipcRenderer.send('open-view-page-default');\n});\n\n//# sourceURL=webpack://W.I.L.L.Y/./src/renderer/pages/homePage.js?");
 
 /***/ }),
 

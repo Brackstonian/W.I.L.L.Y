@@ -1,5 +1,5 @@
 // Import ipcMain for inter-process communication and desktopCapturer for capturing screen/media sources.
-const { ipcMain, desktopCapturer } = require('electron');
+const { ipcMain, desktopCapturer, screen } = require('electron');
 // Import functions from windowManager to manage application windows.
 const { createMainWindow, createOverlayWindow, getOverlayWindow } = require('./windowManager');
 // Define a function to set up event listeners for various IPC events.
@@ -20,9 +20,30 @@ function setupListeners() {
 
     // Listener for 'select-screen' to handle screen selection based on index and send back the selected screen's source ID.
     ipcMain.on('select-screen', async (event, index) => {
-        const sources = await desktopCapturer.getSources({ types: ['screen'] }); // Fetch the screen sources again.
-        const sourceId = sources[index].id; // Get the ID of the selected screen source.
-        event.reply('screen-selected', sourceId); // Send the selected source ID back to the renderer.
+        const overlayWindow = getOverlayWindow();
+        // Close the existing window if it's open
+        if (overlayWindow && !overlayWindow.isDestroyed()) {
+            overlayWindow.close();
+        }
+
+        const sources = await desktopCapturer.getSources({ types: ['screen'] });
+        const displays = screen.getAllDisplays();
+
+        if (index >= 0 && index < displays.length) {
+            const selectedDisplay = displays[index];
+            createOverlayWindow(selectedDisplay);
+            const sourceId = sources[index].id;
+            event.reply('screen-selected', sourceId);
+        } else {
+            console.error('Selected screen index is out of range.');
+        }
+    });
+
+    ipcMain.on('close-overlay-window', () => {
+        const overlayWindow = getOverlayWindow();
+        if (overlayWindow && !overlayWindow.isDestroyed()) {
+            overlayWindow.close();
+        }
     });
 
     // Listener for 'create-overlay-window' to handle the creation of an overlay window.

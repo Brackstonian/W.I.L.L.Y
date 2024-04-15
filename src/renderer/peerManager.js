@@ -65,7 +65,6 @@ class PeerManager {
                 ipcRenderer.send('send-draw-data', data); // Send drawing data.
             });
             this.dataConnection.on('open', () => {
-                ipcRenderer.send('create-overlay-window'); // Request to create an overlay window.
                 console.log('Data connection established with:', conn.peer);
             });
         });

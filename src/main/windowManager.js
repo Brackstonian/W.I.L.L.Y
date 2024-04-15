@@ -53,35 +53,34 @@ function createMainWindow() {
 
 
 // Function to create an overlay window.
-function createOverlayWindow() {
-    const { width, height } = screen.getPrimaryDisplay().size; // Get the size of the primary display.
-    const { workAreaSize, bounds } = screen.getPrimaryDisplay();
-    const menuBarHeight = bounds.height - workAreaSize.height; // Calculate the height of the menu bar (if any).
+function createOverlayWindow(targetScreen) {
+    // If no screen is provided, default to the primary display
+    const display = targetScreen || screen.getPrimaryDisplay();
 
     overlayWindow = new BrowserWindow({
-        x: 0, // Position the window at the leftmost edge of the screen.
-        y: 0, // Position the window at the topmost edge of the screen.
-        width: width, // Set the window width to span the entire screen width.
-        height: height, // Set the window height to span the entire screen height.
-        frame: false, // Create a frameless window.
-        transparent: true, // Make the window transparent.
-        alwaysOnTop: true, // Keep the window always on top.
-        focusable: false, // The window should not be focusable.
-        resizable: false, // Make the window non-resizable.
-        movable: false, // The window should not be movable.
-        minimizable: false, // Disable minimizing of the window.
-        maximizable: false, // Disable maximizing of the window.
+        x: display.bounds.x, // Start at the leftmost edge of the target screen.
+        y: display.bounds.y, // Start at the topmost edge of the target screen.
+        width: display.bounds.width, // Span the entire screen width.
+        height: display.bounds.height, // Span the entire screen height.
+        frame: false,
+        transparent: true,
+        alwaysOnTop: true,
+        focusable: false,
+        resizable: false,
+        movable: false,
+        minimizable: false,
+        maximizable: false,
         webPreferences: {
-            nodeIntegration: true, // Enable Node.js integration.
-            contextIsolation: false // Disable context isolation.
+            nodeIntegration: true,
+            contextIsolation: false
         }
     });
 
-    overlayWindow.setIgnoreMouseEvents(true); // Ignore all mouse events.
-    overlayWindow.loadFile('views/overlayWindow.html'); // Load the HTML file for the overlay window.
-    overlayWindow.on('focus', () => overlayWindow.blur()); // Force the window to lose focus if it gains focus.
-    // return overlayWindow; (Commented out return statement as it's not used in the example)
+    overlayWindow.setIgnoreMouseEvents(true);
+    overlayWindow.loadFile('views/overlayWindow.html');
+    overlayWindow.on('focus', () => overlayWindow.blur());
 }
+
 
 // Function to get the current instance of the overlay window.
 function getOverlayWindow() {
