@@ -6,7 +6,6 @@ const PeerManager = require('./peerManager.js');
 const peerManager = new PeerManager();
 
 
-
 function setupPlayer() {
     ipcRenderer.on('load-player', (event) => {
         var containerDiv = document.getElementById("videoContainer");
@@ -29,6 +28,7 @@ function setupShowPicker() {
 }
 function setupScreenSelected() {
     return ipcRenderer.on('screen-selected', (event, sourceId) => {
+        // Attempt to get media stream with the selected screen source ID
         navigator.mediaDevices.getUserMedia({
             video: {
                 mandatory: {
@@ -37,15 +37,28 @@ function setupScreenSelected() {
                 }
             }
         }).then(stream => {
-            localVideo.srcObject = stream;
+            // If there is an existing stream, stop all its tracks first
+
+
             localStream = stream;
-            const type = 'stream'
+            localVideo.srcObject = stream;
+
+            // Update the stream in any existing calls
+            if (peerManager.currentCall) {
+                peerManager.updateStreamInCall(stream);
+            }
+            const type = 'stream';
             peerManager.initializePeer(type);
+
+            console.log('Screen stream has been initialized and peer connection set up.');
         }).catch(err => {
             console.error('Failed to get screen stream', err);
+            // Optionally, inform the user that the stream could not be obtained
+            alert('Unable to capture the screen. Please check console for more details.');
         });
     });
 }
+
 function setupUniqueIdDisplay() {
     return ipcRenderer.on('display-unique-id', (event, sourceId) => {
         const uniqueIdDisplay = document.getElementById('uniqueId');

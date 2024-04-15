@@ -10,13 +10,6 @@ class PeerManager {
         this.dataConnection = null;
     }
 
-    closeExistingConnections() {
-        if (peer && !peer.destroyed) {
-            peer.destroy(); // Closes the peer and all associated connections
-            console.log('Existing peer connection destroyed.');
-        }
-    }
-
     initializePeer(type) {
         this.closeExistingConnections();
         if (this.peer && !this.peer.destroyed) {

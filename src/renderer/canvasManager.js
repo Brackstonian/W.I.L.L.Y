@@ -44,7 +44,8 @@ class CanvasManager {
         this.canvas.onmouseup = this.canvas.onmouseout = () => {
             if (this.IS_DRAWING) {
                 this.IS_DRAWING = false;
-                this.paths[this.paths.length - 1].this.IS_DRAWING = false;
+                this.paths[this.paths.length - 1];
+                this.IS_DRAWING = false;
                 this.sendData({ type: 'mouseup' });
                 this.startFading();
             }

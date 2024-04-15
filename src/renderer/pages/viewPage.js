@@ -16,22 +16,38 @@ viewButton.addEventListener('click', () => {
     canvasManager.init();
 
     const peerId = document.getElementById('inputField').value;
-    if (!peerId) return;
+    if (!peerId) {
+        alert('Please enter a Peer ID.');
+        return;
+    }
 
-    const type = 'view'
-    peerManager.initializePeer(type);
+    initializeViewing(peerId);
+});
 
+function initializeViewing(peerId) {
+    peerManager.initializePeer('view');
     navigator.mediaDevices.getUserMedia({ video: true })
         .then(stream => {
             const call = peerManager.peer.call(peerId, stream);
-            call.on('stream', remoteStream => {
-                document.getElementById('localVideo').srcObject = remoteStream;
-            });
+            setupCallHandlers(call);
             peerManager.setupDataConnection(peerId);
         }).catch(err => {
             console.error('Failed to get local stream', err);
+            alert('Could not access your camera. Please check device permissions.');
         });
-});
+}
+
+function setupCallHandlers(call) {
+    call.on('stream', remoteStream => {
+        const videoElement = document.getElementById('localVideo');
+        videoElement.srcObject = remoteStream;
+    });
+    call.on('error', err => {
+        console.error('Call error:', err);
+        alert('An error occurred during the call.');
+    });
+}
+
 
 function sendData(data) {
     console.log('Sending data:', data);
