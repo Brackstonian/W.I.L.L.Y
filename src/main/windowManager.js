@@ -35,7 +35,7 @@ function createMainWindow() {
         mainWindow.loadFile(tempHtmlPath);
     });
 
-    // mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
 
     // Additional mainWindow settings and IPC handlers remain the same
     mainWindow.on('close', (event) => {
@@ -82,8 +82,20 @@ function createOverlayWindow(targetScreen) {
     });
 
     overlayWindow.setIgnoreMouseEvents(true);
-    overlayWindow.loadFile('views/overlayWindow.html');
     overlayWindow.on('focus', () => overlayWindow.blur());
+
+    Twig.renderFile(path.join(__dirname, '../../views/pages/overlay.twig'), { assetPath: assetPath }, (err, html) => {
+        if (err) {
+            console.error('Error rendering Twig template:', err);
+            return;
+        }
+        // Save the rendered HTML to a temporary file
+        const tempHtmlPath = path.join(app.getPath('temp'), 'overlay.html');
+        fs.writeFileSync(tempHtmlPath, html);
+
+        // Load the rendered HTML file into the window
+        overlayWindow.loadFile(tempHtmlPath);
+    });
 }
 
 

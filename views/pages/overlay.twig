@@ -1,0 +1,18 @@
+{% extends '../layouts/base.twig' %}
+
+{% block title %}W.I.L.L.Y Canvas Overlay
+{% endblock %}
+
+{% block styles %}
+	<link rel="stylesheet" type="text/css" href="{{ assetPath }}/css/overlay.css">
+{% endblock %}
+
+{% block content %}
+	<canvas id="overlayCanvas" style="width: 100%; height: 100%;"></canvas>
+{% endblock %}
+
+
+{% block scripts %}
+	<script src="{{ assetPath }}/js/overlay.bundle.js"></script>
+	<script></script>
+{% endblock %}
