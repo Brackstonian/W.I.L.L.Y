@@ -6,9 +6,9 @@ module.exports = {
     mode: 'development',
     target: 'electron-renderer',
     entry: {
-        home: ['./src/renderer/pages/homePage.js', './styles/pages/homePage.scss'],
-        share: ['./src/renderer/pages/sharePage.js', './styles/pages/sharePage.scss'],
-        view: ['./src/renderer/pages/viewPage.js', './styles/pages/viewPage.scss']
+        home: ['./src/renderer/pages/home.js', './styles/pages/home.scss'],
+        share: ['./src/renderer/pages/share.js', './styles/pages/share.scss'],
+        view: ['./src/renderer/pages/view.js', './styles/pages/view.scss']
     },
     output: {
         path: path.resolve(__dirname, 'public'),

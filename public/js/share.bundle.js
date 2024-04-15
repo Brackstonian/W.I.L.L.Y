@@ -20,14 +20,14 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
-/***/ "./src/renderer/pages/sharePage.js":
-/*!*****************************************!*\
-  !*** ./src/renderer/pages/sharePage.js ***!
-  \*****************************************/
+/***/ "./src/renderer/pages/share.js":
+/*!*************************************!*\
+  !*** ./src/renderer/pages/share.js ***!
+  \*************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _peerManager_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../peerManager.js */ \"./src/renderer/peerManager.js\");\n/* harmony import */ var _canvasManager_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../canvasManager.js */ \"./src/renderer/canvasManager.js\");\n// import { Peer } from 'peerjs';\n\n\nvar localStream;\nvar canvasManager = new _canvasManager_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"]();\ndocument.addEventListener('DOMContentLoaded', function () {\n  window.api.send('open-view-page-maximized');\n  window.api.send('request-player');\n  window.api.send('request-screens');\n  window.api.on('load-player', function (event) {\n    var containerDiv = document.getElementById(\"videoContainer\");\n    containerDiv.style.display = \"block\";\n  });\n  window.api.on('show-picker', function (sources) {\n    var screenList = document.getElementById('screen-list');\n    screenList.innerHTML = '';\n    sources.forEach(function (source, index) {\n      var li = document.createElement('li');\n      li.textContent = \"Screen \".concat(index + 1, \": \").concat(source.name);\n      li.addEventListener('click', function () {\n        window.api.send('select-screen', index);\n      });\n      screenList.appendChild(li);\n    });\n  });\n  window.api.on('screen-selected', function (sourceId) {\n    // Attempt to get media stream with the selected screen source ID\n    console.log(sourceId);\n    navigator.mediaDevices.getUserMedia({\n      video: {\n        mandatory: {\n          chromeMediaSource: 'desktop',\n          chromeMediaSourceId: sourceId\n        }\n      }\n    }).then(function (stream) {\n      localStream = stream;\n      var peerManager = new _peerManager_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"](localStream);\n      localVideo.srcObject = stream;\n\n      // Update the stream in any existing calls\n      if (peerManager.currentCall) {\n        peerManager.updateStreamInCall(stream);\n      }\n      peerManager.initializePeer('stream');\n      console.log('Screen stream has been initialized and peer connection set up.');\n    })[\"catch\"](function (err) {\n      console.error('Failed to get screen stream', err);\n      // Optionally, inform the user that the stream could not be obtained\n      alert('Unable to capture the screen. Please check console for more details.');\n    });\n  });\n  window.api.on('display-unique-id', function (sourceId) {\n    var uniqueIdDisplay = document.getElementById('uniqueId');\n    uniqueIdDisplay.innerText = \"Share this ID  : \".concat(sourceId); // Display peer ID\n  });\n  window.api.on('init-canvas', function (event) {\n    _canvasManager_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"].init(canvas, ctx);\n  });\n});\n\n//# sourceURL=webpack://W.I.L.L.Y/./src/renderer/pages/sharePage.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _peerManager_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../peerManager.js */ \"./src/renderer/peerManager.js\");\n/* harmony import */ var _canvasManager_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../canvasManager.js */ \"./src/renderer/canvasManager.js\");\n// import { Peer } from 'peerjs';\n\n\nvar localStream;\nvar canvasManager = new _canvasManager_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"]();\ndocument.addEventListener('DOMContentLoaded', function () {\n  window.api.send('open-view-page-maximized');\n  window.api.send('request-player');\n  window.api.send('request-screens');\n  window.api.on('load-player', function (event) {\n    var containerDiv = document.getElementById(\"videoContainer\");\n    containerDiv.style.display = \"block\";\n  });\n  window.api.on('show-picker', function (sources) {\n    var screenList = document.getElementById('screen-list');\n    screenList.innerHTML = '';\n    sources.forEach(function (source, index) {\n      var li = document.createElement('li');\n      li.textContent = \"Screen \".concat(index + 1, \": \").concat(source.name);\n      li.addEventListener('click', function () {\n        window.api.send('select-screen', index);\n      });\n      screenList.appendChild(li);\n    });\n  });\n  window.api.on('screen-selected', function (sourceId) {\n    // Attempt to get media stream with the selected screen source ID\n    console.log(sourceId);\n    navigator.mediaDevices.getUserMedia({\n      video: {\n        mandatory: {\n          chromeMediaSource: 'desktop',\n          chromeMediaSourceId: sourceId\n        }\n      }\n    }).then(function (stream) {\n      localStream = stream;\n      var peerManager = new _peerManager_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"](localStream);\n      localVideo.srcObject = stream;\n\n      // Update the stream in any existing calls\n      if (peerManager.currentCall) {\n        peerManager.updateStreamInCall(stream);\n      }\n      peerManager.initializePeer('stream');\n      console.log('Screen stream has been initialized and peer connection set up.');\n    })[\"catch\"](function (err) {\n      console.error('Failed to get screen stream', err);\n      // Optionally, inform the user that the stream could not be obtained\n      alert('Unable to capture the screen. Please check console for more details.');\n    });\n  });\n  window.api.on('display-unique-id', function (sourceId) {\n    var uniqueIdDisplay = document.getElementById('uniqueId');\n    uniqueIdDisplay.innerText = \"Share this ID  : \".concat(sourceId); // Display peer ID\n  });\n  window.api.on('init-canvas', function (event) {\n    _canvasManager_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"].init(canvas, ctx);\n  });\n});\n\n//# sourceURL=webpack://W.I.L.L.Y/./src/renderer/pages/share.js?");
 
 /***/ }),
 
@@ -42,14 +42,14 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
-/***/ "./styles/pages/sharePage.scss":
-/*!*************************************!*\
-  !*** ./styles/pages/sharePage.scss ***!
-  \*************************************/
+/***/ "./styles/pages/share.scss":
+/*!*********************************!*\
+  !*** ./styles/pages/share.scss ***!
+  \*********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://W.I.L.L.Y/./styles/pages/sharePage.scss?");
+eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://W.I.L.L.Y/./styles/pages/share.scss?");
 
 /***/ }),
 
@@ -175,8 +175,8 @@ eval("function _typeof(o) {\n  \"@babel/helpers - typeof\";\n\n  return (module.
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
-/******/ 	__webpack_require__("./src/renderer/pages/sharePage.js");
-/******/ 	var __webpack_exports__ = __webpack_require__("./styles/pages/sharePage.scss");
+/******/ 	__webpack_require__("./src/renderer/pages/share.js");
+/******/ 	var __webpack_exports__ = __webpack_require__("./styles/pages/share.scss");
 /******/ 	
 /******/ })()
 ;

@@ -20,14 +20,14 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
-/***/ "./src/renderer/pages/viewPage.js":
-/*!****************************************!*\
-  !*** ./src/renderer/pages/viewPage.js ***!
-  \****************************************/
+/***/ "./src/renderer/pages/view.js":
+/*!************************************!*\
+  !*** ./src/renderer/pages/view.js ***!
+  \************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _peerManager_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../peerManager.js */ \"./src/renderer/peerManager.js\");\n/* harmony import */ var _canvasManager_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../canvasManager.js */ \"./src/renderer/canvasManager.js\");\nwindow.api.send('open-view-page-maximized');\nvar viewButton = document.getElementById('viewButton');\n\nvar peerManager = new _peerManager_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"]();\n\nvar canvasManager = new _canvasManager_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"](sendData);\nviewButton.addEventListener('click', function () {\n  console.log('View button clicked');\n  window.api.send('request-player');\n  var peerId = document.getElementById('inputField').value;\n  if (!peerId) {\n    alert('Please enter a Peer ID.');\n    return;\n  }\n  initializeViewing(peerId);\n});\nfunction initializeViewing(peerId) {\n  peerManager.initializePeer('view');\n  navigator.mediaDevices.getUserMedia({\n    video: true\n  }).then(function (stream) {\n    var call = peerManager.peer.call(peerId, stream);\n    setupCallHandlers(call);\n    peerManager.setupDataConnection(peerId);\n  })[\"catch\"](function (err) {\n    console.error('Failed to get local stream', err);\n    alert('Could not access your camera. Please check device permissions.');\n  });\n}\nfunction setupCallHandlers(call) {\n  call.on('stream', function (remoteStream) {\n    var videoContainer = document.getElementById('videoContainer');\n    var videoElement = document.getElementById('localVideo');\n    videoContainer.style.display = \"block\";\n    canvasManager.init();\n    videoElement.srcObject = remoteStream;\n  });\n  call.on('error', function (err) {\n    console.error('Call error:', err);\n    alert('An error occurred during the call.');\n  });\n}\nfunction sendData(data) {\n  console.log('Sending data:', data);\n  if (peerManager.dataConnection && peerManager.dataConnection.open) {\n    peerManager.dataConnection.send(data);\n  } else {\n    console.log('Data connection not ready or open.');\n  }\n}\n\n//# sourceURL=webpack://W.I.L.L.Y/./src/renderer/pages/viewPage.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _peerManager_js__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ../peerManager.js */ \"./src/renderer/peerManager.js\");\n/* harmony import */ var _canvasManager_js__WEBPACK_IMPORTED_MODULE_1__ = __webpack_require__(/*! ../canvasManager.js */ \"./src/renderer/canvasManager.js\");\nwindow.api.send('open-view-page-maximized');\nvar viewButton = document.getElementById('viewButton');\n\nvar peerManager = new _peerManager_js__WEBPACK_IMPORTED_MODULE_0__[\"default\"]();\n\nvar canvasManager = new _canvasManager_js__WEBPACK_IMPORTED_MODULE_1__[\"default\"](sendData);\nviewButton.addEventListener('click', function () {\n  console.log('View button clicked');\n  window.api.send('request-player');\n  var peerId = document.getElementById('inputField').value;\n  if (!peerId) {\n    alert('Please enter a Peer ID.');\n    return;\n  }\n  initializeViewing(peerId);\n});\nfunction initializeViewing(peerId) {\n  peerManager.initializePeer('view');\n  navigator.mediaDevices.getUserMedia({\n    video: true\n  }).then(function (stream) {\n    var call = peerManager.peer.call(peerId, stream);\n    setupCallHandlers(call);\n    peerManager.setupDataConnection(peerId);\n  })[\"catch\"](function (err) {\n    console.error('Failed to get local stream', err);\n    alert('Could not access your camera. Please check device permissions.');\n  });\n}\nfunction setupCallHandlers(call) {\n  call.on('stream', function (remoteStream) {\n    var videoContainer = document.getElementById('videoContainer');\n    var videoElement = document.getElementById('localVideo');\n    videoContainer.style.display = \"block\";\n    canvasManager.init();\n    videoElement.srcObject = remoteStream;\n  });\n  call.on('error', function (err) {\n    console.error('Call error:', err);\n    alert('An error occurred during the call.');\n  });\n}\nfunction sendData(data) {\n  console.log('Sending data:', data);\n  if (peerManager.dataConnection && peerManager.dataConnection.open) {\n    peerManager.dataConnection.send(data);\n  } else {\n    console.log('Data connection not ready or open.');\n  }\n}\n\n//# sourceURL=webpack://W.I.L.L.Y/./src/renderer/pages/view.js?");
 
 /***/ }),
 
@@ -42,14 +42,14 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
 
 /***/ }),
 
-/***/ "./styles/pages/viewPage.scss":
-/*!************************************!*\
-  !*** ./styles/pages/viewPage.scss ***!
-  \************************************/
+/***/ "./styles/pages/view.scss":
+/*!********************************!*\
+  !*** ./styles/pages/view.scss ***!
+  \********************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://W.I.L.L.Y/./styles/pages/viewPage.scss?");
+eval("__webpack_require__.r(__webpack_exports__);\n// extracted by mini-css-extract-plugin\n\n\n//# sourceURL=webpack://W.I.L.L.Y/./styles/pages/view.scss?");
 
 /***/ }),
 
@@ -175,8 +175,8 @@ eval("function _typeof(o) {\n  \"@babel/helpers - typeof\";\n\n  return (module.
 /******/ 	// startup
 /******/ 	// Load entry module and return exports
 /******/ 	// This entry module can't be inlined because the eval devtool is used.
-/******/ 	__webpack_require__("./src/renderer/pages/viewPage.js");
-/******/ 	var __webpack_exports__ = __webpack_require__("./styles/pages/viewPage.scss");
+/******/ 	__webpack_require__("./src/renderer/pages/view.js");
+/******/ 	var __webpack_exports__ = __webpack_require__("./styles/pages/view.scss");
 /******/ 	
 /******/ })()
 ;
