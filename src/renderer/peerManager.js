@@ -1,3 +1,7 @@
+// const { Peer } = require('peerjs');
+// import Peer from 'peerjs';
+
+
 import CanvasManager from './canvasManager.js';
 const canvasManager = new CanvasManager();
 

@@ -1,4 +1,8 @@
 const { contextBridge, ipcRenderer } = require('electron');
+// const { Peer } = require('peerjs');
+// window.Peer = Peer;
+
+// const { Peer } = require('peerjs');
 
 contextBridge.exposeInMainWorld(
     'api', {

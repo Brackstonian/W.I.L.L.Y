@@ -1,7 +1,8 @@
 window.api.send('open-view-page-maximized');
 
 const viewButton = document.getElementById('viewButton');
-import Peer from 'peerjs';
+
+
 
 import PeerManager from '../peerManager.js';
 const peerManager = new PeerManager();
@@ -26,15 +27,15 @@ viewButton.addEventListener('click', () => {
 
 function initializeViewing(peerId) {
     peerManager.initializePeer('view');
-    // navigator.mediaDevices.getUserMedia({ video: true })
-    //     .then(stream => {
-    //         const call = peerManager.peer.call(peerId, stream);
-    //         setupCallHandlers(call);
-    //         peerManager.setupDataConnection(peerId);
-    //     }).catch(err => {
-    //         console.error('Failed to get local stream', err);
-    //         alert('Could not access your camera. Please check device permissions.');
-    //     });
+    navigator.mediaDevices.getUserMedia({ video: true })
+        .then(stream => {
+            const call = peerManager.peer.call(peerId, stream);
+            setupCallHandlers(call);
+            peerManager.setupDataConnection(peerId);
+        }).catch(err => {
+            console.error('Failed to get local stream', err);
+            alert('Could not access your camera. Please check device permissions.');
+        });
 }
 
 function setupCallHandlers(call) {

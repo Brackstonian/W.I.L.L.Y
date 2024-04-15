@@ -1,9 +1,11 @@
-import Peer from 'peerjs';
+// import { Peer } from 'peerjs';
+const Peer = window.Peer; // Use the Peer object exposed by the preload script
+
 import PeerManager from '../peerManager.js';
 import CanvasManager from '../canvasManager.js';
 
 
-const peerManager = new PeerManager();
+const peerManager = new PeerManager(Peer);
 const canvasManager = new CanvasManager();
 
 document.addEventListener('DOMContentLoaded', () => {
