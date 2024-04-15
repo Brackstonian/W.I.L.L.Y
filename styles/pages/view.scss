@@ -23,7 +23,6 @@
         width: 8em;
 
         &--connect {
-            transform: translate(0,0);
             box-shadow: unset;
             border: solid 2px var(--c-light-yellow);
             transition: all .4s;

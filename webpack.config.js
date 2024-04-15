@@ -8,7 +8,8 @@ module.exports = {
     entry: {
         home: ['./src/renderer/pages/home.js', './styles/pages/home.scss'],
         share: ['./src/renderer/pages/share.js', './styles/pages/share.scss'],
-        view: ['./src/renderer/pages/view.js', './styles/pages/view.scss']
+        view: ['./src/renderer/pages/view.js', './styles/pages/view.scss'],
+        overlay: ['./src/renderer/pages/overlay.js', './styles/pages/overlay.scss'],
     },
     output: {
         path: path.resolve(__dirname, 'public'),
