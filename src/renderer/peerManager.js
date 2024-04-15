@@ -6,9 +6,10 @@ import CanvasManager from './canvasManager.js';
 const canvasManager = new CanvasManager();
 
 export default class PeerManager {
-    constructor() {
+    constructor(localStream) {
         this.peer = null;
         this.dataConnection = null;
+        this.localStream = localStream;
     }
 
     initializePeer(type) {
@@ -84,7 +85,7 @@ export default class PeerManager {
     }
 
     handleCall(call) {
-        call.answer(localStream);
+        call.answer(this.localStream);
         call.on('error', err => {
             console.error('Call error:', err);
         });

@@ -13,7 +13,7 @@ contextBridge.exposeInMainWorld(
 
     send: (channel, data) => {
         // Define a list of channels that the renderer is allowed to send to
-        const validSendChannels = ["load-view-page", "load-share-page", "open-new-window", "close-overlay-window", "open-view-page-default", "open-view-page-maximized", "request-player", "request-screens", "show-picker", "select-screen"];
+        const validSendChannels = ["load-view-page", "load-share-page", "open-new-window", "close-overlay-window", "open-view-page-default", "open-view-page-maximized", "request-player", "request-screens", "show-picker", "select-screen", "create-share-id", "send-draw-data"];
         if (validSendChannels.includes(channel)) {
             ipcRenderer.send(channel, data);
         } else {

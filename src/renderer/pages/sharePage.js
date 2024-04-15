@@ -1,12 +1,10 @@
 // import { Peer } from 'peerjs';
-const Peer = window.Peer; // Use the Peer object exposed by the preload script
-
 import PeerManager from '../peerManager.js';
 import CanvasManager from '../canvasManager.js';
 
-
-const peerManager = new PeerManager(Peer);
+let localStream;
 const canvasManager = new CanvasManager();
+
 
 document.addEventListener('DOMContentLoaded', () => {
     window.api.send('open-view-page-maximized');
@@ -31,7 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     });
     window.api.on('screen-selected', (sourceId) => {
         // Attempt to get media stream with the selected screen source ID
-
+        console.log(sourceId);
         navigator.mediaDevices.getUserMedia({
             video: {
                 mandatory: {
@@ -41,14 +39,18 @@ document.addEventListener('DOMContentLoaded', () => {
             }
         }).then(stream => {
 
-            localStream = stream;
+            localStream = stream
+
+            const peerManager = new PeerManager(localStream);
+
             localVideo.srcObject = stream;
+
             // Update the stream in any existing calls
             if (peerManager.currentCall) {
                 peerManager.updateStreamInCall(stream);
             }
-            const type = 'stream';
-            peerManager.initializePeer(type);
+
+            peerManager.initializePeer('stream');
 
             console.log('Screen stream has been initialized and peer connection set up.');
         }).catch(err => {
@@ -57,11 +59,11 @@ document.addEventListener('DOMContentLoaded', () => {
             alert('Unable to capture the screen. Please check console for more details.');
         });
     });
-    window.api.on('display-unique-id', (event, sourceId) => {
+    window.api.on('display-unique-id', (sourceId) => {
         const uniqueIdDisplay = document.getElementById('uniqueId');
         uniqueIdDisplay.innerText = `Share this ID  : ${sourceId}`; // Display peer ID
     });
-    window.api.on('init-canvas', (event, sourceId) => {
+    window.api.on('init-canvas', (event) => {
         CanvasManager.init(canvas, ctx);
     });
 
