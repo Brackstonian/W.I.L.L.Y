@@ -1,13 +1,24 @@
 const { Peer } = require('peerjs');
 const { ipcRenderer } = require('electron');
 
+const CanvasManager = require('./canvasManager.js');
+const canvasManager = new CanvasManager();
+
 class PeerManager {
     constructor() {
         this.peer = null;
         this.dataConnection = null;
     }
 
+    closeExistingConnections() {
+        if (peer && !peer.destroyed) {
+            peer.destroy(); // Closes the peer and all associated connections
+            console.log('Existing peer connection destroyed.');
+        }
+    }
+
     initializePeer(type) {
+        this.closeExistingConnections();
         if (this.peer && !this.peer.destroyed) {
             console.log('Using existing this.peer instance.');
             return;  // Use existing this.peer if it's still active
@@ -27,6 +38,8 @@ class PeerManager {
 
         if (type === 'stream') {
             this.setupStreamPeerEventHandlers();
+        } else if (type === 'view') {
+            this.setupViewPeerEventHandlers();
         }
 
     }
@@ -62,6 +75,21 @@ class PeerManager {
         });
     }
 
+    setupViewPeerEventHandlers() {
+        this.peer.on('open', id => {
+            console.log('Peer connection established with ID:', id);
+        });
+
+        this.peer.on('error', err => {
+            closeExistingConnections();
+            console.error('Peer error:', err);
+        });
+
+        this.peer.on('connection', conn => {
+            this.handleDataConnection(conn);
+        });
+    }
+
     handleCall(call) {
         call.answer(localStream);
         call.on('error', err => {
@@ -69,9 +97,19 @@ class PeerManager {
         });
     }
 
-
     handleDataConnection(conn) {
-        // similar to existing logic
+        conn.on('open', () => {
+            console.log('Data connection established with:', conn.peer);
+        });
+
+        conn.on('data', data => {
+            console.log('Received data:', data);
+            this.handleReceivedData(data);
+        });
+
+        conn.on('error', err => {
+            console.error('Data connection error:', err);
+        });
     }
 
     closeExistingConnections() {
@@ -79,6 +117,21 @@ class PeerManager {
             this.peer.destroy();
             console.log('Existing peer connection destroyed.');
         }
+    }
+
+    setupDataConnection(otherPeerId) {
+        if (!this.dataConnection || this.dataConnection.peer !== otherPeerId) {
+            if (this.dataConnection) {
+                this.dataConnection.close();  // Close existing connection if different peerId
+            }
+            this.dataConnection = this.peer.connect(otherPeerId);
+            this.handleDataConnection(this.dataConnection);
+        }
+    }
+
+    handleReceivedData(data) {
+        console.log('Data received:', data); // Log received data.
+        canvasManager.simulateDrawing(data); // Simulate drawing based on received data.
     }
 }
 

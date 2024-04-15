@@ -6,8 +6,6 @@ const PeerManager = require('./peerManager.js');
 const peerManager = new PeerManager();
 
 
-const { CanvasManager } = require('./canvasManager.js');
-
 
 function setupPlayer() {
     ipcRenderer.on('load-player', (event) => {
