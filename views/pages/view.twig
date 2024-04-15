@@ -1,6 +1,6 @@
 {% extends '../layouts/base.twig' %}
 
-{% block title %}W.I.L.L.Y View
+{% block title %}W.I.L.L.Y Viewer
 {% endblock %}
 
 {% block styles %}
@@ -19,10 +19,9 @@
 			<button class="app__button viewPage__button" onclick="location.href='index.html'">Go Back</button>
 		</div>
 
-		<div id="videoContainer" class="videoContainer">
-			<video class="localVideo" id="localVideo" autoplay playsinline></video>
-			<canvas class="drawingCanvas" id="drawingCanvas"></canvas>
-		</div>
+		{% include '../components/videoPlayer.twig' %}
+
+
 	</main>
 {% endblock %}
 

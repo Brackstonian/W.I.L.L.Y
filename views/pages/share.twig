@@ -11,10 +11,8 @@
 {% block content %}
 	<main class="app-main sharePage">
 		<h1 class="sharePage__title">Share Your Screen</h1>
-		<div id="videoContainer" class="videoContainer">
-			<video class="localVideo" id="localVideo" autoplay playsinline></video>
-			<canvas class="drawingCanvas" id="drawingCanvas"></canvas>
-		</div>
+
+		{% include '../components/videoPlayer.twig' %}
 
 		<!-- Screen Picker -->
 		<div id="screen-picker">
