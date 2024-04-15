@@ -1,4 +1,5 @@
-@import "../main.scss";
+@import "../layouts/base.scss";
+@import "../partials/button.scss";
 
 @import "../components/video-player.scss";
 
@@ -10,6 +11,7 @@
         margin: 0px;
         font-size: 4em;
         text-align: center;
+        color: var(--c-light-yellow);
     }
 
     &__button-wrapper {
@@ -49,8 +51,12 @@
     border: solid 2px var(--c-light-yellow);
     font-weight: 900;
     text-transform: uppercase;
+
+    &::placeholder {
+        font-weight: 700;
+    }
 }
 
-#videoContainer {
-display: block;
-}
+// #videoContainer {
+// display: block;
+// }

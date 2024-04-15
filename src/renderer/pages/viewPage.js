@@ -14,7 +14,6 @@ const canvasManager = new CanvasManager(sendData);
 viewButton.addEventListener('click', () => {
     console.log('View button clicked');
     window.api.send('request-player');
-    canvasManager.init();
 
     const peerId = document.getElementById('inputField').value;
     if (!peerId) {
@@ -40,7 +39,10 @@ function initializeViewing(peerId) {
 
 function setupCallHandlers(call) {
     call.on('stream', remoteStream => {
+        const videoContainer = document.getElementById('videoContainer');
         const videoElement = document.getElementById('localVideo');
+        videoContainer.style.display = "block";
+        canvasManager.init();
         videoElement.srcObject = remoteStream;
     });
     call.on('error', err => {
@@ -58,6 +60,3 @@ function sendData(data) {
         console.log('Data connection not ready or open.');
     }
 }
-
-
-

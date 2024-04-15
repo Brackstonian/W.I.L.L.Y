@@ -1,0 +1,18 @@
+.app__button {  
+    font-family: "Poppins", sans-serif;
+    background: var(--c-dark-green);
+    border: unset;
+    padding: 0.5em;
+    font-size: 1.5em;
+    text-transform: uppercase;
+    color: var(--c-light-yellow);
+    font-weight: 700;
+    box-shadow: var(--c-black) 10px 10px;
+    transition: all .1s;
+    
+    &:hover {
+        box-shadow: var(--c-black) 0px 0px;
+        border: solid 2px var(--c-light-yellow);
+        cursor: pointer;
+    }
+}
