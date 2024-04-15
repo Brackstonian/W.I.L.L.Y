@@ -2,35 +2,43 @@
 const { BrowserWindow, screen, ipcMain, app } = require('electron');
 
 const path = require('path');
-const iconPath = path.join(__dirname, '..', '..', 'public', 'icons', 'mac', 'icon.ics');
+const fs = require('fs');
+const Twig = require('twig');
+
+const assetPath = path.join(__dirname, '..', '..', 'public');
 
 let overlayWindow; // Define a module-level variable to hold the overlay window instance.
 
 // Function to create the main application window.
 function createMainWindow() {
     const mainWindow = new BrowserWindow({
-        width: 550,
-        height: 400,
-        icon: iconPath,
+        width: 800,
+        height: 600,
         webPreferences: {
-            nodeIntegration: true, // Consider security implications of this setting.
-            contextIsolation: false, // Recommend enabling contextIsolation for security.
-            enableRemoteModule: true // Evaluate if necessary due to security risks.
+            preload: path.join(__dirname, '..', 'preload.js'),
+            contextIsolation: true,
+            nodeIntegration: false,
         }
     });
 
-    // Load the initial HTML file into the window.
-    mainWindow.loadFile('views/index.html');
+    // Render the Twig template and load it
+    Twig.renderFile(path.join(__dirname, '../../views/pages/home.twig'), { assetPath: assetPath }, (err, html) => {
+        if (err) {
+            console.error('Error rendering Twig template:', err);
+            return;
+        }
+        // Save the rendered HTML to a temporary file
+        const tempHtmlPath = path.join(app.getPath('temp'), 'index.html');
+        fs.writeFileSync(tempHtmlPath, html);
 
-    // Open Developer Tools 
-    mainWindow.webContents.openDevTools();
+        // Load the rendered HTML file into the window
+        mainWindow.loadFile(tempHtmlPath);
+    });
 
-    // Event triggered when the window is asked to close (e.g., clicking the red close button).
+    // mainWindow.webContents.openDevTools();
+
+    // Additional mainWindow settings and IPC handlers remain the same
     mainWindow.on('close', (event) => {
-        // Uncomment the next line if you want to prompt the user before closing the window.
-        // event.preventDefault(); // Prevent default close operation and handle manually.
-
-        // This ensures that the application will quit when the window is closed.
         app.quit();
     });
 
@@ -47,11 +55,8 @@ function createMainWindow() {
         mainWindow.show();
     });
 
-    // Center the window initially.
     mainWindow.center();
 }
-
-
 // Function to create an overlay window.
 function createOverlayWindow(targetScreen) {
     // If no screen is provided, default to the primary display

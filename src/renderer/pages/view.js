@@ -1,19 +1,19 @@
-const { ipcRenderer } = require('electron');
-const Peer = require('peerjs').Peer;
-
-ipcRenderer.send('open-view-page-maximized');
+window.api.send('open-view-page-maximized');
 
 const viewButton = document.getElementById('viewButton');
 
-const PeerManager = require('../peerManager.js');
+
+
+import PeerManager from '../peerManager.js';
 const peerManager = new PeerManager();
-const CanvasManager = require('../canvasManager.js');
+
+import CanvasManager from '../canvasManager.js';
+
 const canvasManager = new CanvasManager(sendData);
 
 viewButton.addEventListener('click', () => {
     console.log('View button clicked');
-    ipcRenderer.send('request-player');
-    canvasManager.init();
+    window.api.send('request-player');
 
     const peerId = document.getElementById('inputField').value;
     if (!peerId) {
@@ -39,7 +39,10 @@ function initializeViewing(peerId) {
 
 function setupCallHandlers(call) {
     call.on('stream', remoteStream => {
+        const videoContainer = document.getElementById('videoContainer');
         const videoElement = document.getElementById('localVideo');
+        videoContainer.style.display = "block";
+        canvasManager.init();
         videoElement.srcObject = remoteStream;
     });
     call.on('error', err => {
@@ -57,6 +60,3 @@ function sendData(data) {
         console.log('Data connection not ready or open.');
     }
 }
-
-
-

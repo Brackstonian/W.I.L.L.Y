@@ -1,4 +1,5 @@
-@import "../main.scss";
+@import "../layouts/base.scss";
+@import "../partials/button.scss";
 
 
 .homePage {
@@ -17,11 +18,15 @@
     margin: 0px;
     font-size: 4em;
     text-align: center;
+
+    color: var(--c-light-yellow);
   }
   &__version {
     font-size: 1em;
     margin: 0px;
     text-align: center;
+
+    color: var(--c-light-yellow);
   }
 
   &__function-selector-inner {

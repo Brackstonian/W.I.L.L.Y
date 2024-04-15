@@ -1,0 +1,16 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<title>
+			{% block title %}W.I.L.L.Y
+			{% endblock %}
+		</title>
+		{% block styles %}{% endblock %}
+	</head>
+	<body>
+		{% block content %}{% endblock %}
+
+		{% block scripts %}{% endblock %}
+		<script src="https://unpkg.com/peerjs@1.5.2/dist/peerjs.min.js"></script>
+	</body>
+</html>

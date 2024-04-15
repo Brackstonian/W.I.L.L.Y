@@ -1,34 +1,35 @@
-// commonFunctions.js
-const { ipcRenderer } = require('electron');
-// const Peer = require('peerjs').Peer;
+// import { Peer } from 'peerjs';
+import PeerManager from '../peerManager.js';
+import CanvasManager from '../canvasManager.js';
 
-const PeerManager = require('./peerManager.js');
-const peerManager = new PeerManager();
+let localStream;
+const canvasManager = new CanvasManager();
 
 
-function setupPlayer() {
-    ipcRenderer.on('load-player', (event) => {
+document.addEventListener('DOMContentLoaded', () => {
+    window.api.send('open-view-page-maximized');
+    window.api.send('request-player');
+    window.api.send('request-screens');
+
+    window.api.on('load-player', (event) => {
         var containerDiv = document.getElementById("videoContainer");
         containerDiv.style.display = "block";
     });
-}
-function setupShowPicker() {
-    return ipcRenderer.on('show-picker', (event, sources) => {
+    window.api.on('show-picker', (sources) => {
         const screenList = document.getElementById('screen-list');
         screenList.innerHTML = '';
         sources.forEach((source, index) => {
             const li = document.createElement('li');
             li.textContent = `Screen ${index + 1}: ${source.name}`;
             li.addEventListener('click', () => {
-                ipcRenderer.send('select-screen', index);
+                window.api.send('select-screen', index);
             });
             screenList.appendChild(li);
         });
     });
-}
-function setupScreenSelected() {
-    return ipcRenderer.on('screen-selected', (event, sourceId) => {
+    window.api.on('screen-selected', (sourceId) => {
         // Attempt to get media stream with the selected screen source ID
+        console.log(sourceId);
         navigator.mediaDevices.getUserMedia({
             video: {
                 mandatory: {
@@ -37,18 +38,19 @@ function setupScreenSelected() {
                 }
             }
         }).then(stream => {
-            // If there is an existing stream, stop all its tracks first
 
+            localStream = stream
 
-            localStream = stream;
+            const peerManager = new PeerManager(localStream);
+
             localVideo.srcObject = stream;
 
             // Update the stream in any existing calls
             if (peerManager.currentCall) {
                 peerManager.updateStreamInCall(stream);
             }
-            const type = 'stream';
-            peerManager.initializePeer(type);
+
+            peerManager.initializePeer('stream');
 
             console.log('Screen stream has been initialized and peer connection set up.');
         }).catch(err => {
@@ -57,22 +59,13 @@ function setupScreenSelected() {
             alert('Unable to capture the screen. Please check console for more details.');
         });
     });
-}
-
-function setupUniqueIdDisplay() {
-    return ipcRenderer.on('display-unique-id', (event, sourceId) => {
+    window.api.on('display-unique-id', (sourceId) => {
         const uniqueIdDisplay = document.getElementById('uniqueId');
         uniqueIdDisplay.innerText = `Share this ID  : ${sourceId}`; // Display peer ID
     });
-}
-function initCanvas() {
-    return ipcRenderer.on('init-canvas', (event, sourceId) => {
+    window.api.on('init-canvas', (event) => {
         CanvasManager.init(canvas, ctx);
     });
-    console.log("🚀 ~ ipcRenderer.on ~ CanvasManager:", CanvasManager)
-}
 
-module.exports = {
-    setupPlayer, setupShowPicker, setupScreenSelected, setupUniqueIdDisplay, initCanvas
-};
+});
 
