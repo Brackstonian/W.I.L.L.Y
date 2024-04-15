@@ -35,7 +35,7 @@ function createMainWindow() {
         mainWindow.loadFile(tempHtmlPath);
     });
 
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools();
 
     // Additional mainWindow settings and IPC handlers remain the same
     mainWindow.on('close', (event) => {
