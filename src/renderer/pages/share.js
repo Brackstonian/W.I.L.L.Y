@@ -1,10 +1,9 @@
-// import { Peer } from 'peerjs';
 import PeerManager from '../peerManager.js';
 import CanvasManager from '../canvasManager.js';
 
 let localStream;
 const canvasManager = new CanvasManager();
-
+let selectedListItem;  // Variable to keep track of the currently selected screen
 
 document.addEventListener('DOMContentLoaded', () => {
     window.api.send('open-view-page-maximized');
@@ -15,6 +14,7 @@ document.addEventListener('DOMContentLoaded', () => {
         var containerDiv = document.getElementById("videoContainer");
         containerDiv.style.display = "block";
     });
+
     window.api.on('show-picker', (sources) => {
         const screenList = document.getElementById('screen-list');
         screenList.innerHTML = '';
@@ -25,17 +25,21 @@ document.addEventListener('DOMContentLoaded', () => {
             img.alt = `Screen ${index + 1}`;
             img.style.width = '100px';  // Set thumbnail size
             img.style.height = '75px';
+            li.textContent = `Screen ${index + 1}: ${source.name}`;
             li.appendChild(img);
-            li.appendChild(document.createTextNode(`Screen ${index + 1}: ${source.name}`));
             li.addEventListener('click', () => {
-                window.api.send('select-screen', source.id);
+                if (selectedListItem) {
+                    selectedListItem.style.border = "";  // Remove border from previously selected item
+                }
+                window.api.send('select-screen', index);
+                li.style.border = "solid 5px red";
+                selectedListItem = li;  // Update the selected item
             });
             screenList.appendChild(li);
         });
     });
 
     window.api.on('screen-selected', (sourceId) => {
-        // Attempt to get media stream with the selected screen source ID
         console.log(sourceId);
         navigator.mediaDevices.getUserMedia({
             video: {
@@ -45,34 +49,26 @@ document.addEventListener('DOMContentLoaded', () => {
                 }
             }
         }).then(stream => {
-
-            localStream = stream
-
+            localStream = stream;
             const peerManager = new PeerManager(localStream);
-
             localVideo.srcObject = stream;
-
-            // Update the stream in any existing calls
             if (peerManager.currentCall) {
                 peerManager.updateStreamInCall(stream);
             }
-
             peerManager.initializePeer('stream');
-
             console.log('Screen stream has been initialized and peer connection set up.');
         }).catch(err => {
             console.error('Failed to get screen stream', err);
-            // Optionally, inform the user that the stream could not be obtained
             alert('Unable to capture the screen. Please check console for more details.');
         });
     });
+
     window.api.on('display-unique-id', (sourceId) => {
         const uniqueIdDisplay = document.getElementById('uniqueId');
         uniqueIdDisplay.innerText = `Share this ID  : ${sourceId}`; // Display peer ID
     });
+
     window.api.on('init-canvas', (event) => {
         CanvasManager.init(canvas, ctx);
     });
-
 });
-

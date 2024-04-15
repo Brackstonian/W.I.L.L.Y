@@ -22,3 +22,27 @@
         background-color: var(--c-light-green);
     }
 }
+
+#screen-list {
+    list-style: none;
+    margin: 0;
+    display: flex;
+    justify-content: center;
+    gap: 40px;
+
+    margin: 20px 0px;
+
+    li {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        background: var(--c-light-green);
+        border: solid 5px var(--c-light-green);
+        color: var(--c-light-yellow);
+        border-radius: 5px;
+        overflow: hidden;
+        img {
+            margin-bottom: 5px; 
+        }
+    }
+}
