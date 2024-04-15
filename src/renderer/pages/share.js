@@ -20,13 +20,20 @@ document.addEventListener('DOMContentLoaded', () => {
         screenList.innerHTML = '';
         sources.forEach((source, index) => {
             const li = document.createElement('li');
-            li.textContent = `Screen ${index + 1}: ${source.name}`;
+            const img = document.createElement('img');
+            img.src = source.thumbnail;
+            img.alt = `Screen ${index + 1}`;
+            img.style.width = '100px';  // Set thumbnail size
+            img.style.height = '75px';
+            li.appendChild(img);
+            li.appendChild(document.createTextNode(`Screen ${index + 1}: ${source.name}`));
             li.addEventListener('click', () => {
-                window.api.send('select-screen', index);
+                window.api.send('select-screen', source.id);
             });
             screenList.appendChild(li);
         });
     });
+
     window.api.on('screen-selected', (sourceId) => {
         // Attempt to get media stream with the selected screen source ID
         console.log(sourceId);

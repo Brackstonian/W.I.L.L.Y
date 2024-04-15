@@ -22,8 +22,12 @@ function setupListeners() {
     });
 
     ipcMain.on('request-screens', async (event) => {
-        const sources = await desktopCapturer.getSources({ types: ['screen'] }); // Fetch available screen sources.
-        event.reply('show-picker', sources); // Send the screen sources back to the renderer to display a picker.
+        const sources = await desktopCapturer.getSources({ types: ['screen'], thumbnailSize: { width: 200, height: 150 } });
+        event.reply('show-picker', sources.map(source => ({
+            name: source.name,
+            thumbnail: source.thumbnail.toDataURL(),
+            id: source.id
+        })));
     });
 
     // Listener for 'select-screen' to handle screen selection based on index and send back the selected screen's source ID.
