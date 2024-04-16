@@ -7,7 +7,7 @@ Electron application to enable remote screen drawing in real-time.
 Follow these steps to install W.I.L.L.Y:
 
 ### Downloading the Application
-1. Visit the [Releases](https://github.com/your-github-repo/meeting-markup/releases) page of the repo.
+1. Visit the [Releases](https://github.com/Brackstonian/W.I.L.L.Y/releases) page of the repo.
 2. Download the latest release.
 
 ### Preparing the Application
