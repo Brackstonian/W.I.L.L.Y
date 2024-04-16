@@ -4,12 +4,15 @@ const { app } = require('electron');
 // Import functions from windowManager to manage application windows.
 const { createMainWindow, createOverlayWindow } = require('./windowManager');
 // Import the setupListeners function to configure inter-process communication.
-const { setupListeners } = require('./eventHandlers');
+// const { setupListeners } = require('./eventHandlers');
+
+const { setupGlobalMainEvents } = require('./mainEvents');
+
 
 // Execute the following code block when the Electron app is ready to create browser windows.
 app.whenReady().then(() => {
     createMainWindow();  // Call to create the main window of the application.
-    setupListeners();    // Initialize IPC event listeners defined in eventHandlers.
+    setupGlobalMainEvents();
 });
 
 // Add an event listener that triggers when the dock icon is clicked and there are no other windows open

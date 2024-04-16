@@ -1,5 +1,5 @@
 // Import required modules from Electron for creating and managing browser windows and for screen information.
-const { BrowserWindow, screen, ipcMain, app } = require('electron');
+const { BrowserWindow, screen, app } = require('electron');
 
 const path = require('path');
 const fs = require('fs');
@@ -7,17 +7,19 @@ const Twig = require('twig');
 
 const assetPath = path.join(__dirname, '..', '..', 'public');
 
-let overlayWindow; // Define a module-level variable to hold the overlay window instance.
+let overlayWindow;
+let mainWindow;
 
 // Function to create the main application window.
 function createMainWindow() {
-    const mainWindow = new BrowserWindow({
+    mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
         webPreferences: {
             preload: path.join(__dirname, '..', 'preload.js'),
             contextIsolation: true,
-            nodeIntegration: false,
+            enableRemoteModule: false,
+            nodeIntegration: false
         }
     });
 
@@ -40,15 +42,6 @@ function createMainWindow() {
     // Additional mainWindow settings and IPC handlers remain the same
     mainWindow.on('close', (event) => {
         app.quit();
-    });
-
-    ipcMain.on('open-view-page-default', () => {
-        mainWindow.setSize(550, 400);
-        mainWindow.center();
-    });
-
-    ipcMain.on('open-view-page-maximized', () => {
-        mainWindow.maximize();
     });
 
     mainWindow.on('restore', () => {
@@ -98,11 +91,14 @@ function createOverlayWindow(targetScreen) {
     });
 }
 
-
+// Function to get the current instance of the main window.
+function getMainWindow() {
+    return mainWindow; // Return the current overlay window instance.
+}
 // Function to get the current instance of the overlay window.
 function getOverlayWindow() {
     return overlayWindow; // Return the current overlay window instance.
 }
 
 // Export functions to be used in other parts of the application.
-module.exports = { createMainWindow, createOverlayWindow, getOverlayWindow };
+module.exports = { createMainWindow, createOverlayWindow, getOverlayWindow, getMainWindow };
