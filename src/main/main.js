@@ -10,7 +10,13 @@ const { setupListeners } = require('./eventHandlers');
 app.whenReady().then(() => {
     createMainWindow();  // Call to create the main window of the application.
     setupListeners();    // Initialize IPC event listeners defined in eventHandlers.
+});
 
+// Add an event listener that triggers when the dock icon is clicked and there are no other windows open
+app.on('activate', () => {
+    if (BrowserWindow.getAllWindows().length === 0) {
+        createMainWindow();
+    }
 });
 
 // Add an event listener that triggers when all windows have been closed.
