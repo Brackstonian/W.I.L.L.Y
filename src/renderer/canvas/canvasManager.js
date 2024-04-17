@@ -15,7 +15,6 @@ export default class CanvasManager {
         window.onresize = this.resizeCanvas.bind(this); // Ensure canvas resizes properly on window resize.
 
         this.canvas.onmousedown = (e) => {
-            console.log('one mouse own');
             clearTimeout(this.fadeTimeout);
             this.IS_DRAWING = true;
             const normalizedX = e.offsetX / this.canvas.width;
@@ -86,33 +85,5 @@ export default class CanvasManager {
         console.log('sending data')
         console.log('Sending data:', data);
         this.sendDataCallback(data);
-    }
-
-    simulateDrawing(data) {
-        const x = data.x * canvas.width; // Calculate x coordinate.
-        const y = data.y * canvas.height; // Calculate y coordinate.
-        switch (data.type) {
-            case 'mousedown':
-                IS_DRAWING = true; // Start drawing.
-                paths.push({
-                    points: [{ x, y }],
-                    alpha: 1,
-                    IS_DRAWING: true
-                });
-                break;
-            case 'mousemove':
-                if (IS_DRAWING && paths.length > 0 && paths[paths.length - 1].IS_DRAWING) {
-                    paths[paths.length - 1].points.push({ x, y }); // Add points to path.
-                }
-                break;
-            case 'mouseup':
-                if (paths.length > 0) {
-                    paths[paths.length - 1].IS_DRAWING = false; // Stop drawing.
-                }
-                IS_DRAWING = false;
-                this.startFading(); // Start fading drawing.
-                break;
-        }
-        this.drawPaths(); // Redraw paths.
     }
 }
