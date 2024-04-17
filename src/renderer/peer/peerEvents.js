@@ -5,6 +5,7 @@ export function setupStreamPeerEventHandlers(peerManager) {
     peer.on('open', id => {
         const uniqueIdDisplay = document.getElementById('uniqueId');
         uniqueIdDisplay.innerText = `Share this ID  : ${id}`; // Display peer ID
+        navigator.clipboard.writeText(id);
     });
 
     peer.on('error', err => {

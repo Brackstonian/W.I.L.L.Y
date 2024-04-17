@@ -4,7 +4,7 @@ import PeerManager from '../peer/peerManager.js';
 document.addEventListener('DOMContentLoaded', () => {
     let localStream;
 
-    window.api.send('view-page-maximized');
+    // window.api.send('view-page-maximized');
 
     window.api.invoke('request-screens')
         .then(sources => {
@@ -43,7 +43,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
                                 localStream = stream;
                                 // videoElement.srcObject = stream;
-                                localVideo.srcObject = stream;
+                                // localVideo.srcObject = stream;
                                 const peerManager = new PeerManager(localStream);
                                 return peerManager.initializePeer('stream');
                             }).catch(err => {
