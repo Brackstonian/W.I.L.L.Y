@@ -1,20 +1,17 @@
-// Import required modules from Electron for creating and managing browser windows and for screen information.
-const { BrowserWindow, screen, app } = require('electron');
-
+const { app, BrowserWindow, screen } = require('electron');
 const path = require('path');
 const fs = require('fs');
 const Twig = require('twig');
 
 const assetPath = path.join(__dirname, '..', '..', 'public');
 
-let overlayWindow;
-let mainWindow;
-
 // Function to create the main application window.
 function createMainWindow() {
+    let mainWindow;
     mainWindow = new BrowserWindow({
         width: 800,
         height: 600,
+        center: true,
         webPreferences: {
             preload: path.join(__dirname, '..', 'preload.js'),
             contextIsolation: true,
@@ -47,14 +44,11 @@ function createMainWindow() {
     mainWindow.on('restore', () => {
         mainWindow.show();
     });
-
-    mainWindow.center();
 }
 // Function to create an overlay window.
 function createOverlayWindow(targetScreen) {
-    // If no screen is provided, default to the primary display
     const display = targetScreen || screen.getPrimaryDisplay();
-
+    let overlayWindow;
     overlayWindow = new BrowserWindow({
         x: display.bounds.x, // Start at the leftmost edge of the target screen.
         y: display.bounds.y, // Start at the topmost edge of the target screen.
@@ -90,7 +84,6 @@ function createOverlayWindow(targetScreen) {
         overlayWindow.loadFile(tempHtmlPath);
     });
 }
-
 // Function to get the current instance of the main window.
 function getMainWindow() {
     return mainWindow; // Return the current overlay window instance.

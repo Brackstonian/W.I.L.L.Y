@@ -4,7 +4,12 @@ const MiniCssExtractPlugin = require('mini-css-extract-plugin');
 
 module.exports = {
     mode: 'development',
-    target: 'electron-renderer',
+    target: 'web',
+    node: {
+        __dirname: false,
+        __filename: false,
+        global: true,
+    },
     entry: {
         home: ['./src/renderer/pages/home.js', './styles/pages/home.scss'],
         share: ['./src/renderer/pages/share.js', './styles/pages/share.scss'],

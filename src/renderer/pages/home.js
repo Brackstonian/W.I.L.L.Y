@@ -1,21 +1,28 @@
-const { setupGlobalIpcListeners } = require('../../main/ipcEventHandlers');
-
 document.addEventListener('DOMContentLoaded', () => {
     const viewScreenButton = document.getElementById('viewScreenButton');
     const shareScreenButton = document.getElementById('shareScreenButton');
 
-    window.api.send('close-overlay-window');
-    window.api.send('open-view-page-default');
+    window.api.send('close-overlay-page');
+    window.api.send('view-page-default');
 
-    viewScreenButton.addEventListener('click', () => {
-        console.log('view button clicked');
-        window.api.send('load-view-page');
+
+    viewScreenButton.addEventListener('click', async () => {
+        window.api.invoke('load-view-page')
+            .then(response => {
+                window.location.href = response;
+            })
+            .catch(error => {
+                console.error('Error invoking load-view-page:', error);
+            });
     });
 
     shareScreenButton.addEventListener('click', () => {
-        console.log('share button clicked');
-        window.api.send('load-share-page');
+        window.api.invoke('load-share-page')
+            .then(response => {
+                window.location.href = response;
+            })
+            .catch(error => {
+                console.error('Error invoking load-view-page:', error);
+            });
     });
-
-    setupGlobalIpcListeners();
 });

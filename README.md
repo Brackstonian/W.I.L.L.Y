@@ -18,3 +18,4 @@ To bypass this issue:
 1. Open the Terminal application.
 2. Execute the following command: `xattr -c </Applications/W.I.L.L.Y.app> `
 3. Press Enter to remove the `com.apple.Quarantine` attribute, allowing you to launch the application normally. 🎉
+

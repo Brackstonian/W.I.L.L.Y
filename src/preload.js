@@ -2,12 +2,12 @@ const { contextBridge, ipcRenderer } = require('electron');
 
 // Helper functions to manage IPC channels
 const validSendChannels = [
-    "close-overlay-window",
-    "open-view-page-maximized",
-    "open-view-page-default",
+    "view-page-maximized",
+    "view-page-default",
+    "close-overlay-page",
     "load-view-page",
     "load-share-page",
-    "request-player",
+    "initialize-peer",
     "open-new-window",
     "request-screens",
     "show-picker",
@@ -19,6 +19,10 @@ const validSendChannels = [
 const validReceiveChannels = [
     "navigate-to"
 ];
+
+function invoke(channel, data) {
+    return ipcRenderer.invoke(channel, data);
+}
 
 function send(channel, data) {
     if (validSendChannels.includes(channel)) {
@@ -43,6 +47,7 @@ function subscribeToRenderer(channel, func) {
 
 // Exposing the 'api' object to the renderer
 contextBridge.exposeInMainWorld('api', {
+    invoke,
     send,
     receive,
     on: subscribeToRenderer
