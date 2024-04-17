@@ -7,7 +7,6 @@ document.addEventListener('DOMContentLoaded', () => {
     viewButton.addEventListener('click', () => {
         const peerManager = new PeerManager();
         const peerId = document.getElementById('inputField').value;
-        console.log("🚀 ~ viewButton.addEventListener ~ peerId:", peerId)
 
         if (!peerId) {
             alert('Please enter a Peer ID.');
@@ -31,8 +30,6 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
 
                     const canvasManager = new CanvasManager((data) => {
-                        console.log(peerManager);
-                        console.log(peerManager.dataConnection);
                         if (peerManager.dataConnection && peerManager.dataConnection.open) {
                             peerManager.dataConnection.send(data);
                         } else {

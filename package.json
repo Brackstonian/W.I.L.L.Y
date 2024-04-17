@@ -1,6 +1,6 @@
 {
   "name": "W.I.L.L.Y",
-  "version": "0.1.2",
+  "version": "0.1.3",
   "description": "WebRTC Interactive Live Layer Yard",
   "main": "src/main/main.js",
   "scripts": {

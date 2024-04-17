@@ -3,7 +3,6 @@ export function setupStreamPeerEventHandlers(peerManager) {
     let { dataConnection } = peerManager;
 
     peer.on('open', id => {
-        console.log('Peer ID:', id);
         const uniqueIdDisplay = document.getElementById('uniqueId');
         uniqueIdDisplay.innerText = `Share this ID  : ${id}`; // Display peer ID
     });
@@ -19,11 +18,7 @@ export function setupStreamPeerEventHandlers(peerManager) {
         }
         dataConnection = conn;
         dataConnection.on('data', data => {
-            console.log('Received data:', data);
             window.api.send('send-draw-data', data); // Send drawing data.
-        });
-        dataConnection.on('open', () => {
-            console.log('Data connection established with:', conn.peer);
         });
     });
 
@@ -39,10 +34,6 @@ export function setupViewPeerEventHandlers(peerManager) {
     const { peer } = peerManager;
     let { dataConnection } = peerManager;
 
-    peer.on('open', id => {
-        console.log('Peer connection established with ID:', id);
-    });
-
     peer.on('error', err => {
         closeExistingConnections();
         console.error('Peer error:', err);
@@ -53,16 +44,6 @@ export function setupViewPeerEventHandlers(peerManager) {
             dataConnection.close();  // Close existing connection if open
         }
         dataConnection = conn;
-
-        dataConnection.on('open', () => {
-            console.log('Data connection established with:', conn.peer);
-        });
-
-        dataConnection.on('data', data => {
-            console.log('Data received:', data); // Log received data.
-            // simulateDrawing(data)
-        });
-
         dataConnection.on('error', err => {
             console.error('Data connection error:', err);
         });

@@ -9,8 +9,7 @@ export default class PeerManager {
     }
     initializePeer(type) {
         if (this.peer && !this.peer.destroyed) {
-            console.log('Using existing peer instance.');
-            return;  // Use existing peer if it's still active
+            return;
         }
         this.peer = new Peer(null, {
             host: 'w-i-l-l-y-server.onrender.com',
