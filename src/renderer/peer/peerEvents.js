@@ -37,17 +37,34 @@ export function setupStreamPeerEventHandlers(peerManager) {
 
 export function setupViewPeerEventHandlers(peerManager) {
     const { peer } = peerManager;
+    let { dataConnection } = peerManager;
 
-    this.peer.on('open', id => {
+    peer.on('open', id => {
         console.log('Peer connection established with ID:', id);
     });
 
-    this.peer.on('error', err => {
+    peer.on('error', err => {
         closeExistingConnections();
         console.error('Peer error:', err);
     });
 
-    this.peer.on('connection', conn => {
-        this.handleDataConnection(conn);
+    peer.on('connection', conn => {
+        if (dataConnection) {
+            dataConnection.close();  // Close existing connection if open
+        }
+        dataConnection = conn;
+
+        dataConnection.on('open', () => {
+            console.log('Data connection established with:', conn.peer);
+        });
+
+        dataConnection.on('data', data => {
+            console.log('Data received:', data); // Log received data.
+            // simulateDrawing(data)
+        });
+
+        dataConnection.on('error', err => {
+            console.error('Data connection error:', err);
+        });
     });
 }

@@ -1,10 +1,11 @@
 export default class CanvasManager {
-    constructor() {
+    constructor(sendDataCallback) {
         this.canvas = document.getElementById('drawingCanvas');
         this.ctx = this.canvas.getContext('2d');
         this.fadeTimeout = null;
         this.paths = [];
         this.IS_DRAWING = false;
+        this.sendData = sendDataCallback;
     }
 
     init() {
@@ -82,12 +83,36 @@ export default class CanvasManager {
     }
 
     sendData(data) {
-        console.log('sending data');
-        if (peerManager.dataConnection && peerManager.dataConnection.open) {
-            console.log('Sending data:', data);
-            peerManager.dataConnection.send(data);
-        } else {
-            console.log('Data connection not ready or open.');
+        console.log('sending data')
+        console.log('Sending data:', data);
+        this.sendDataCallback(data);
+    }
+
+    simulateDrawing(data) {
+        const x = data.x * canvas.width; // Calculate x coordinate.
+        const y = data.y * canvas.height; // Calculate y coordinate.
+        switch (data.type) {
+            case 'mousedown':
+                IS_DRAWING = true; // Start drawing.
+                paths.push({
+                    points: [{ x, y }],
+                    alpha: 1,
+                    IS_DRAWING: true
+                });
+                break;
+            case 'mousemove':
+                if (IS_DRAWING && paths.length > 0 && paths[paths.length - 1].IS_DRAWING) {
+                    paths[paths.length - 1].points.push({ x, y }); // Add points to path.
+                }
+                break;
+            case 'mouseup':
+                if (paths.length > 0) {
+                    paths[paths.length - 1].IS_DRAWING = false; // Stop drawing.
+                }
+                IS_DRAWING = false;
+                this.startFading(); // Start fading drawing.
+                break;
         }
+        this.drawPaths(); // Redraw paths.
     }
 }

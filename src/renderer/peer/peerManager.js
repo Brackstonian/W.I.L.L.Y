@@ -1,17 +1,13 @@
-// const Peer = require('peerjs')
 import Peer from 'peerjs';
 import { setupStreamPeerEventHandlers, setupViewPeerEventHandlers } from './peerEvents';
-// import { closeExistingConnections } from './connectionHandlers';
 
 export default class PeerManager {
     constructor(localStream) {
         this.peer = null;
-        this.dataConnection = null;
         this.localStream = localStream;
+        this.dataConnection = null;
     }
-
     initializePeer(type) {
-        // closeExistingConnections(this);
         if (this.peer && !this.peer.destroyed) {
             console.log('Using existing peer instance.');
             return;  // Use existing peer if it's still active
@@ -32,7 +28,7 @@ export default class PeerManager {
         if (type === 'stream') {
             setupStreamPeerEventHandlers(this);
         } else if (type === 'view') {
-            // setupViewPeerEventHandlers(this);
+            setupViewPeerEventHandlers(this);
         }
     }
 }

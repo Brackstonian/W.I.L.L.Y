@@ -1,14 +1,10 @@
-// const { setupGlobalRenderers } = require('../../main/renderer.js');
 
-import CanvasManager from '../canvasManager.js';
 import PeerManager from '../peer/peerManager.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    // const videoElement = document.getElementById('localVideo');
     let localStream;
 
     window.api.send('view-page-maximized');
-    // window.api.send('request-screens');
 
     window.api.invoke('request-screens')
         .then(sources => {
@@ -65,12 +61,4 @@ document.addEventListener('DOMContentLoaded', () => {
         .catch(error => {
             console.error('Error invoking request-screens:', error);
         });
-    //     let localStream;
-    //     const canvasManager = new CanvasManager();
-
-
-
-    //     window.api.on('init-canvas', (event) => {
-    //         CanvasManager.init(canvas, ctx);
-    //     });
 });

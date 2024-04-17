@@ -1,5 +1,5 @@
 import PeerManager from '../peer/peerManager.js';
-
+import CanvasManager from '../canvas/canvasManager.js';
 
 document.addEventListener('DOMContentLoaded', () => {
     window.api.send('view-page-maximized');
@@ -16,20 +16,39 @@ document.addEventListener('DOMContentLoaded', () => {
 
         peerManager.initializePeer('view');
 
-        // const call = peerManager.peer.call(peerId, null);
+        navigator.mediaDevices.getUserMedia({ video: true })
+            .then(stream => {
+                const call = peerManager.peer.call(peerId, stream);
+                call.on('stream', remoteStream => {
+                    const videoContainer = document.getElementById('videoContainer');
+                    videoContainer.style.display = "block";
+                    localVideo.srcObject = remoteStream;
 
-        // call.on('stream', remoteStream => {
-        //     const videoContainer = document.getElementById('videoContainer');
-        //     const videoElement = document.getElementById('localVideo');
-        //     videoContainer.style.display = "block";
-        //     canvasManager.init();
-        //     videoElement.srcObject = remoteStream;
-        // });
-        // call.on('error', err => {
-        //     console.error('Call error:', err);
-        //     alert('An error occurred during the call.');
-        // });
+
+                    peerManager.dataConnection = peerManager.peer.connect(peerId);
+                    peerManager.dataConnection.on('error', err => {
+                        console.error('Data connection error:', err);
+                    });
+
+                    const canvasManager = new CanvasManager((data) => {
+                        console.log(peerManager);
+                        console.log(peerManager.dataConnection);
+                        if (peerManager.dataConnection && peerManager.dataConnection.open) {
+                            peerManager.dataConnection.send(data);
+                        } else {
+                            console.log('Data connection not ready or open.');
+                        }
+                    });
+                    canvasManager.init();
+                });
+                call.on('error', err => {
+                    console.error('Call error:', err);
+                    alert('An error occurred during the call.');
+                });
+            }).catch(err => {
+                console.error('Failed to get local stream', err);
+                alert('Could not access your camera. Please check device permissions.');
+            });
     });
 
 });
-
