@@ -1,19 +1,28 @@
 document.addEventListener('DOMContentLoaded', () => {
-    // These use the `api` object from the preload script
-    window.api.send('close-overlay-window');
-    window.api.send('open-view-page-default');
+    const viewScreenButton = document.getElementById('viewScreenButton');
+    const shareScreenButton = document.getElementById('shareScreenButton');
 
-    document.getElementById('viewScreenButton').addEventListener('click', () => {
-        console.log('view button clicked');
-        window.api.send('load-view-page');
+    window.api.send('close-overlay-page');
+    window.api.send('view-page-default');
+
+
+    viewScreenButton.addEventListener('click', async () => {
+        window.api.invoke('load-view-page')
+            .then(response => {
+                window.location.href = response;
+            })
+            .catch(error => {
+                console.error('Error invoking load-view-page:', error);
+            });
     });
 
-    document.getElementById('shareScreenButton').addEventListener('click', () => {
-        console.log('share button clicked');
-        window.api.send('load-share-page');
-    });
-
-    window.api.receive('navigate-to', (url) => {
-        window.location.href = url; // or dynamically load content
+    shareScreenButton.addEventListener('click', () => {
+        window.api.invoke('load-share-page')
+            .then(response => {
+                window.location.href = response;
+            })
+            .catch(error => {
+                console.error('Error invoking load-view-page:', error);
+            });
     });
 });

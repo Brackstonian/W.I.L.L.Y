@@ -5,20 +5,17 @@ export default class CanvasManager {
         this.fadeTimeout = null;
         this.paths = [];
         this.IS_DRAWING = false;
-        this.sendData = sendDataCallback;  // Store the callback for later use
+        this.sendData = sendDataCallback;
     }
 
     init() {
+        console.log('this triggered');
         this.resizeCanvas(); // Adjust canvas size.
         this.drawPaths(); // Start the drawing process.
         window.onresize = this.resizeCanvas.bind(this); // Ensure canvas resizes properly on window resize.
 
-        // Set up mouse event handlers for drawing on the canvas.
-        this.setupEventHandlers();
-    }
-
-    setupEventHandlers() {
         this.canvas.onmousedown = (e) => {
+            console.log('one mouse own');
             clearTimeout(this.fadeTimeout);
             this.IS_DRAWING = true;
             const normalizedX = e.offsetX / this.canvas.width;
@@ -27,6 +24,7 @@ export default class CanvasManager {
             this.paths.push(newPath);
             this.sendData({ type: 'mousedown', x: normalizedX, y: normalizedY });
         };
+
 
         this.canvas.onmousemove = (e) => {
             if (this.IS_DRAWING) {
@@ -41,8 +39,7 @@ export default class CanvasManager {
         this.canvas.onmouseup = this.canvas.onmouseout = () => {
             if (this.IS_DRAWING) {
                 this.IS_DRAWING = false;
-                this.paths[this.paths.length - 1];
-                this.IS_DRAWING = false;
+                this.paths[this.paths.length - 1].IS_DRAWING = false;
                 this.sendData({ type: 'mouseup' });
                 this.startFading();
             }
@@ -86,17 +83,12 @@ export default class CanvasManager {
     }
 
     sendData(data) {
-        console.log('sending data');
-        if (peerManager.dataConnection && peerManager.dataConnection.open) {
-            console.log('Sending data:', data);
-            peerManager.dataConnection.send(data);
-        } else {
-            console.log('Data connection not ready or open.');
-        }
+        console.log('sending data')
+        console.log('Sending data:', data);
+        this.sendDataCallback(data);
     }
 
     simulateDrawing(data) {
-        // Function to simulate drawing on the canvas based on received data.
         const x = data.x * canvas.width; // Calculate x coordinate.
         const y = data.y * canvas.height; // Calculate y coordinate.
         switch (data.type) {
@@ -124,5 +116,3 @@ export default class CanvasManager {
         this.drawPaths(); // Redraw paths.
     }
 }
-
-

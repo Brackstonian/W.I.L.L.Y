@@ -1,6 +1,6 @@
 # W.I.L.L.Y
 >  **W**ebRTC **I**nteractive **L**ive **L**ayer **Y**ard
-**Version: 0.1.2**
+**Version: 0.1.3**
 Electron application to enable remote screen drawing in real-time.
 
 ## Installation (Mac Osx)
@@ -18,3 +18,4 @@ To bypass this issue:
 1. Open the Terminal application.
 2. Execute the following command: `xattr -c </Applications/W.I.L.L.Y.app> `
 3. Press Enter to remove the `com.apple.Quarantine` attribute, allowing you to launch the application normally. 🎉
+

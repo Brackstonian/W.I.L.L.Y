@@ -351,7 +351,6 @@ template {
   position: relative;
   height: 700px;
   aspect-ratio: 16/9;
-  display: none;
   margin: auto;
   border: solid 5px var(--c-red);
   border-radius: 10px;
