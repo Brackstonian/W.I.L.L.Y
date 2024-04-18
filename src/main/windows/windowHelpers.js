@@ -17,7 +17,7 @@ function renderMainWindowContent(mainWindow) {
         mainWindow.loadFile(tempHtmlPath);
     });
 
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools();
 }
 
 // Render content for overlay window
@@ -44,7 +44,6 @@ function renderModalWindowContent(modalWindow, shareID) {
         const tempHtmlPath = path.join(app.getPath('temp'), 'modal.html');
         fs.writeFileSync(tempHtmlPath, html);
 
-        modalWindow.webContents.openDevTools();
         modalWindow.loadFile(tempHtmlPath);
     });
 }
