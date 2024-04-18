@@ -11,7 +11,7 @@ export default class CanvasManager {
     init() {
         console.log('this triggered');
         this.resizeCanvas(); // Adjust canvas size.
-        this.drawPaths(); // Start the drawing process.
+        // this.drawPaths(); // Start the drawing process.
         window.onresize = this.resizeCanvas.bind(this); // Ensure canvas resizes properly on window resize.
 
         this.canvas.onmousedown = (e) => {
@@ -19,7 +19,7 @@ export default class CanvasManager {
             this.IS_DRAWING = true;
             const normalizedX = e.offsetX / this.canvas.width;
             const normalizedY = e.offsetY / this.canvas.height;
-            const newPath = { points: [{ x: e.offsetX, y: e.offsetY }], alpha: 1, IS_DRAWING: true };
+            const newPath = { points: [{ x: e.offsetX, y: e.offsetY + 10 }], alpha: 1, IS_DRAWING: true };
             this.paths.push(newPath);
             this.sendData({ type: 'mousedown', x: normalizedX, y: normalizedY });
         };
@@ -30,7 +30,7 @@ export default class CanvasManager {
                 const normalizedX = e.offsetX / this.canvas.width;
                 const normalizedY = e.offsetY / this.canvas.height;
                 let currentPath = this.paths[this.paths.length - 1];
-                currentPath.points.push({ x: e.offsetX, y: e.offsetY });
+                currentPath.points.push({ x: e.offsetX, y: e.offsetY + 10 });
                 this.sendData({ type: 'mousemove', x: normalizedX, y: normalizedY });
             }
         };
@@ -40,7 +40,7 @@ export default class CanvasManager {
                 this.IS_DRAWING = false;
                 this.paths[this.paths.length - 1].IS_DRAWING = false;
                 this.sendData({ type: 'mouseup' });
-                this.startFading();
+                // this.startFading();
             }
         };
     }
@@ -58,10 +58,27 @@ export default class CanvasManager {
         });
         requestAnimationFrame(this.drawPaths.bind(this));
     }
-
     resizeCanvas() {
         // Set the desired aspect ratio
-        const aspectRatio = 16 / 9;
+        // const aspectRatio = 16 / 9;
+        var videoContainer = document.getElementById('localVideo');
+        console.log("🚀 ~ CanvasManager ~ resizeCanvas ~ videoContainer:", videoContainer)
+
+        // Function to calculate the greatest common divisor
+        function gcd(a, b) {
+            return b ? gcd(b, a % b) : a;
+        }
+
+        // Calculate the GCD of the video dimensions
+        let divisor = gcd(videoContainer.offsetWidth, videoContainer.offsetHeight);
+
+        // Simplify the width and height by the GCD
+        let simplifiedWidth = videoContainer.offsetWidth / divisor;
+        let simplifiedHeight = videoContainer.offsetHeight / divisor;
+
+        let aspectRatio = simplifiedWidth / simplifiedHeight
+        console.log("🚀 ~ CanvasManager ~ resizeCanvas ~ aspectRatio:", aspectRatio)
+
 
         // Get the window dimensions
         const windowWidth = window.innerWidth;
@@ -82,21 +99,20 @@ export default class CanvasManager {
         this.canvas.height = canvasHeight;
     }
 
-
     startFading() {
         this.fadeTimeout = setTimeout(() => {
             let fadeInterval = setInterval(() => {
                 let allFaded = true;
                 this.paths.forEach(path => {
-                    if (path.alpha > 0) {
+                    if (!path.isDrawing && path.alpha > 0) {
                         path.alpha -= 0.01;
                         allFaded = false;
                     }
                 });
-                this.drawPaths();
+                this.drawPaths(); // Redraw paths with updated alpha
                 if (allFaded) clearInterval(fadeInterval);
             }, 50);
-        }, 1000);
+        }, 500);
     }
 
     sendData(data) {

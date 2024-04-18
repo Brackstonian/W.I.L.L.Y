@@ -324,6 +324,7 @@ template {
 
 * {
   font-family: var(--f-primary);
+  cursor: none;
 }
 
 body {
@@ -335,6 +336,21 @@ body {
 .modal-main {
   margin: 0 1em;
   min-height: 100vh;
+}
+
+.cursor {
+  width: 8px;
+  height: 8px;
+  border: 2px solid var(--c-black);
+  border-radius: 50%;
+  margin-right: 35px;
+  display: block;
+  z-index: 9999999;
+  position: relative;
+  margin-top: 12px;
+  background: white;
+  right: 10px;
+  pointer-events: none;
 }
 
 .app__button,
@@ -357,32 +373,26 @@ body {
 }
 
 #videoContainer {
-  position: relative;
-  height: 700px;
-  aspect-ratio: 16/9;
+  aspect-ratio: var(--video-aspect-ratio);
   display: none;
   margin: auto;
   overflow: hidden;
-}
-#videoContainer.player-fullscreen {
   position: fixed;
   top: 0;
   left: 0;
   height: 100vh;
-  width: 100vw;
+  max-width: 100vw;
 }
-
 #localVideo {
-  aspect-ratio: 16/9;
+  aspect-ratio: var(--video-aspect-ratio);
   width: 100%;
 }
 
 #drawingCanvas {
   display: flex;
-  cursor: cell;
   position: absolute;
   width: 100%;
-  aspect-ratio: 16/9;
+  aspect-ratio: var(--video-aspect-ratio);
   top: 0;
 }
 
@@ -405,8 +415,8 @@ body {
 .viewPage__button.fullscreen {
   position: fixed;
   bottom: 1em;
-  left: 50%;
-  transform: translateX(-50%);
+  right: 0;
+  z-index: 99;
 }
 
 #inputField {

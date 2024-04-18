@@ -1,8 +1,9 @@
 import PeerManager from '../peer/peerManager.js';
 import CanvasManager from '../canvas/canvasManager.js';
+import { cursorSetup } from '../components/globals/cursor';
 
 document.addEventListener('DOMContentLoaded', () => {
-
+    cursorSetup();
     viewButton.addEventListener('click', () => {
         const peerManager = new PeerManager();
         const peerId = document.getElementById('inputField').value;
@@ -21,13 +22,36 @@ document.addEventListener('DOMContentLoaded', () => {
                 const call = peerManager.peer.call(peerId, stream);
                 call.on('stream', remoteStream => {
                     const videoContainer = document.getElementById('videoContainer');
-                    videoContainer.style.display = "block";
-                    console.log(remoteStream);
-                    localVideo.srcObject = remoteStream;
-                    videoContainer.classList.add('player-fullscreen')
-                    viewPageButton.classList.add('fullscreen');
 
-                    window.api.send('view-page-maximized');
+                    videoContainer.classList.add('active')
+                    viewPageButton.classList.add('fullscreen');
+                    videoContainer.style.display = "block";
+
+                    localVideo.srcObject = remoteStream;
+                    localVideo.onloadedmetadata = function () {
+                        console.log('width is', this.videoWidth);
+                        console.log('height is', this.videoHeight);
+
+                        // Function to calculate the greatest common divisor
+                        function gcd(a, b) {
+                            return b ? gcd(b, a % b) : a;
+                        }
+
+                        // Calculate the GCD of the video dimensions
+                        let divisor = gcd(this.videoWidth, this.videoHeight);
+
+                        // Simplify the width and height by the GCD
+                        let simplifiedWidth = this.videoWidth / divisor;
+                        let simplifiedHeight = this.videoHeight / divisor;
+
+                        // Display the aspect ratio as a fraction
+                        console.log('aspect ratio is', `${simplifiedWidth}/${simplifiedHeight}`);
+                        videoContainer.style.setProperty('--video-aspect-ratio', `${simplifiedWidth}/${simplifiedHeight}`);
+                    }
+
+                    // videoContainer.classList.add('player-fullscreen')
+                    // viewPageButton.classList.add('fullscreen');
+
 
                     peerManager.dataConnection = peerManager.peer.connect(peerId);
                     peerManager.dataConnection.on('error', err => {
@@ -42,6 +66,7 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     });
                     canvasManager.init();
+                    window.api.send('view-page-maximized');
                 });
                 call.on('error', err => {
                     console.error('Call error:', err);
