@@ -1,9 +1,10 @@
 # W.I.L.L.Y
 >  **W**ebRTC **I**nteractive **L**ive **L**ayer **Y**ard
 
+![alt text](https://i.giphy.com/sjkvxdFSqIWTJXshKr.webp)
+
 **Version: 0.1.4**
 
-Electron application to enable remote screen drawing in real-time.
 
 ## Installation (Mac Osx)
 Follow these steps to install W.I.L.L.Y:
