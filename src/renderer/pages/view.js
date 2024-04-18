@@ -2,11 +2,12 @@ import PeerManager from '../peer/peerManager.js';
 import CanvasManager from '../canvas/canvasManager.js';
 
 document.addEventListener('DOMContentLoaded', () => {
-    window.api.send('view-page-maximized');
 
     viewButton.addEventListener('click', () => {
         const peerManager = new PeerManager();
         const peerId = document.getElementById('inputField').value;
+
+        const viewPageButton = document.querySelector('.viewPage__button');
 
         if (!peerId) {
             alert('Please enter a Peer ID.');
@@ -24,7 +25,9 @@ document.addEventListener('DOMContentLoaded', () => {
                     console.log(remoteStream);
                     localVideo.srcObject = remoteStream;
                     videoContainer.classList.add('player-fullscreen')
+                    viewPageButton.classList.add('fullscreen');
 
+                    window.api.send('view-page-maximized');
 
                     peerManager.dataConnection = peerManager.peer.connect(peerId);
                     peerManager.dataConnection.on('error', err => {

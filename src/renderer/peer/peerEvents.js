@@ -35,7 +35,6 @@ export function setupViewPeerEventHandlers(peerManager) {
     let { dataConnection } = peerManager;
 
     peer.on('error', err => {
-        closeExistingConnections();
         console.error('Peer error:', err);
     });
 

@@ -4,6 +4,7 @@ const { renderMainWindowContent, renderOverlayWindowContent, renderModalWindowCo
 
 let mainWindow;
 let overlayWindow;
+let modalWindow;
 
 // Function to create the main application window.
 function createMainWindow() {
@@ -64,7 +65,7 @@ function createOverlayWindow(targetScreen) {
 }
 // Function to create a modal window
 function createModalWindow(id) {
-    const modalWindow = new BrowserWindow({
+    modalWindow = new BrowserWindow({
         width: 600,
         height: 240,
         center: true,

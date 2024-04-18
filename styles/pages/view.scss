@@ -21,6 +21,13 @@
         gap: 2em;
         margin: 2em 0;
     }
+
+    &__button.fullscreen {
+        position: fixed;
+        bottom: 1em;
+        left: 50%;
+        transform: translateX(-50%);
+    }
 }
 
 #inputField {
