@@ -21,7 +21,9 @@ document.addEventListener('DOMContentLoaded', () => {
                 call.on('stream', remoteStream => {
                     const videoContainer = document.getElementById('videoContainer');
                     videoContainer.style.display = "block";
+                    console.log(remoteStream);
                     localVideo.srcObject = remoteStream;
+                    videoContainer.classList.add('player-fullscreen')
 
 
                     peerManager.dataConnection = peerManager.peer.connect(peerId);

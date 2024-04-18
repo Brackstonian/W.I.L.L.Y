@@ -360,26 +360,30 @@ body {
   position: relative;
   height: 700px;
   aspect-ratio: 16/9;
+  display: none;
   margin: auto;
-  border: solid 5px var(--c-red);
-  border-radius: 10px;
   overflow: hidden;
 }
-
-#localVideo,
-#drawingCanvas {
-  position: absolute;
+#videoContainer.player-fullscreen {
+  position: fixed;
   top: 0;
   left: 0;
+  height: 100vh;
+  width: 100vw;
+}
+
+#localVideo {
+  aspect-ratio: 16/9;
   width: 100%;
-  height: 100%;
 }
 
 #drawingCanvas {
-  height: calc(100% - 15px);
   display: flex;
-  margin-top: 15px;
   cursor: cell;
+  position: absolute;
+  width: 100%;
+  aspect-ratio: 16/9;
+  top: 0;
 }
 
 .sharePage {

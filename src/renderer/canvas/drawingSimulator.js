@@ -12,7 +12,7 @@ export default class DrawingSimulator {
 
     simulate(data) {
         const x = data.x * this.canvas.width;
-        const y = (data.y * this.canvas.height) - 15;
+        const y = (data.y * this.canvas.height) - 25;
 
         switch (data.type) {
             case 'mousedown':
@@ -72,7 +72,26 @@ export default class DrawingSimulator {
     }
 
     resizeCanvas() {
-        this.canvas.width = window.innerWidth;
-        this.canvas.height = window.innerHeight;
+        // Set the desired aspect ratio
+        const aspectRatio = 16 / 9;
+
+        // Get the window dimensions
+        const windowWidth = window.innerWidth;
+        const windowHeight = window.innerHeight;
+
+        // Calculate the width and height keeping the aspect ratio
+        let canvasWidth = windowWidth;
+        let canvasHeight = canvasWidth / aspectRatio;
+
+        // Adjust height if it's too high to fit into the window
+        if (canvasHeight > windowHeight) {
+            canvasHeight = windowHeight;
+            canvasWidth = canvasHeight * aspectRatio;
+        }
+
+        // Apply the calculated dimensions to the canvas
+        this.canvas.width = canvasWidth;
+        this.canvas.height = canvasHeight;
     }
+
 }
