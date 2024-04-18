@@ -1,18 +1,18 @@
-.app__button {  
-    font-family: "Poppins", sans-serif;
-    background: var(--c-dark-green);
-    border: unset;
+.app__button,
+.modal__button {  
+    background-color: unset;
+    border: .1em solid var(--c-black);
     padding: 0.5em;
-    font-size: 1.5em;
+    font-size: 1em;
     text-transform: uppercase;
-    color: var(--c-light-yellow);
-    font-weight: 700;
-    box-shadow: var(--c-black) 10px 10px;
+    color: var(--c-black);
+    font-weight: 500;
     transition: all .1s;
+    white-space: nowrap;
     
     &:hover {
-        box-shadow: var(--c-black) 0px 0px;
-        border: solid 2px var(--c-light-yellow);
+        background: var(--c-black);
+        color: var(--c-white);
         cursor: pointer;
     }
 }

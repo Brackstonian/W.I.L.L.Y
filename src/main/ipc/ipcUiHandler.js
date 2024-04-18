@@ -5,7 +5,7 @@ const { getOverlayWindow, createOverlayWindow } = require('../windows/windowMana
 function setupUIHandlers() {
     ipcMain.handle('request-screens', async () => {
         try {
-            const sources = await desktopCapturer.getSources({ types: ['screen'], thumbnailSize: { width: 200, height: 150 } });
+            const sources = await desktopCapturer.getSources({ types: ['screen'], thumbnailSize: { width: 960, height: 540 } });
             return sources.map(source => ({
                 name: source.name,
                 thumbnail: source.thumbnail.toDataURL(),

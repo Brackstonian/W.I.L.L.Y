@@ -11,7 +11,7 @@ export default class CanvasManager {
     init() {
         console.log('this triggered');
         this.resizeCanvas(); // Adjust canvas size.
-        this.drawPaths(); // Start the drawing process.
+        // this.drawPaths(); // Start the drawing process.
         window.onresize = this.resizeCanvas.bind(this); // Ensure canvas resizes properly on window resize.
 
         this.canvas.onmousedown = (e) => {
@@ -45,19 +45,19 @@ export default class CanvasManager {
         };
     }
 
-    drawPaths() {
-        if (!this.ctx) return;
-        this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
-        this.paths.forEach(path => {
-            this.ctx.beginPath();
-            this.ctx.moveTo(path.points[0].x, path.points[0].y);
-            path.points.forEach(point => this.ctx.lineTo(point.x, point.y));
-            this.ctx.strokeStyle = `rgba(255, 0, 0, ${path.alpha})`;
-            this.ctx.lineWidth = 2;
-            this.ctx.stroke();
-        });
-        requestAnimationFrame(this.drawPaths.bind(this));
-    }
+    // drawPaths() {
+    //     if (!this.ctx) return;
+    //     this.ctx.clearRect(0, 0, this.canvas.width, this.canvas.height);
+    //     this.paths.forEach(path => {
+    //         this.ctx.beginPath();
+    //         this.ctx.moveTo(path.points[0].x, path.points[0].y);
+    //         path.points.forEach(point => this.ctx.lineTo(point.x, point.y));
+    //         this.ctx.strokeStyle = `rgba(255, 0, 0, ${path.alpha})`;
+    //         this.ctx.lineWidth = 2;
+    //         this.ctx.stroke();
+    //     });
+    //     requestAnimationFrame(this.drawPaths.bind(this));
+    // }
 
     resizeCanvas() {
         if (!this.canvas) return;

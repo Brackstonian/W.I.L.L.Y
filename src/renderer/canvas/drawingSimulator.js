@@ -12,7 +12,7 @@ export default class DrawingSimulator {
 
     simulate(data) {
         const x = data.x * this.canvas.width;
-        const y = data.y * this.canvas.height;
+        const y = (data.y * this.canvas.height) - 15;
 
         switch (data.type) {
             case 'mousedown':

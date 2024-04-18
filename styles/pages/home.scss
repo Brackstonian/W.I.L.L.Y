@@ -3,42 +3,27 @@
 
 
 .homePage {
-  background: var(--c-light-green);
-  min-height: 100vh;
-
   &__inner {
-    position: absolute;
-    width: 100%;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -50%);
+    height: 100vh;
   }
 
   &__title {
-    margin: 0px;
-    font-size: 4em;
-    text-align: center;
-
-    color: var(--c-light-yellow);
-  }
-  &__version {
-    font-size: 1em;
-    margin: 0px;
-    text-align: center;
-
-    color: var(--c-light-yellow);
+    font-size: 3em;
+    line-height: 1em;
+    
   }
 
   &__function-selector-inner {
     display: flex;
-    padding: 2em 0;
+    flex-direction: column;
+    gap: 1em;
   }
   &__function-selector-left {
     width: 50%;
-    text-align: center;
+
   }
   &__function-selector-right {
     width: 50%;
-    text-align: center;
+
   }
 }

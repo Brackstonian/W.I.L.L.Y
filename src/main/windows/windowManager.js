@@ -1,6 +1,6 @@
 const { BrowserWindow, screen } = require('electron');
 const path = require('path');
-const { renderMainWindowContent, renderOverlayWindowContent } = require('./windowHelpers');
+const { renderMainWindowContent, renderOverlayWindowContent, renderModalWindowContent } = require('./windowHelpers');
 
 let mainWindow;
 let overlayWindow;
@@ -8,9 +8,10 @@ let overlayWindow;
 // Function to create the main application window.
 function createMainWindow() {
     mainWindow = new BrowserWindow({
-        width: 800,
-        height: 600,
+        width: 400,
+        height: 240,
         center: true,
+        resizable: false,
         webPreferences: {
             preload: path.join(__dirname, '..', '..', 'preload.js'),
             contextIsolation: true,
@@ -61,6 +62,27 @@ function createOverlayWindow(targetScreen) {
 
     return overlayWindow;
 }
+// Function to create a modal window
+function createModalWindow(id) {
+    const modalWindow = new BrowserWindow({
+        width: 600,
+        height: 240,
+        center: true,
+        resizable: false,
+    });
+
+    const shareID = id;
+    renderModalWindowContent(modalWindow, shareID);
+    modalWindow.on('restore', () => {
+        mainWindow.show();
+    });
+    modalWindow.on('closed', () => {
+        modalWindow = null;
+    });
+
+    return modalWindow;
+}
+
 // Function to get the current instance of the main window.
 function getMainWindow() {
     return mainWindow; // Return the current overlay window instance.
@@ -70,4 +92,4 @@ function getOverlayWindow() {
     return overlayWindow; // Return the current overlay window instance.
 }
 // Export functions to be used in other parts of the application.
-module.exports = { createMainWindow, createOverlayWindow, getOverlayWindow, getMainWindow };
+module.exports = { createMainWindow, createOverlayWindow, createModalWindow, getOverlayWindow, getMainWindow };

@@ -4,34 +4,14 @@
 @import "../components/video-player.scss";
 
 .viewPage {
-    background-color: var(--c-dark-green);
     min-height: 100vh;
 
     &__title {
-        margin: 0px;
         font-size: 4em;
-        text-align: center;
-        color: var(--c-light-yellow);
     }
 
     &__button-wrapper {
-        text-align: center;
-    }
-    
-    &__button {
-        background-color: var(--c-light-green);
-        width: 8em;
-
-        &--connect {
-            box-shadow: unset;
-            border: solid 2px var(--c-light-yellow);
-            transition: all .4s;
-
-            &:hover {
-                background: var(--c-light-yellow);
-                color: var(--c-dark-green);
-            }
-        }
+        text-align: left;
     }
 
     &__input-wrapper {
@@ -39,15 +19,15 @@
         flex-direction: row;
         width: 26em;
         gap: 2em;
-        margin: 6em auto;
+        margin: 2em 0;
     }
 }
 
 #inputField {
-    font-size: 1.75em;
-    color: var(--c-light-yellow);
+    font-size: 1em;
+    color: var(--c-black);
     background: transparent;
-    border: solid 2px var(--c-light-yellow);
+    border: solid 2px var(--c-black);
     font-weight: 900;
     text-transform: uppercase;
 

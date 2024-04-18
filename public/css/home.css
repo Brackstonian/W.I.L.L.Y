@@ -1,10 +1,6 @@
 /*!*****************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./styles/pages/home.scss ***!
   \*****************************************************************************************************************/
-@import url(https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap);
-/*!*********************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./styles/pages/home.scss (1) ***!
-  \*********************************************************************************************************************/
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */
@@ -316,69 +312,65 @@ template {
 
 :root {
   --c-black: #140d0a;
+  --c-white: #f4f4f4;
   --c-yellow: #faea31;
   --c-green: #109648;
   --c-red: #D62828;
   --c-light-green: #2a6365;
   --c-light-yellow: #eee8b8;
   --c-dark-green: #004b4f;
-  --f-primary: "Poppins", sans-serif;
+  --f-primary: "Helvetica", sans-serif;
 }
 
 * {
   font-family: var(--f-primary);
 }
 
-.app__button {
-  font-family: "Poppins", sans-serif;
-  background: var(--c-dark-green);
-  border: unset;
-  padding: 0.5em;
-  font-size: 1.5em;
-  text-transform: uppercase;
-  color: var(--c-light-yellow);
-  font-weight: 700;
-  box-shadow: var(--c-black) 10px 10px;
-  transition: all 0.1s;
+body {
+  overflow: hidden;
+  background: radial-gradient(circle, rgb(227, 227, 227) 0%, rgba(246, 246, 246, 0.8043592437) 0%, rgb(255, 255, 255) 100%);
 }
-.app__button:hover {
-  box-shadow: var(--c-black) 0px 0px;
-  border: solid 2px var(--c-light-yellow);
+
+.app-main,
+.modal-main {
+  margin: 0 1em;
+  min-height: 100vh;
+}
+
+.app__button,
+.modal__button {
+  background-color: unset;
+  border: 0.1em solid var(--c-black);
+  padding: 0.5em;
+  font-size: 1em;
+  text-transform: uppercase;
+  color: var(--c-black);
+  font-weight: 500;
+  transition: all 0.1s;
+  white-space: nowrap;
+}
+.app__button:hover,
+.modal__button:hover {
+  background: var(--c-black);
+  color: var(--c-white);
   cursor: pointer;
 }
 
-.homePage {
-  background: var(--c-light-green);
-  min-height: 100vh;
-}
 .homePage__inner {
-  position: absolute;
-  width: 100%;
-  top: 50%;
-  left: 50%;
-  transform: translate(-50%, -50%);
+  height: 100vh;
 }
 .homePage__title {
-  margin: 0px;
-  font-size: 4em;
-  text-align: center;
-  color: var(--c-light-yellow);
-}
-.homePage__version {
-  font-size: 1em;
-  margin: 0px;
-  text-align: center;
-  color: var(--c-light-yellow);
+  font-size: 3em;
+  line-height: 1em;
 }
 .homePage__function-selector-inner {
   display: flex;
-  padding: 2em 0;
+  flex-direction: column;
+  gap: 1em;
 }
 .homePage__function-selector-left {
   width: 50%;
-  text-align: center;
 }
 .homePage__function-selector-right {
   width: 50%;
-  text-align: center;
 }

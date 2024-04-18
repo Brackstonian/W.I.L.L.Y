@@ -3,9 +3,8 @@ export function setupStreamPeerEventHandlers(peerManager) {
     let { dataConnection } = peerManager;
 
     peer.on('open', id => {
-        const uniqueIdDisplay = document.getElementById('uniqueId');
-        uniqueIdDisplay.innerText = `Share this ID  : ${id}`; // Display peer ID
-        navigator.clipboard.writeText(id);
+        // navigator.clipboard.writeText(id);
+        window.api.send('load-modal', id);
     });
 
     peer.on('error', err => {

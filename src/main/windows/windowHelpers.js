@@ -17,7 +17,7 @@ function renderMainWindowContent(mainWindow) {
         mainWindow.loadFile(tempHtmlPath);
     });
 
-    // mainWindow.webContents.openDevTools();
+    mainWindow.webContents.openDevTools();
 }
 
 // Render content for overlay window
@@ -31,6 +31,21 @@ function renderOverlayWindowContent(overlayWindow) {
         fs.writeFileSync(tempHtmlPath, html);
         overlayWindow.loadFile(tempHtmlPath);
         overlayWindow.setIgnoreMouseEvents(true);
+    });
+}
+
+// Render content for modal window
+function renderModalWindowContent(modalWindow, shareID) {
+    Twig.renderFile(path.join(__dirname, '../../../views/components/share-modal.twig'), { assetPath: assetPath, id: shareID }, (err, html) => {
+        if (err) {
+            console.error('Error rendering Twig template:', err);
+            return;
+        }
+        const tempHtmlPath = path.join(app.getPath('temp'), 'modal.html');
+        fs.writeFileSync(tempHtmlPath, html);
+
+        modalWindow.webContents.openDevTools();
+        modalWindow.loadFile(tempHtmlPath);
     });
 }
 
@@ -50,4 +65,4 @@ function renderPage(templateName) {
     });
 }
 
-module.exports = { renderMainWindowContent, renderOverlayWindowContent, renderPage };
+module.exports = { renderMainWindowContent, renderOverlayWindowContent, renderModalWindowContent, renderPage };

@@ -1,6 +1,6 @@
-/*!********************************************************************************************************************!*\
-  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./styles/pages/overlay.scss ***!
-  \********************************************************************************************************************/
+/*!*****************************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./styles/components/share-modal.scss ***!
+  \*****************************************************************************************************************************/
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */
@@ -337,22 +337,21 @@ body {
   min-height: 100vh;
 }
 
-body,
-html {
-  margin: 0;
-  padding: 0;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-  background: unset;
+.app__button,
+.modal__button {
+  background-color: unset;
+  border: 0.1em solid var(--c-black);
+  padding: 0.5em;
+  font-size: 1em;
+  text-transform: uppercase;
+  color: var(--c-black);
+  font-weight: 500;
+  transition: all 0.1s;
+  white-space: nowrap;
 }
-
-#overlayCanvas {
-  margin-top: calc(var(--menu-bar-height) * -1);
-  width: 100vw;
-  height: 100dvh;
-  aspect-ratio: 16/9;
-  background: transparent;
-  border: 2px solid rgb(0, 255, 8);
-  box-sizing: border-box;
+.app__button:hover,
+.modal__button:hover {
+  background: var(--c-black);
+  color: var(--c-white);
+  cursor: pointer;
 }

@@ -13,18 +13,19 @@ document.addEventListener('DOMContentLoaded', () => {
             screenList.innerHTML = '';
             sources.forEach((source, index) => {
                 const li = document.createElement('li');
+                li.classList.add('app__button');
                 const img = document.createElement('img');
+                console.log(source);
                 img.src = source.thumbnail;
                 img.alt = `Screen ${index + 1}`;
-                img.style.width = '100px';  // Set thumbnail size
-                img.style.height = '75px';
-                li.textContent = `Screen ${index + 1}: ${source.name}`;
+                li.textContent = source.name;
                 li.appendChild(img);
                 li.addEventListener('click', () => {
                     if (selectedListItem) {
                         selectedListItem.style.border = "";  // Remove border from previously selected item
                     }
-                    li.style.border = "solid 5px red";
+                    li.style.background = "var(--c-black)";
+                    li.style.color = "var(--c-white)";
                     selectedListItem = li;  // Update the selected item
                     console.log('Sending index:', index, typeof index);
 
