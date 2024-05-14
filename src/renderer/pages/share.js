@@ -3,7 +3,6 @@ import { cursorSetup } from '../components/globals/cursor';
 
 document.addEventListener('DOMContentLoaded', () => {
     cursorSetup();
-    let localStream;
     let peerManager; // Make peerManager persistent
 
     window.api.invoke('request-screens')
@@ -41,8 +40,7 @@ document.addEventListener('DOMContentLoaded', () => {
                                 }
                             }).then(stream => {
                                 if (!peerManager) {
-                                    localStream = stream;
-                                    peerManager = new PeerManager(localStream);
+                                    peerManager = new PeerManager(stream);
                                     console.log("Initializing PeerManager with stream");
                                     peerManager.initializePeer('stream');
                                 } else {

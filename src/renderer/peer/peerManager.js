@@ -1,13 +1,27 @@
 import Peer from 'peerjs';
 import { setupStreamPeerEventHandlers, setupViewPeerEventHandlers } from './peerEvents';
 
-export default class PeerManager {
-    constructor(localStream) {
+let peerManagerInstance = null;
+
+class PeerManager {
+    constructor(localStream = null) {
         this.peer = null;
         this.localStream = localStream;
-        this.dataConnection = null;
+        this.dataConnections = [];  // Store multiple data connections
         this.calls = [];  // Store active calls
         console.log('PeerManager constructed with localStream:', localStream ? localStream.id : 'undefined');
+    }
+
+    setLocalStream(localStream) {
+        this.localStream = localStream;
+        console.log('Local stream set:', localStream ? localStream.id : 'undefined');
+        // Answer any pending calls that arrived before the localStream was set
+        this.calls.forEach(call => {
+            if (!call.answered) {
+                call.answer(localStream);
+                call.answered = true;
+            }
+        });
     }
 
     initializePeer(type) {
@@ -24,17 +38,37 @@ export default class PeerManager {
             config: {
                 'iceServers': [
                     { urls: 'stun:stun1.l.google.com:19302' },
-                    { urls: 'turn:numb.viagenie.ca', credential: 'muazkh', username: 'webrtc@live.com' }
+                    { urls: 'stun:stun2.l.google.com:19302' },
+                    { urls: 'stun:stun3.l.google.com:19302' },
+                    { urls: 'stun:stun4.l.google.com:19302' }
+                    // You can add more TURN servers here if needed
                 ]
             }
         });
 
         this.peer.on('call', (call) => {
-            call.answer(this.localStream);
+            if (this.localStream) {
+                console.log('Incoming call, answering with localStream:', this.localStream.id);
+                call.answer(this.localStream);
+                call.answered = true;
+            } else {
+                console.warn('Local stream is not set, cannot answer call');
+                call.answered = false;
+                // Store the call to be answered later when localStream is set
+                this.calls.push(call);
+            }
             call.on('stream', (remoteStream) => {
-                // Handle the remote stream
+                console.log('Remote stream received');
+                // Handle the remote stream (this would be used in the viewer code)
             });
-            this.calls.push(call);  // Store the call
+            call.on('close', () => {
+                console.log('Call closed');
+                this.removeCall(call);
+            });
+            call.on('error', (err) => {
+                console.error('Call error:', err);
+            });
+            this.addCall(call);
         });
 
         if (type === 'stream') {
@@ -66,4 +100,21 @@ export default class PeerManager {
     removeCall(call) {
         this.calls = this.calls.filter(c => c !== call);
     }
+
+    addDataConnection(conn) {
+        this.dataConnections.push(conn);
+    }
+
+    removeDataConnection(conn) {
+        this.dataConnections = this.dataConnections.filter(c => c !== conn);
+    }
+}
+
+export default function getPeerManager(localStream = null) {
+    if (!peerManagerInstance) {
+        peerManagerInstance = new PeerManager(localStream);
+    } else if (localStream) {
+        peerManagerInstance.setLocalStream(localStream);
+    }
+    return peerManagerInstance;
 }

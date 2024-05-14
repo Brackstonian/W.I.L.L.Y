@@ -1,11 +1,13 @@
-import PeerManager from '../peer/peerManager.js';
+import getPeerManager from '../peer/peerManager.js';
 import CanvasManager from '../canvas/canvasManager.js';
 import { cursorSetup } from '../components/globals/cursor';
 
 document.addEventListener('DOMContentLoaded', () => {
     cursorSetup();
+    const viewButton = document.getElementById('viewButton');
+
     viewButton.addEventListener('click', () => {
-        const peerManager = new PeerManager();
+        const peerManager = getPeerManager();
         const peerId = document.getElementById('inputField').value;
 
         const viewPageButton = document.querySelector('.viewPage__button');
@@ -27,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
                     viewPageButton.classList.add('fullscreen');
                     videoContainer.style.display = "block";
 
+                    const localVideo = document.getElementById('localVideo');
                     localVideo.srcObject = remoteStream;
                     localVideo.onloadedmetadata = function () {
                         console.log('width is', this.videoWidth);
@@ -48,10 +51,6 @@ document.addEventListener('DOMContentLoaded', () => {
                         console.log('aspect ratio is', `${simplifiedWidth}/${simplifiedHeight}`);
                         videoContainer.style.setProperty('--video-aspect-ratio', `${simplifiedWidth}/${simplifiedHeight}`);
                     }
-
-                    // videoContainer.classList.add('player-fullscreen')
-                    // viewPageButton.classList.add('fullscreen');
-
 
                     peerManager.dataConnection = peerManager.peer.connect(peerId);
                     peerManager.dataConnection.on('error', err => {
@@ -77,5 +76,4 @@ document.addEventListener('DOMContentLoaded', () => {
                 alert('Could not access your camera. Please check device permissions.');
             });
     });
-
 });
