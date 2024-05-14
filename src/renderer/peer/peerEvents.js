@@ -1,3 +1,14 @@
+// peerEvents.js
+
+// Function to update the status message and show the retry button
+function updateStatus(message, showRetry) {
+    const statusMessage = document.getElementById('statusMessage');
+    const retryButton = document.getElementById('retryButton');
+
+    statusMessage.textContent = message;
+    retryButton.style.display = showRetry ? 'block' : 'none';
+}
+
 export function setupStreamPeerEventHandlers(peerManager) {
     const { peer, localStream } = peerManager;
     console.log('Setting up stream peer event handlers with localStream:', localStream ? localStream.id : 'undefined');
@@ -9,6 +20,7 @@ export function setupStreamPeerEventHandlers(peerManager) {
 
     peer.on('error', err => {
         console.error('Peer error:', err);
+        updateStatus('Connection failed. Please retry.', true); // Update the status message and show retry button
         peer.destroy(); // Destroy peer on error
         console.log('Peer destroyed due to error');
     });
@@ -52,6 +64,7 @@ export function setupStreamPeerEventHandlers(peerManager) {
         });
         call.on('error', (err) => {
             console.error('Call error:', err);
+            updateStatus('Call error occurred. Please retry.', true); // Update the status message and show retry button
         });
     });
 }
@@ -62,6 +75,7 @@ export function setupViewPeerEventHandlers(peerManager) {
 
     peer.on('error', err => {
         console.error('Peer error:', err);
+        updateStatus('Connection failed. Please retry.', true); // Update the status message and show retry button
     });
 
     peer.on('connection', conn => {
@@ -97,6 +111,7 @@ export function setupViewPeerEventHandlers(peerManager) {
         });
         call.on('error', err => {
             console.error('Call error:', err);
+            updateStatus('Call error occurred. Please retry.', true); // Update the status message and show retry button
         });
     });
 }
