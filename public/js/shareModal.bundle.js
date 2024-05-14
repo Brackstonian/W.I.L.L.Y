@@ -26,7 +26,7 @@ eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpac
   \************************************************/
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _globals_cursor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./globals/cursor */ \"./src/renderer/components/globals/cursor.js\");\n\ndocument.addEventListener('DOMContentLoaded', function () {\n  (0,_globals_cursor__WEBPACK_IMPORTED_MODULE_0__.cursorSetup)();\n  var copyToClipboard = document.getElementById('copyToClipboard');\n  copyToClipboard.addEventListener('click', function () {\n    navigator.clipboard.writeText(copyToClipboard.dataset.shareid);\n  });\n});\n\n//# sourceURL=webpack://W.I.L.L.Y/./src/renderer/components/share-modal.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony import */ var _globals_cursor__WEBPACK_IMPORTED_MODULE_0__ = __webpack_require__(/*! ./globals/cursor */ \"./src/renderer/components/globals/cursor.js\");\n\ndocument.addEventListener('DOMContentLoaded', function () {\n  (0,_globals_cursor__WEBPACK_IMPORTED_MODULE_0__.cursorSetup)();\n  var copyToClipboard = document.getElementById('copyToClipboard');\n  var copyToClipboardUrl = document.getElementById('copyToClipboardUrl');\n  copyToClipboard.addEventListener('click', function () {\n    navigator.clipboard.writeText(copyToClipboard.dataset.shareid);\n  });\n  copyToClipboardUrl.addEventListener('click', function () {\n    navigator.clipboard.writeText(copyToClipboardUrl.dataset.shareurl);\n  });\n});\n\n//# sourceURL=webpack://W.I.L.L.Y/./src/renderer/components/share-modal.js?");
 
 /***/ }),
 

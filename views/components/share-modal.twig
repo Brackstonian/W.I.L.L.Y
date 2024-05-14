@@ -15,11 +15,20 @@
 		<div class="modal-content">
 			<h1 class="sharePage__title">Share ID.</h1>
 
-			<p id="modalText">Share this ID :
-				<strong>{{id}}<strong></p>
-					<button id="copyToClipboard" data-shareid="{{id}}" class="modal__button">Copy to clipboard</button>
-				</div>
-			</p>
+			<div class="modal__text-container">
+				<p id="modalText">URL :
+					<strong>https://w-i-l-l-y-web.onrender.com/view/{{id}}<strong></p>
+					</p>
+				</p>
+				<p>OR</p>
+				<p id="modalText">ID :
+					<strong>{{id}}<strong></p>
+						<button id="copyToClipboardUrl" data-shareurl="https://w-i-l-l-y-web.onrender.com/view/{{id}}" class="modal__button">Copy URL to clipboard</button>
+						<button id="copyToClipboard" data-shareid="{{id}}" class="modal__button">Copy ID to clipboard</button>
+					</p>
+				</p>
+			</div>
+
 		</div>
 
 	{% endblock %}
