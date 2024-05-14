@@ -1,10 +1,9 @@
-
 import PeerManager from '../peer/peerManager.js';
+import { cursorSetup } from '../components/globals/cursor';
 
 document.addEventListener('DOMContentLoaded', () => {
-    let localStream;
-
-    // window.api.send('view-page-maximized');
+    cursorSetup();
+    let peerManager; // Make peerManager persistent
 
     window.api.invoke('request-screens')
         .then(sources => {
@@ -40,13 +39,14 @@ document.addEventListener('DOMContentLoaded', () => {
                                     }
                                 }
                             }).then(stream => {
-                                // const mainWindow = getMainWindow();  
-
-                                localStream = stream;
-                                // videoElement.srcObject = stream;
-                                // localVideo.srcObject = stream;
-                                const peerManager = new PeerManager(localStream);
-                                return peerManager.initializePeer('stream');
+                                if (!peerManager) {
+                                    peerManager = new PeerManager(stream);
+                                    console.log("Initializing PeerManager with stream");
+                                    peerManager.initializePeer('stream');
+                                } else {
+                                    console.log("Updating stream in PeerManager");
+                                    peerManager.updateStream(stream);
+                                }
                             }).catch(err => {
                                 console.error('Failed to get screen stream', err);
                                 alert('Unable to capture the screen. Please check console for more details.');

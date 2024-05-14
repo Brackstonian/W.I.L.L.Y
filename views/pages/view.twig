@@ -1,30 +1,30 @@
 {% extends '../layouts/base.twig' %}
 
-{% block title %}W.I.L.L.Y View.
+{% block title %}W.I.L.L.Y VIEW
 {% endblock %}
 
 {% block styles %}
 	<link rel="stylesheet" type="text/css" href="{{ assetPath }}/css/view.css">
 {% endblock %}
 
-
 {% block content %}
 	<main class="app-main viewPage">
-		<h1 class="viewPage__title">View. Draw.</h1>
-		<div class="viewPage__input-wrapper">
+		<h1 class="viewPage__title">VIEW/DRAW</h1>
+		<div class="viewPage__input-wrapper" id="inputWrapper">
 			<input placeholder="Input Share ID" id="inputField" type="text">
 			<button id="viewButton" class="app__button viewPage__button--connect">Connect</button>
+
+		</div>
+		<div id="statusWrapper" class="viewPage__input-wrapper" style="display: none;">
+			<p id="statusMessage">Connecting...</p>
+			<button id="retryButton" class="app__button viewPage__button--retry" style="display: none;">Retry</button>
 		</div>
 		<div class="viewPage__button-wrapper">
 			<button class="app__button viewPage__button" onclick="location.href='index.html'">Go Back</button>
 		</div>
-
 		{% include '../components/videoPlayer.twig' %}
-
-
 	</main>
 {% endblock %}
-
 
 {% block scripts %}
 	<script src="{{ assetPath }}/js/view.bundle.js"></script>

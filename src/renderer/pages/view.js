@@ -1,18 +1,21 @@
-import PeerManager from '../peer/peerManager.js';
+import getPeerManager from '../peer/peerManager.js';
 import CanvasManager from '../canvas/canvasManager.js';
+import { cursorSetup } from '../components/globals/cursor';
 
 document.addEventListener('DOMContentLoaded', () => {
+    cursorSetup();
+    const viewButton = document.getElementById('viewButton');
+    const retryButton = document.getElementById('retryButton');
+    const inputWrapper = document.getElementById('inputWrapper');
+    const statusWrapper = document.getElementById('statusWrapper');
+    const statusMessage = document.getElementById('statusMessage');
 
-    viewButton.addEventListener('click', () => {
-        const peerManager = new PeerManager();
-        const peerId = document.getElementById('inputField').value;
+    const handleConnection = (peerId) => {
+        const peerManager = getPeerManager();
 
-        const viewPageButton = document.querySelector('.viewPage__button');
-
-        if (!peerId) {
-            alert('Please enter a Peer ID.');
-            return;
-        }
+        statusMessage.textContent = 'Connecting...';
+        inputWrapper.style.display = 'none';
+        statusWrapper.style.display = 'block';
 
         peerManager.initializePeer('view');
 
@@ -21,13 +24,28 @@ document.addEventListener('DOMContentLoaded', () => {
                 const call = peerManager.peer.call(peerId, stream);
                 call.on('stream', remoteStream => {
                     const videoContainer = document.getElementById('videoContainer');
-                    videoContainer.style.display = "block";
-                    console.log(remoteStream);
-                    localVideo.srcObject = remoteStream;
-                    videoContainer.classList.add('player-fullscreen')
-                    viewPageButton.classList.add('fullscreen');
 
-                    window.api.send('view-page-maximized');
+                    videoContainer.classList.add('active');
+                    videoContainer.style.display = "block";
+
+                    const localVideo = document.getElementById('localVideo');
+                    localVideo.srcObject = remoteStream;
+                    localVideo.onloadedmetadata = function () {
+                        // Function to calculate the greatest common divisor
+                        function gcd(a, b) {
+                            return b ? gcd(b, a % b) : a;
+                        }
+
+                        // Calculate the GCD of the video dimensions
+                        let divisor = gcd(this.videoWidth, this.videoHeight);
+
+                        // Simplify the width and height by the GCD
+                        let simplifiedWidth = this.videoWidth / divisor;
+                        let simplifiedHeight = this.videoHeight / divisor;
+
+                        // Display the aspect ratio as a fraction
+                        videoContainer.style.setProperty('--video-aspect-ratio', `${simplifiedWidth}/${simplifiedHeight}`);
+                    }
 
                     peerManager.dataConnection = peerManager.peer.connect(peerId);
                     peerManager.dataConnection.on('error', err => {
@@ -42,15 +60,33 @@ document.addEventListener('DOMContentLoaded', () => {
                         }
                     });
                     canvasManager.init();
+                    window.api.send('view-page-maximized');
                 });
                 call.on('error', err => {
                     console.error('Call error:', err);
-                    alert('An error occurred during the call.');
+                    statusMessage.textContent = 'Connection failed. Please retry.';
+                    retryButton.style.display = 'block';
                 });
             }).catch(err => {
                 console.error('Failed to get local stream', err);
-                alert('Could not access your camera. Please check device permissions.');
+                statusMessage.textContent = 'Could not access your camera. Please check device permissions.';
+                retryButton.style.display = 'block';
             });
+    };
+
+    viewButton.addEventListener('click', () => {
+        const peerId = document.getElementById('inputField').value;
+        if (!peerId) {
+            alert('Please enter a Peer ID.');
+            return;
+        }
+        handleConnection(peerId);
     });
 
+    retryButton.addEventListener('click', () => {
+        const peerId = document.getElementById('inputField').value;
+        statusMessage.textContent = 'Retrying connection...';
+        retryButton.style.display = 'none';
+        handleConnection(peerId);
+    });
 });

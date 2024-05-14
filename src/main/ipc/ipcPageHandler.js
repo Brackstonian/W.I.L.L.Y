@@ -29,7 +29,7 @@ function setupPageHandlers() {
     });
     ipcMain.on('view-page-default', () => {
         const mainWindow = getMainWindow();
-        mainWindow.setSize(400, 300);
+        mainWindow.setSize(460, 320);
         mainWindow.center();
         mainWindow.resizable = false;
     });

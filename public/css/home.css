@@ -319,11 +319,12 @@ template {
   --c-light-green: #2a6365;
   --c-light-yellow: #eee8b8;
   --c-dark-green: #004b4f;
-  --f-primary: "Helvetica", sans-serif;
+  --f-primary: monospace;
 }
 
 * {
   font-family: var(--f-primary);
+  cursor: none;
 }
 
 body {
@@ -335,6 +336,20 @@ body {
 .modal-main {
   margin: 0 1em;
   min-height: 100vh;
+}
+
+.cursor {
+  width: 8px;
+  height: 8px;
+  border: 2px solid var(--c-black);
+  border-radius: 50%;
+  margin-right: 35px;
+  display: block;
+  z-index: 9999999;
+  position: relative;
+  background: white;
+  right: 10px;
+  pointer-events: none;
 }
 
 .app__button,
@@ -359,18 +374,25 @@ body {
 .homePage__inner {
   height: 100vh;
 }
+.homePage img {
+  position: fixed;
+  z-index: -1;
+  top: 0;
+  left: 0;
+  transform: rotate(90deg) translate(0px, -200px);
+  height: 149px;
+}
 .homePage__title {
   font-size: 3em;
   line-height: 1em;
+  text-align: center;
+  margin-top: 2em;
 }
 .homePage__function-selector-inner {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   gap: 1em;
-}
-.homePage__function-selector-left {
-  width: 50%;
-}
-.homePage__function-selector-right {
-  width: 50%;
+  text-align: center;
+  margin: auto;
+  width: fit-content;
 }

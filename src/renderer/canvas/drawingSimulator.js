@@ -53,7 +53,7 @@ export default class DrawingSimulator {
                 this.drawPaths(); // Redraw paths with updated alpha
                 if (allFaded) clearInterval(fadeInterval);
             }, 50);
-        }, 1000);
+        }, 100);
     }
 
     drawPaths() {
@@ -66,6 +66,8 @@ export default class DrawingSimulator {
             });
             this.ctx.strokeStyle = `rgba(255, 0, 0, ${path.alpha})`;
             this.ctx.lineWidth = 4;
+            this.ctx.lineJoin = 'round';
+            this.ctx.lineCap = 'round';
             this.ctx.globalAlpha = 0.75;
             this.ctx.stroke();
         });
