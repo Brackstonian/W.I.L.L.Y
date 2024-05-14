@@ -13,7 +13,7 @@
     --c-light-yellow: #eee8b8;
     --c-dark-green: #004b4f;
     // Fonts
-    --f-primary: "Helvetica", sans-serif;
+    --f-primary: monospace;
 }
 
 // Defaults
@@ -42,7 +42,6 @@ body {
   display: block;
   z-index: 9999999;
   position: relative;
-  margin-top: 12px;
   background: white;
   right: 10px;
   pointer-events: none;

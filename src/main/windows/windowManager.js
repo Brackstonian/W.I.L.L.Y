@@ -9,7 +9,7 @@ let modalWindow;
 // Function to create the main application window.
 function createMainWindow() {
     mainWindow = new BrowserWindow({
-        width: 400,
+        width: 600,
         height: 240,
         center: true,
         resizable: false,
@@ -66,8 +66,8 @@ function createOverlayWindow(targetScreen) {
 // Function to create a modal window
 function createModalWindow(id) {
     modalWindow = new BrowserWindow({
-        width: 600,
-        height: 240,
+        width: 460,
+        height: 320,
         center: true,
         resizable: false,
     });
