@@ -17,7 +17,7 @@ function renderMainWindowContent(mainWindow) {
         mainWindow.loadFile(tempHtmlPath);
     });
 
-    mainWindow.webContents.openDevTools();
+    // mainWindow.webContents.openDevTools();
 }
 
 // Render content for overlay window
