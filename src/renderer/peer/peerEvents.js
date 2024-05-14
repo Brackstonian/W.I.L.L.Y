@@ -58,4 +58,21 @@ export function setupViewPeerEventHandlers(peerManager) {
             console.error('Data connection error:', err);
         });
     });
+
+    peer.on('call', call => {
+        call.answer(); // Answer the call with the optional stream if applicable
+        call.on('stream', newStream => {
+            const videoElement = document.getElementById('videoElementId'); // Ensure this ID is correct
+            // Handle the new stream
+            if (videoElement) {
+                videoElement.srcObject = newStream;
+            } else {
+                console.error('Video element not found');
+            }
+        });
+        call.on('error', err => {
+            console.error('Call error:', err);
+        });
+    });
+
 }

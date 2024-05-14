@@ -62,7 +62,6 @@ export default class CanvasManager {
         // Set the desired aspect ratio
         // const aspectRatio = 16 / 9;
         var videoContainer = document.getElementById('localVideo');
-        console.log("🚀 ~ CanvasManager ~ resizeCanvas ~ videoContainer:", videoContainer)
 
         // Function to calculate the greatest common divisor
         function gcd(a, b) {
@@ -77,8 +76,6 @@ export default class CanvasManager {
         let simplifiedHeight = videoContainer.offsetHeight / divisor;
 
         let aspectRatio = simplifiedWidth / simplifiedHeight
-        console.log("🚀 ~ CanvasManager ~ resizeCanvas ~ aspectRatio:", aspectRatio)
-
 
         // Get the window dimensions
         const windowWidth = window.innerWidth;
