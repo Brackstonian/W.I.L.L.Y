@@ -471,8 +471,10 @@ svg {
   border-radius: 5px;
 }
 
+.app-main-home__intro-text {
+  margin: 1em 0;
+}
 .app-main-home__function-selector-inner {
-  margin-top: 1em;
   display: flex;
   flex-direction: row;
   gap: 1em;

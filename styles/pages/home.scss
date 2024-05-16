@@ -4,8 +4,11 @@
 
 .app-main-home {
 
+  &__intro-text {
+    margin: 1em 0;
+  }
+
   &__function-selector-inner {
-    margin-top: 1em;
     display: flex;
     flex-direction: row;
     gap: 1em;

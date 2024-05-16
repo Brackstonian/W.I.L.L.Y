@@ -2,13 +2,13 @@
 <html>
 	<head>
 		<title>
-			{% block title %}W.I.L.L.Y 0.2.01
+			{% block title %}
+				W.I.L.L.Y 0.3
 			{% endblock %}
 		</title>
 		{% block styles %}{% endblock %}
 	</head>
 	<body>
-
 		<main class="app-main">
 			<div class="app-main__sidebar">
 				<svg height="100" width="100" xmlns="http://www.w3.org/2000/svg">
@@ -19,19 +19,17 @@
 				{% endblock %}
 				<ul class="app-main__sidebar-nav">
 
-					<li>
-						<a class="app__button" href="#">Report Bug</a>
+					<li class="app-main__sidebar-nav-item">
+						<a class="app-main__sidebar-nav-item-link app__button" href="#">Report Bug</a>
 					</li>
-					<li>
-						<a class="app__button" href="#">Feature Request</a>
+					<li class="app-main__sidebar-nav-item">
+						<a class="app-main__sidebar-nav-item-link app__button" href="#">Feature Request</a>
 
 					</li>
-					<li>
-						<a class="app__button" href="#">Help</a>
-
+					<li class="app-main__sidebar-nav-item">
+						<a class="app-main__sidebar-nav-item-link app__button" href="#">Help</a>
 					</li>
 				</ul>
-
 			</div>
 
 			<div class="app-main__content">
@@ -39,13 +37,9 @@
 					{#  #}
 				{% endblock %}
 			</div>
-
-
 		</main>
-		<div class="cursor"></div>
 
 		<script src="{{ assetPath }}/js/home.bundle.js"></script>
-
 		{% block scripts %}{% endblock %}
 	</body>
 </html>
