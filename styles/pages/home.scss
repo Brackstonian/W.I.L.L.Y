@@ -2,32 +2,15 @@
 @import "../partials/button.scss";
 
 
-.homePage {
-  &__inner {
-    height: 100vh;
-  }
-  img {
-    position: fixed;
-    z-index: -1;
-    top: 0;
-    left: 0;
-    transform: rotate(90deg) translate(0px, -200px);
-    height: 149px;
-  }
+.app-main-home {
 
-  &__title {
-    font-size: 3em;
-    line-height: 1em;
-    text-align: center;
-    margin-top: 2em;
+  &__intro-text {
+    margin: 1em 0;
   }
 
   &__function-selector-inner {
     display: flex;
     flex-direction: row;
     gap: 1em;
-    text-align: center;
-    margin: auto;
-    width: fit-content;
   }
 }

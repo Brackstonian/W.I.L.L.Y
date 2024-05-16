@@ -1,4 +1,4 @@
-const { ipcMain } = require('electron');
+const { ipcMain, shell } = require('electron');
 const { renderPage } = require('../windows/windowHelpers');
 const { getMainWindow, getOverlayWindow, createModalWindow } = require('../windows/windowManager');
 
@@ -27,20 +27,16 @@ function setupPageHandlers() {
         mainWindow.resizable = true;
         mainWindow.maximize();
     });
-    ipcMain.on('view-page-default', () => {
-        const mainWindow = getMainWindow();
-        mainWindow.setSize(460, 320);
-        mainWindow.center();
-        mainWindow.resizable = false;
-    });
     ipcMain.on('close-overlay-page', () => {
         const overlayWindow = getOverlayWindow();
         if (overlayWindow && !overlayWindow.isDestroyed()) {
             overlayWindow.close();
         }
     });
-    ipcMain.on('load-modal', (event, id) => {
-        createModalWindow(id);
+    ipcMain.on('open-external-link', (event, url) => {
+        shell.openExternal(url).catch(err => {
+            console.error(`Failed to open external link: ${url}`, err);
+        });
     });
 }
 

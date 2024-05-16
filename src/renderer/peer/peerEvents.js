@@ -1,5 +1,3 @@
-// peerEvents.js
-
 // Function to update the status message and show the retry button
 function updateStatus(message, showRetry) {
     const statusMessage = document.getElementById('statusMessage');
@@ -7,15 +5,18 @@ function updateStatus(message, showRetry) {
 
     statusMessage.textContent = message;
     retryButton.style.display = showRetry ? 'block' : 'none';
+    console.log('Status updated:', message);
 }
 
-export function setupStreamPeerEventHandlers(peerManager) {
+export function setupStreamPeerEventHandlers(peerManager, onPeerOpen) {
     const { peer, localStream } = peerManager;
     console.log('Setting up stream peer event handlers with localStream:', localStream ? localStream.id : 'undefined');
 
     peer.on('open', id => {
         console.log(`Peer opened with ID: ${id}`);
-        window.api.send('load-modal', id);
+        if (onPeerOpen) {
+            onPeerOpen(id); // Call the callback function with the Peer ID
+        }
     });
 
     peer.on('error', err => {
@@ -23,6 +24,11 @@ export function setupStreamPeerEventHandlers(peerManager) {
         updateStatus('Connection failed. Please retry.', true); // Update the status message and show retry button
         peer.destroy(); // Destroy peer on error
         console.log('Peer destroyed due to error');
+        // Retry logic
+        setTimeout(() => {
+            console.log('Retrying peer connection...');
+            peerManager.initializePeer('stream');
+        }, 5000); // Retry after 5 seconds
     });
 
     peer.on('connection', conn => {
@@ -36,6 +42,7 @@ export function setupStreamPeerEventHandlers(peerManager) {
         });
 
         conn.on('close', () => {
+            console.log('Data connection closed');
             peerManager.removeDataConnection(conn);
         });
 
@@ -67,15 +74,36 @@ export function setupStreamPeerEventHandlers(peerManager) {
             updateStatus('Call error occurred. Please retry.', true); // Update the status message and show retry button
         });
     });
+
+    // Adding timeout to check peer connection
+    setTimeout(() => {
+        if (!peer.open) {
+            console.error('Peer connection timeout');
+            updateStatus('Connection timed out. Please retry.', true);
+            peer.destroy();
+        }
+    }, 10000); // 10 seconds timeout
 }
 
-export function setupViewPeerEventHandlers(peerManager) {
+export function setupViewPeerEventHandlers(peerManager, onPeerOpen) {
     const { peer } = peerManager;
     console.log('Setting up view peer event handlers');
+
+    peer.on('open', id => {
+        console.log(`Viewer peer opened with ID: ${id}`);
+        if (onPeerOpen) {
+            onPeerOpen(id); // Call the callback function with the Peer ID
+        }
+    });
 
     peer.on('error', err => {
         console.error('Peer error:', err);
         updateStatus('Connection failed. Please retry.', true); // Update the status message and show retry button
+        // Retry logic
+        setTimeout(() => {
+            console.log('Retrying peer connection...');
+            peerManager.initializePeer('view');
+        }, 5000); // Retry after 5 seconds
     });
 
     peer.on('connection', conn => {
@@ -89,6 +117,7 @@ export function setupViewPeerEventHandlers(peerManager) {
         });
 
         conn.on('close', () => {
+            console.log('Data connection closed in viewer');
             peerManager.removeDataConnection(conn);
         });
 
@@ -98,20 +127,36 @@ export function setupViewPeerEventHandlers(peerManager) {
     });
 
     peer.on('call', call => {
+        console.log('Viewer received a call');
         call.answer(); // Answer the call with the optional stream if applicable
         peerManager.addCall(call); // Store the call
         call.on('stream', newStream => {
+            console.log('New stream received in viewer');
             const videoElement = document.getElementById('videoElementId'); // Ensure this ID is correct
             // Handle the new stream
             if (videoElement) {
                 videoElement.srcObject = newStream;
+                console.log('Video element found and stream set');
             } else {
                 console.error('Video element not found');
             }
         });
+        call.on('close', () => {
+            console.log('Viewer call closed');
+            peerManager.removeCall(call);
+        });
         call.on('error', err => {
-            console.error('Call error:', err);
+            console.error('Call error in viewer:', err);
             updateStatus('Call error occurred. Please retry.', true); // Update the status message and show retry button
         });
     });
+
+    // Adding timeout to check peer connection
+    setTimeout(() => {
+        if (!peer.open) {
+            console.error('Peer connection timeout');
+            updateStatus('Connection timed out. Please retry.', true);
+            peer.destroy();
+        }
+    }, 10000); // 10 seconds timeout
 }

@@ -10,5 +10,5 @@ function send(channel, data) {
 
 contextBridge.exposeInMainWorld('api', {
     invoke,
-    send,
+    send
 });

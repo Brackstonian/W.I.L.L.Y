@@ -7,23 +7,30 @@
 	<link rel="stylesheet" type="text/css" href="{{ assetPath }}/css/view.css">
 {% endblock %}
 
+{% block sideContent %}
+	<h1 class="app-main__title">W.I.L.L.Y</h1>
+	<h1 class="app-main__title">DRAW</h1>
+
+{% endblock %}
+
+
 {% block content %}
-	<main class="app-main viewPage">
-		<h1 class="viewPage__title">VIEW/DRAW</h1>
-		<div class="viewPage__input-wrapper" id="inputWrapper">
+	<div class="app-main__content-inner app-main-view">
+
+		<div class="app-main-view__input-wrapper" id="inputWrapper">
 			<input placeholder="Input Share ID" id="inputField" type="text">
-			<button id="viewButton" class="app__button viewPage__button--connect">Connect</button>
+			<button id="viewButton" class="app__button app-main-view__button--connect">Connect</button>
 
 		</div>
-		<div id="statusWrapper" class="viewPage__input-wrapper" style="display: none;">
+		<div id="statusWrapper" class="app-main-view__input-wrapper" style="display: none;">
 			<p id="statusMessage">Connecting...</p>
-			<button id="retryButton" class="app__button viewPage__button--retry" style="display: none;">Retry</button>
+			<button id="retryButton" class="app__button app-main-view__button--retry" style="display: none;">Retry</button>
 		</div>
-		<div class="viewPage__button-wrapper">
-			<button class="app__button viewPage__button" onclick="location.href='index.html'">Go Back</button>
+		<div class="app-main-view__button-wrapper">
+			<button class="app__button app-main-view__button" onclick="location.href='index.html'">Go Back</button>
 		</div>
 		{% include '../components/videoPlayer.twig' %}
-	</main>
+	</div>
 {% endblock %}
 
 {% block scripts %}

@@ -3,12 +3,9 @@
 
 @import "../components/video-player.scss";
 
-.viewPage {
+.app-main-view {
     min-height: 100vh;
 
-    &__title {
-        font-size: 4em;
-    }
 
     &__button-wrapper {
         text-align: left;
