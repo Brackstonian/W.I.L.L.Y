@@ -1,5 +1,5 @@
 export function cursorSetup() {
-    const cursorSmall = document.querySelector('.cursor');
+    // const cursorSmall = document.querySelector('.cursor');
     // const cursorBig = document.querySelector('.big');
 
 
@@ -13,5 +13,5 @@ export function cursorSetup() {
 
     }
 
-    window.addEventListener('mousemove', positionElement)
+    // window.addEventListener('mousemove', positionElement)
 }

@@ -9,10 +9,10 @@ let modalWindow;
 // Function to create the main application window.
 function createMainWindow() {
     mainWindow = new BrowserWindow({
-        width: 600,
-        height: 240,
-        center: true,
-        resizable: false,
+        // width: 600,
+        // height: 240,
+        // center: true,
+        // resizable: false,
         webPreferences: {
             preload: path.join(__dirname, '..', '..', 'preload.js'),
             contextIsolation: true,
@@ -68,8 +68,8 @@ function createModalWindow(id) {
     modalWindow = new BrowserWindow({
         width: 460,
         height: 320,
-        center: true,
-        resizable: false,
+        // center: true,
+        resizable: true,
     });
 
     const shareID = id;

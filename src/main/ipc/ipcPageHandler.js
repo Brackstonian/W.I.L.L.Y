@@ -29,9 +29,9 @@ function setupPageHandlers() {
     });
     ipcMain.on('view-page-default', () => {
         const mainWindow = getMainWindow();
-        mainWindow.setSize(460, 320);
-        mainWindow.center();
-        mainWindow.resizable = false;
+        // mainWindow.setSize(460, 320);
+        // mainWindow.center();
+        // mainWindow.resizable = false;/
     });
     ipcMain.on('close-overlay-page', () => {
         const overlayWindow = getOverlayWindow();

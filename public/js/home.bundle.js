@@ -16,7 +16,7 @@
 /***/ ((__unused_webpack_module, __webpack_exports__, __webpack_require__) => {
 
 "use strict";
-eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   cursorSetup: () => (/* binding */ cursorSetup)\n/* harmony export */ });\nfunction cursorSetup() {\n  var cursorSmall = document.querySelector('.cursor');\n  // const cursorBig = document.querySelector('.big');\n\n  var positionElement = function positionElement(e) {\n    var mouseY = e.clientY;\n    var mouseX = e.clientX;\n    cursorSmall.style.transform = \"translate3d(\".concat(mouseX, \"px, \").concat(mouseY, \"px, 0)\");\n\n    // cursorBig.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;\n  };\n  window.addEventListener('mousemove', positionElement);\n}\n\n//# sourceURL=webpack://W.I.L.L.Y/./src/renderer/components/globals/cursor.js?");
+eval("__webpack_require__.r(__webpack_exports__);\n/* harmony export */ __webpack_require__.d(__webpack_exports__, {\n/* harmony export */   cursorSetup: () => (/* binding */ cursorSetup)\n/* harmony export */ });\nfunction cursorSetup() {\n  // const cursorSmall = document.querySelector('.cursor');\n  // const cursorBig = document.querySelector('.big');\n\n  var positionElement = function positionElement(e) {\n    var mouseY = e.clientY;\n    var mouseX = e.clientX;\n    cursorSmall.style.transform = \"translate3d(\".concat(mouseX, \"px, \").concat(mouseY, \"px, 0)\");\n\n    // cursorBig.style.transform = `translate3d(${mouseX}px, ${mouseY}px, 0)`;\n  };\n\n  // window.addEventListener('mousemove', positionElement)\n}\n\n//# sourceURL=webpack://W.I.L.L.Y/./src/renderer/components/globals/cursor.js?");
 
 /***/ }),
 

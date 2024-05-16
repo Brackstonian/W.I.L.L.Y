@@ -8,8 +8,43 @@
 		{% block styles %}{% endblock %}
 	</head>
 	<body>
+
+		<main class="app-main">
+			<div class="app-main__sidebar">
+				<svg height="100" width="100" xmlns="http://www.w3.org/2000/svg">
+					<circle r="45" cx="50" cy="50" fill="transparent"/>
+				</svg>
+				{% block sideContent %}
+					{#   #}
+				{% endblock %}
+				<ul class="app-main__sidebar-nav">
+
+					<li>
+						<a class="app__button" href="#">Report Bug</a>
+					</li>
+					<li>
+						<a class="app__button" href="#">Feature Request</a>
+
+					</li>
+					<li>
+						<a class="app__button" href="#">Help</a>
+
+					</li>
+				</ul>
+
+			</div>
+
+			<div class="app-main__content">
+				{% block content %}
+					{#  #}
+				{% endblock %}
+			</div>
+
+
+		</main>
 		<div class="cursor"></div>
-		{% block content %}{% endblock %}
+
+		<script src="{{ assetPath }}/js/home.bundle.js"></script>
 
 		{% block scripts %}{% endblock %}
 	</body>

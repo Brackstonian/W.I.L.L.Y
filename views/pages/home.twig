@@ -4,28 +4,36 @@
 	<link rel="stylesheet" type="text/css" href="{{ assetPath }}/css/home.css">
 {% endblock %}
 
-{% block content %}
-	<main class="app-main homePage">
-		<img src="{{ assetPath }}/images/line.png" alt="">
-
-
-		<div class="homePage__inner">
-			<h1 class="homePage__title">W.I.L.L.Y</h1>
-			<div class="homePage__function-selector">
-				<div class="homePage__function-selector-inner">
-					<div class="homePage__function-selector-left">
-						<button id="shareScreenButton" class="app__button">Share</button>
-					</div>
-					<div class="homePage__function-selector-right">
-						<button id="viewScreenButton" class="app__button">View / Draw</button>
-					</div>
-				</div>
-			</div>
-		</div>
-	</main>
+{% block sideContent %}
+	<h1 class="app-main__title">Meeting Markup</h1>
+	{# Version: 0.2.01 #}
 {% endblock %}
 
 
-{% block scripts %}
-	<script src="{{ assetPath }}/js/home.bundle.js"></script>
+{% block content %}
+	<div class="app-main__content-inner app-main-home">
+
+		<h2>Welcome.</h2>
+		<p>Effortless screen sharing and real-time collaboration at your fingertips. No Slack Required!</p>
+		<ul>
+			<li>
+				<strong>Share:</strong>
+				Broadcast your screen and share the viewing link.
+			</li>
+			<li>
+				<strong>Draw:</strong>
+				Enter a viewing link, see the shared screen, and draw on it.
+			</li>
+		</ul>
+
+		<div class="app-main-home__function-selector-inner">
+			<div class="app-main-home__function-selector-left">
+				<button id="shareScreenButton" class="app__button">Share</button>
+			</div>
+			<div class="app-main-home__function-selector-right">
+				<button id="viewScreenButton" class="app__button">Draw</button>
+			</div>
+		</div>
+
+	</div>
 {% endblock %}

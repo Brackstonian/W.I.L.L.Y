@@ -7,24 +7,33 @@
 	<link rel="stylesheet" type="text/css" href="{{ assetPath }}/css/share.css">
 {% endblock %}
 
+{% block sideContent %}
+	<h1 class="app-main__title">W.I.L.L.Y</h1>
+	<h1 class="app-main__title">SHARE</h1>
+{% endblock %}
 
 {% block content %}
-	<main class="app-main sharePage">
-		<h1 class="sharePage__title">SHARE</h1>
+	<div class="app-main__content-inner app-main-share">
 
-		{# {% include '../components/videoPlayer.twig' %} #}
+		<div class="app_log-zone"></div>
 
 		<!-- Screen Picker -->
 		<div id="screen-picker">
 			<ul id="screen-list"></ul>
 		</div>
 
-		<div id="uniqueId"></div>
-
-		<div class="sharePage__button-wrapper">
-			<button id="backButton" class="app__button sharePage__button" onclick="location.href='index.html'">Go Back</button>
+		<div class="app_log-zone app_log-zone--ps" style="display: none;">
+			<button class="log__button">Copy to clipboard</button>
+			<div class="app_log-zone-log">
+				<strong>Connection Succesful!</strong>
+			</div>
 		</div>
-	</main>
+
+
+		<div class="app-main-share__button-wrapper">
+			<button id="backButton" class="app__button app-main-share__button" onclick="location.href='index.html'">Go Back</button>
+		</div>
+	</div>
 
 {% endblock %}
 

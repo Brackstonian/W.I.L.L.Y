@@ -1,5 +1,6 @@
 .app__button,
-.modal__button {  
+.modal__button,
+.log__button {  
     background-color: unset;
     border: .1em solid var(--c-black);
     padding: 0.5em;
@@ -15,4 +16,11 @@
         color: var(--c-white);
         cursor: pointer;
     }
+}
+
+.log__button {
+    position: absolute;
+    right: 1em;
+    background: white;
+    border-radius: 5px;
 }
