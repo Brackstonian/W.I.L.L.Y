@@ -1,7 +1,7 @@
 .app__button,
 .modal__button,
 .log__button {  
-    background-color: unset;
+    background-color: var(--c-white);
     border: .1em solid var(--c-black);
     padding: 0.5em;
     font-size: 1em;

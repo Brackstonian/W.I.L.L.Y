@@ -403,36 +403,17 @@ svg {
   margin: unset;
   color: var(--c-black);
 }
-
-.app_log-zone {
-  background: black;
-  width: 100%;
-  padding: 0.5em;
-  border-radius: 5px;
-  color: var(--c-green);
-  font-size: 0.75em;
-  height: 5em;
-  overflow-y: scroll;
-  margin-bottom: 2em;
-  position: relative;
-}
-.app_log-zone--ps {
-  height: 15em;
-  background: blue;
-  color: white;
-}
-
-.app_log-zone-log {
-  margin: 0.5em;
-}
-.app_log-zone-log a {
-  color: white;
+.app-main__sub-title {
+  font-size: 1.2em;
+  line-height: 1em;
+  margin: unset;
+  color: var(--c-black);
 }
 
 .app__button,
 .modal__button,
 .log__button {
-  background-color: unset;
+  background-color: var(--c-white);
   border: 0.1em solid var(--c-black);
   padding: 0.5em;
   font-size: 1em;

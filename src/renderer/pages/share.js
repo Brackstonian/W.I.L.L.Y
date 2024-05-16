@@ -1,35 +1,13 @@
 import getPeerManager from '../peer/peerManager.js';
-
-function addLog(message, selector = '.app_log-zone', isHtml = false) {
-    return new Promise((resolve) => {
-        setTimeout(() => {
-            const logZone = document.querySelector(selector);
-            const logEntry = document.createElement('p');
-            logEntry.classList.add('app_log-zone-log');
-            if (isHtml) {
-                logEntry.innerHTML = message;
-            } else {
-                logEntry.textContent = message;
-            }
-            logZone.appendChild(logEntry);
-            logZone.scrollTop = logZone.scrollHeight; // Scroll to the bottom
-
-            if (selector === '.app_log-zone--ps') {
-                logZone.style.display = 'block';
-            }
-
-            resolve();
-        }, 500);
-    });
-}
+import { addLog } from '../components/globals/log.js';
 
 function logPeerId(peerId) {
-    addLog(`Peer ID: ${peerId}`, '.app_log-zone--ps');
-    addLog(`To share this connection, use the following link:`, '.app_log-zone--ps');
-    addLog(`<a href="https://w-i-l-l-y-web.onrender.com/view/${peerId}" target="_blank">https://w-i-l-l-y-web.onrender.com/view/${peerId}</a>`, '.app_log-zone--ps', true);
+    addLog(`Peer ID: ${peerId}`, 'log-zone-ps');
+    addLog(`To share this connection, use the following link:`, 'log-zone-ps');
+    addLog(`<a href="https://w-i-l-l-y-web.onrender.com/view/${peerId}" target="_blank">https://w-i-l-l-y-web.onrender.com/view/${peerId}</a>`, 'log-zone-ps', true);
 
     document.querySelector('.log__button').addEventListener('click', () => {
-        const fullText = document.querySelector('.app_log-zone--ps').innerText;
+        const fullText = document.querySelector('log-zone-ps').innerText;
         const lines = fullText.split('\n');
         let modifiedText = lines.slice(2).join('\n');
         modifiedText = modifiedText.replace(

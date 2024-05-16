@@ -403,36 +403,17 @@ svg {
   margin: unset;
   color: var(--c-black);
 }
-
-.app_log-zone {
-  background: black;
-  width: 100%;
-  padding: 0.5em;
-  border-radius: 5px;
-  color: var(--c-green);
-  font-size: 0.75em;
-  height: 5em;
-  overflow-y: scroll;
-  margin-bottom: 2em;
-  position: relative;
-}
-.app_log-zone--ps {
-  height: 15em;
-  background: blue;
-  color: white;
-}
-
-.app_log-zone-log {
-  margin: 0.5em;
-}
-.app_log-zone-log a {
-  color: white;
+.app-main__sub-title {
+  font-size: 1.2em;
+  line-height: 1em;
+  margin: unset;
+  color: var(--c-black);
 }
 
 .app__button,
 .modal__button,
 .log__button {
-  background-color: unset;
+  background-color: var(--c-white);
   border: 0.1em solid var(--c-black);
   padding: 0.5em;
   font-size: 1em;
@@ -457,40 +438,29 @@ svg {
   border-radius: 5px;
 }
 
-#videoContainer {
-  aspect-ratio: var(--video-aspect-ratio);
-  display: none;
-  margin: auto;
-  overflow: hidden;
-  position: fixed;
-  top: 0;
-  left: 0;
-  height: 100vh;
-  max-width: 100vw;
-}
-#localVideo {
-  aspect-ratio: var(--video-aspect-ratio);
+.app_log-zone {
+  background: black;
   width: 100%;
+  padding: 0.5em;
+  border-radius: 5px;
+  color: var(--c-green);
+  font-size: 0.75em;
+  height: 5em;
+  overflow-y: scroll;
+  margin-bottom: 2em;
+  position: relative;
+}
+.app_log-zone--ps {
+  height: 15em;
+  background: blue;
+  color: white;
 }
 
-#drawingCanvas {
-  display: flex;
-  position: absolute;
-  width: 100%;
-  aspect-ratio: var(--video-aspect-ratio);
-  top: 0;
+.app_log-zone-log {
+  margin: 0.5em;
 }
-
-.app-main-share {
-  min-height: 100vh;
-}
-.app-main-share__title {
-  font-size: 3em;
-  line-height: 1em;
-}
-.app-main-share__button-wrapper {
-  text-align: left;
-  margin-top: 1em;
+.app_log-zone-log a {
+  color: white;
 }
 
 #screen-list {
@@ -541,4 +511,40 @@ svg {
 }
 #screen-list::-webkit-scrollbar-thumb {
   background: #000;
+}
+
+#videoContainer {
+  aspect-ratio: var(--video-aspect-ratio);
+  display: none;
+  margin: auto;
+  overflow: hidden;
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  max-width: 100vw;
+}
+#localVideo {
+  aspect-ratio: var(--video-aspect-ratio);
+  width: 100%;
+}
+
+#drawingCanvas {
+  display: flex;
+  position: absolute;
+  width: 100%;
+  aspect-ratio: var(--video-aspect-ratio);
+  top: 0;
+}
+
+.app-main-share {
+  min-height: 100vh;
+}
+.app-main-share__title {
+  font-size: 3em;
+  line-height: 1em;
+}
+.app-main-share__button-wrapper {
+  text-align: left;
+  margin-top: 1em;
 }

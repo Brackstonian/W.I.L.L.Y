@@ -9,25 +9,14 @@
 
 {% block sideContent %}
 	<h1 class="app-main__title">W.I.L.L.Y</h1>
-	<h1 class="app-main__title">SHARE</h1>
+	<h2 class="app-main__sub-title">SHARE</h2>
 {% endblock %}
 
 {% block content %}
 	<div class="app-main__content-inner app-main-share">
-
-		<div class="app_log-zone"></div>
-
-		<!-- Screen Picker -->
-		<div id="screen-picker">
-			<ul id="screen-list"></ul>
-		</div>
-
-		<div class="app_log-zone app_log-zone--ps" style="display: none;">
-			<button class="log__button">Copy to clipboard</button>
-			<div class="app_log-zone-log">
-				<strong>Connection Succesful!</strong>
-			</div>
-		</div>
+		{% include '../components/logZone.twig' %}
+		{% include '../components/screenPicker.twig' %}
+		{% include '../components/logZonePs.twig' %}
 
 
 		<div class="app-main-share__button-wrapper">
