@@ -15,6 +15,7 @@ module.exports = {
         share: ['./src/renderer/pages/share.js', './styles/pages/share.scss'],
         view: ['./src/renderer/pages/view.js', './styles/pages/view.scss'],
         overlay: ['./src/renderer/pages/overlay.js', './styles/pages/overlay.scss'],
+        externalLink: './src/renderer/components/globals/externalLinks.js',
     },
     output: {
         path: path.resolve(__dirname, 'public'),

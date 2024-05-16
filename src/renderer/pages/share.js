@@ -1,5 +1,5 @@
 import getPeerManager from '../peer/peerManager.js';
-import { addLog } from '../components/globals/log.js';
+import { addLog } from '../components/log.js';
 
 function logPeerId(peerId) {
     addLog(`Peer ID: ${peerId}`, 'log-zone-ps');

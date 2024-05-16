@@ -1,4 +1,4 @@
-const { ipcMain } = require('electron');
+const { ipcMain, shell } = require('electron');
 const { renderPage } = require('../windows/windowHelpers');
 const { getMainWindow, getOverlayWindow, createModalWindow } = require('../windows/windowManager');
 
@@ -33,8 +33,10 @@ function setupPageHandlers() {
             overlayWindow.close();
         }
     });
-    ipcMain.on('load-modal', (event, id) => {
-        createModalWindow(id);
+    ipcMain.on('open-external-link', (event, url) => {
+        shell.openExternal(url).catch(err => {
+            console.error(`Failed to open external link: ${url}`, err);
+        });
     });
 }
 
