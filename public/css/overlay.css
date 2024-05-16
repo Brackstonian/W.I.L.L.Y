@@ -342,20 +342,6 @@ body {
   min-height: 100vh;
 }
 
-.cursor {
-  width: 8px;
-  height: 8px;
-  border: 2px solid var(--c-black);
-  border-radius: 50%;
-  margin-right: 35px;
-  display: block;
-  z-index: 9999999;
-  position: relative;
-  background: var(--c-white);
-  right: 10px;
-  pointer-events: none;
-}
-
 svg {
   outline: var(--c-black) solid 0.35em;
   border-radius: 50%;
@@ -461,8 +447,4 @@ html {
   background: transparent;
   border: 2px solid rgb(0, 255, 8);
   box-sizing: border-box;
-}
-
-.cursor {
-  display: none;
 }

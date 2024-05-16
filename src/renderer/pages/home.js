@@ -1,6 +1,4 @@
-import { cursorSetup } from '../components/globals/cursor';
 document.addEventListener('DOMContentLoaded', () => {
-    cursorSetup()
     const viewScreenButton = document.getElementById('viewScreenButton');
     const shareScreenButton = document.getElementById('shareScreenButton');
 

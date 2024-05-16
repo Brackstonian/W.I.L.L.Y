@@ -24,7 +24,6 @@
 * {
   font-family: var(--f-primary);
   box-sizing: border-box;
-  // cursor: none;
 }
 
 body {
@@ -35,20 +34,6 @@ body {
 .app-main,
 .modal-main {
   min-height: 100vh;
-}
-
-.cursor {
-  width: 8px;
-  height: 8px;
-  border: 2px solid var(--c-black);
-  border-radius: 50%;
-  margin-right: 35px;
-  display: block;
-  z-index: 9999999;
-  position: relative;
-  background: var(--c-white);
-  right: 10px;
-  pointer-events: none;
 }
 
 
