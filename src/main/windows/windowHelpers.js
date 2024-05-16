@@ -34,20 +34,6 @@ function renderOverlayWindowContent(overlayWindow) {
     });
 }
 
-// Render content for modal window
-function renderModalWindowContent(modalWindow, shareID) {
-    Twig.renderFile(path.join(__dirname, '../../../views/components/share-modal.twig'), { assetPath: assetPath, id: shareID }, (err, html) => {
-        if (err) {
-            console.error('Error rendering Twig template:', err);
-            return;
-        }
-        const tempHtmlPath = path.join(app.getPath('temp'), 'modal.html');
-        fs.writeFileSync(tempHtmlPath, html);
-
-        modalWindow.loadFile(tempHtmlPath);
-    });
-}
-
 // Render the view page and write it to a temporary file
 function renderPage(templateName) {
     return new Promise((resolve, reject) => {
@@ -64,4 +50,4 @@ function renderPage(templateName) {
     });
 }
 
-module.exports = { renderMainWindowContent, renderOverlayWindowContent, renderModalWindowContent, renderPage };
+module.exports = { renderMainWindowContent, renderOverlayWindowContent, renderPage };

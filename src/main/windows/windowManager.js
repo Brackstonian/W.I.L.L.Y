@@ -1,6 +1,6 @@
 const { BrowserWindow, screen } = require('electron');
 const path = require('path');
-const { renderMainWindowContent, renderOverlayWindowContent, renderModalWindowContent } = require('./windowHelpers');
+const { renderMainWindowContent, renderOverlayWindowContent } = require('./windowHelpers');
 
 let mainWindow;
 let overlayWindow;
@@ -72,8 +72,6 @@ function createModalWindow(id) {
         resizable: true,
     });
 
-    const shareID = id;
-    renderModalWindowContent(modalWindow, shareID);
     modalWindow.on('restore', () => {
         mainWindow.show();
     });
