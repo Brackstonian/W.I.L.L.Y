@@ -1,6 +1,10 @@
 /*!*****************************************************************************************************************!*\
   !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./styles/pages/view.scss ***!
   \*****************************************************************************************************************/
+@import url(https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap);
+/*!*********************************************************************************************************************!*\
+  !*** css ./node_modules/css-loader/dist/cjs.js!./node_modules/sass-loader/dist/cjs.js!./styles/pages/view.scss (1) ***!
+  \*********************************************************************************************************************/
 /*! normalize.css v8.0.1 | MIT License | github.com/necolas/normalize.css */
 /* Document
    ========================================================================== */
@@ -311,50 +315,105 @@ template {
 }
 
 :root {
-  --c-black: #140d0a;
-  --c-white: #f4f4f4;
+  --c-black: #363837;
+  --c-white: #fffffa;
   --c-yellow: #faea31;
   --c-green: #109648;
   --c-red: #D62828;
+  --c-gray: #b4b6ac;
   --c-light-green: #2a6365;
   --c-light-yellow: #eee8b8;
   --c-dark-green: #004b4f;
-  --f-primary: monospace;
+  --f-primary: "IBM Plex Mono", monospace;
 }
 
 * {
   font-family: var(--f-primary);
-  cursor: none;
+  box-sizing: border-box;
 }
 
 body {
   overflow: hidden;
-  background: radial-gradient(circle, rgb(227, 227, 227) 0%, rgba(246, 246, 246, 0.8043592437) 0%, rgb(255, 255, 255) 100%);
+  background: var(--c-white);
 }
 
 .app-main,
 .modal-main {
-  margin: 0 1em;
   min-height: 100vh;
 }
 
-.cursor {
-  width: 8px;
-  height: 8px;
-  border: 2px solid var(--c-black);
+svg {
+  outline: var(--c-black) solid 0.35em;
   border-radius: 50%;
-  margin-right: 35px;
+  height: 2em;
+  width: 2em;
+  margin-bottom: 1.8em;
+  margin-left: 0.1em;
+}
+
+.app-main {
+  display: flex;
+}
+.app-main__sidebar {
+  background: linear-gradient(360deg, transparent, 98%, #466f86);
+  border-right: solid 1px var(--c-black);
+  width: 30%;
+  padding: 2em;
   display: block;
-  z-index: 9999999;
+  overflow: hidden;
+}
+.app-main__sidebar-nav {
+  margin: unset;
+  padding: unset;
+  list-style: none;
+  margin-top: 2em;
+}
+.app-main__sidebar-nav li {
+  margin: 2em 0;
+}
+.app-main__sidebar-nav li:first-child {
+  margin-top: 3em;
+}
+.app-main__sidebar-nav a {
+  text-decoration: unset;
+}
+.app-main__content {
   position: relative;
-  background: white;
-  right: 10px;
-  pointer-events: none;
+  width: 70%;
+}
+.app-main__content::before {
+  content: "";
+  display: block;
+  width: 100%;
+  height: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+  background-size: 1em 1em;
+  background-image: linear-gradient(to right, var(--c-gray) 1px, transparent 1px), linear-gradient(to bottom, var(--c-gray) 1px, transparent 1px);
+  opacity: 0.3;
+  z-index: -1;
+}
+.app-main__content-inner {
+  margin: 2em 1em;
+}
+.app-main__title {
+  font-size: 2em;
+  line-height: 1em;
+  margin: unset;
+  color: var(--c-black);
+}
+.app-main__sub-title {
+  font-size: 1.2em;
+  line-height: 1em;
+  margin: unset;
+  color: var(--c-black);
 }
 
 .app__button,
-.modal__button {
-  background-color: unset;
+.modal__button,
+.log__button {
+  background-color: var(--c-white);
   border: 0.1em solid var(--c-black);
   padding: 0.5em;
   font-size: 1em;
@@ -365,10 +424,18 @@ body {
   white-space: nowrap;
 }
 .app__button:hover,
-.modal__button:hover {
+.modal__button:hover,
+.log__button:hover {
   background: var(--c-black);
   color: var(--c-white);
   cursor: pointer;
+}
+
+.log__button {
+  position: absolute;
+  right: 1em;
+  background: white;
+  border-radius: 5px;
 }
 
 #videoContainer {
@@ -395,23 +462,20 @@ body {
   top: 0;
 }
 
-.viewPage {
+.app-main-view {
   min-height: 100vh;
 }
-.viewPage__title {
-  font-size: 4em;
-}
-.viewPage__button-wrapper {
+.app-main-view__button-wrapper {
   text-align: left;
 }
-.viewPage__input-wrapper {
+.app-main-view__input-wrapper {
   display: flex;
   flex-direction: row;
   width: 26em;
   gap: 2em;
   margin: 2em 0;
 }
-.viewPage__button.fullscreen {
+.app-main-view__button.fullscreen {
   position: fixed;
   bottom: 1em;
   right: 0;

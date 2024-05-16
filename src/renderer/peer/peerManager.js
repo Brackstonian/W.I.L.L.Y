@@ -4,11 +4,12 @@ import { setupStreamPeerEventHandlers, setupViewPeerEventHandlers } from './peer
 let peerManagerInstance = null;
 
 class PeerManager {
-    constructor(localStream = null) {
+    constructor(localStream = null, onPeerOpen = null) {
         this.peer = null;
         this.localStream = localStream;
         this.dataConnections = [];  // Store multiple data connections
         this.calls = [];  // Store active calls
+        this.onPeerOpen = onPeerOpen;
         console.log('PeerManager constructed with localStream:', localStream ? localStream.id : 'undefined');
     }
 
@@ -72,9 +73,9 @@ class PeerManager {
         });
 
         if (type === 'stream') {
-            setupStreamPeerEventHandlers(this);
+            setupStreamPeerEventHandlers(this, this.onPeerOpen);
         } else if (type === 'view') {
-            setupViewPeerEventHandlers(this);
+            setupViewPeerEventHandlers(this, this.onPeerOpen);
         }
     }
 
@@ -110,11 +111,14 @@ class PeerManager {
     }
 }
 
-export default function getPeerManager(localStream = null) {
+export default function getPeerManager(localStream = null, onPeerOpen = null) {
     if (!peerManagerInstance) {
-        peerManagerInstance = new PeerManager(localStream);
+        peerManagerInstance = new PeerManager(localStream, onPeerOpen);
     } else if (localStream) {
         peerManagerInstance.setLocalStream(localStream);
+        if (this.onPeerOpen) {
+            this.onPeerOpen(id);
+        }
     }
     return peerManagerInstance;
 }

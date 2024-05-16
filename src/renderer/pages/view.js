@@ -1,9 +1,7 @@
 import getPeerManager from '../peer/peerManager.js';
 import CanvasManager from '../canvas/canvasManager.js';
-import { cursorSetup } from '../components/globals/cursor';
 
 document.addEventListener('DOMContentLoaded', () => {
-    cursorSetup();
     const viewButton = document.getElementById('viewButton');
     const retryButton = document.getElementById('retryButton');
     const inputWrapper = document.getElementById('inputWrapper');

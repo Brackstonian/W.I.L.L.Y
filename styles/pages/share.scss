@@ -1,9 +1,10 @@
 @import "../layouts/base.scss";
 @import "../partials/button.scss";
-
+@import "../components/log.scss";
+@import "../components/screen-picker.scss";
 @import "../components/video-player.scss";
 
-.sharePage {
+.app-main-share {
     min-height: 100vh;
 
     &__title {
@@ -14,45 +15,5 @@
     &__button-wrapper {
         text-align: left;
         margin-top: 1em;
-    }
-
-}
-
-#screen-list {
-    list-style: none;
-    margin: 0;
-    display: flex;
-    gap: .5em;
-    padding: 0px 0px 10px;
-
-        max-width: 45vw;
-        overflow-x: scroll;
-
-    li {
-        &:hover {
-            img {
-                display: block;
-            }
-        }
-        img {
-            position: fixed;
-            top: -1em;
-            left: 50%;
-            object-fit: cover;
-            z-index: -1;
-            width: 105vw;
-            height: 110vh;
-            display: none;
-            mask-image: linear-gradient(to left, black 50%, transparent 100%);
-        }
-    }
-
-    &::-webkit-scrollbar {
-        width: 5px;
-        height: 8px;
-        background-color: transparent; /* or add it to the track */
-    }
-    &::-webkit-scrollbar-thumb {
-        background: #000;
     }
 }

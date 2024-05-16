@@ -1,11 +1,8 @@
-import { cursorSetup } from '../components/globals/cursor';
 document.addEventListener('DOMContentLoaded', () => {
-    cursorSetup()
     const viewScreenButton = document.getElementById('viewScreenButton');
     const shareScreenButton = document.getElementById('shareScreenButton');
 
     window.api.send('close-overlay-page');
-    window.api.send('view-page-default');
 
 
     viewScreenButton.addEventListener('click', async () => {
