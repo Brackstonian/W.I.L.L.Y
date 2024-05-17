@@ -1,6 +1,7 @@
 {% extends '../layouts/base.twig' %}
 
-{% block title %}W.I.L.L.Y SHARE{% endblock %}
+{% block title %}W.I.L.L.Y SHARE
+{% endblock %}
 
 {% block styles %}
 	<link rel="stylesheet" type="text/css" href="{{ assetPath }}/css/share.css">
@@ -14,7 +15,7 @@
 {% block content %}
 	<div class="app-main__content-inner app-main-share">
 		{% include '../partials/log.twig' with {'theme': 'dos', 'hide': false} %}
-		{% include '../components/screenPicker.twig' %}
+		{% include '../components/screen-picker.twig' %}
 		{% include '../partials/log.twig' with {'theme': 'ps', 'logMessage': 'Connection Succesful!', 'hide': true} %}
 		{% include '../partials/buttons.twig' with { 
 			buttons: [

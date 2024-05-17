@@ -539,7 +539,7 @@ body {
   top: 0;
 }
 
-#drawingMenu {
+.app-main-pen-menu {
   margin: 1em 0;
   z-index: 999;
   position: fixed;
@@ -548,14 +548,9 @@ body {
   transform: translateX(-50%);
   display: flex;
   gap: 10px;
-  opacity: 0.2;
+  opacity: 0.75;
 }
-#drawingMenu:hover {
-  opacity: 1;
-  transition: 0.4s;
-}
-
-.pen-container {
+.app-main-pen-menu__wrapper {
   position: relative;
   height: 50px;
   width: 200px;
@@ -566,8 +561,7 @@ body {
   border: solid 1px var(--c-black);
   border-radius: 5px;
 }
-
-.pen-body {
+.app-main-pen-menu__pen-body {
   height: 20px;
   width: 150px;
   background-color: #ff0000;
@@ -578,8 +572,7 @@ body {
   top: 50%;
   transform: translate(0%, -50%);
 }
-
-.slider-container {
+.app-main-pen-menu__slider-wrapper {
   display: none;
   flex-direction: column;
   position: absolute;
@@ -591,4 +584,8 @@ body {
   border-radius: 5px;
   gap: 10px;
   padding: 10px;
+}
+.app-main-pen-menu:hover {
+  opacity: 1;
+  transition: 0.4s;
 }

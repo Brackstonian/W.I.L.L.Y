@@ -29,21 +29,8 @@
 			],
 			wrapper: true
 		} %}
-
-		{% include '../components/videoPlayer.twig' %}
-
-		<div id="drawingMenu" class="bottom-menu">
-			<div class="pen-container" id="penContainer">
-				<div class="pen-body" id="penBody"></div>
-				<div class="slider-container" id="sliderContainer">
-					<label for="penColor">Pen Color:</label>
-					<input type="color" id="penColor" name="penColor" value="#ff0000">
-					<label for="penWidth">Pen Width:</label>
-					<input type="range" id="penWidth" name="penWidth" min="1" max="22.5" value="9">
-				</div>
-			</div>
-		</div>
-
+		{% include '../components/video-player.twig' %}
+		{% include '../components/pen-menu.twig' %}
 	</div>
 {% endblock %}
 

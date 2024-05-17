@@ -6,12 +6,12 @@ document.addEventListener('DOMContentLoaded', async () => {
     const viewButton = document.getElementById('viewButton');
     // const inputWrapper = document.getElementById('inputWrapper');
 
-    const drawingMenu = document.getElementById('drawingMenu');
-    const penColorInput = document.getElementById('penColor');
-    const penWidthInput = document.getElementById('penWidth');
-    const penContainer = document.getElementById('penContainer');
-    const penBody = document.getElementById('penBody');
-    const sliderContainer = document.getElementById('sliderContainer');
+    const drawingMenu = document.querySelector('.app-main-pen-menu');
+    const penColorInput = document.querySelector('.app-main-pen-menu__penColor');
+    const penWidthInput = document.querySelector('.app-main-pen-menu__penWidth');
+    const penContainer = document.querySelector('.app-main-pen-menu__wrapper');
+    const penBody = document.querySelector('.app-main-pen-menu__pen-body');
+    const sliderContainer = document.querySelector('.app-main-pen-menu__slider-wrapper');
 
     let peerManager;
     let canvasManager;
