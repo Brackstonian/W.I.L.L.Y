@@ -12,6 +12,7 @@
 
 {% block content %}
 	<div class="app-main__content-inner app-main-home">
+
 		<div class="app-main-home__intro-text">
 			<h2>Welcome.</h2>
 			<p>Effortless screen sharing and real-time collaboration at your fingertips. No Slack Required!</p>
@@ -26,14 +27,16 @@
 				</li>
 			</ul>
 		</div>
-		<div class="app-main-home__function-selector-inner">
-			<div class="app-main-home__function-selector-left">
-				<button id="shareScreenButton" class="app__button">Share</button>
-			</div>
-			<div class="app-main-home__function-selector-right">
-				<button id="viewScreenButton" class="app__button">Draw</button>
-			</div>
-		</div>
+
+		{% include '../partials/buttons.twig' with { 
+			buttons: [
+				{ id: 'shareScreenButton', style: 'primary', label: 'Share' },
+				{ id: 'viewScreenButton', style: 'primary', label: 'Draw' }
+			],
+			wrapper: true
+		} %}
+
+
 	</div>
 {% endblock %}
 

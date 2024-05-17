@@ -410,32 +410,39 @@ svg {
   color: var(--c-black);
 }
 
-.app__button,
-.modal__button,
-.log__button {
-  background-color: var(--c-white);
-  border: 0.1em solid var(--c-black);
+.app-main-button__button-wrapper {
+  display: flex;
+  gap: 1em;
+  padding: 1em 0;
+}
+.app-main-button__button {
   padding: 0.5em;
   font-size: 1em;
   text-transform: uppercase;
-  color: var(--c-black);
   font-weight: 500;
   transition: all 0.1s;
   white-space: nowrap;
 }
-.app__button:hover,
-.modal__button:hover,
-.log__button:hover {
-  background: var(--c-black);
-  color: var(--c-white);
+.app-main-button__button--primary {
+  background-color: var(--c-white);
+  border: 0.1em solid var(--c-black);
+  color: var(--c-black);
+}
+.app-main-button__button--secondary {
+  background-color: var(--c-light-yellow);
+  border: 0.1em solid var(--c-black);
+  color: var(--c-black);
+}
+.app-main-button__button:hover {
   cursor: pointer;
 }
-
-.log__button {
-  position: absolute;
-  right: 1em;
-  background: white;
-  border-radius: 5px;
+.app-main-button__button:hover.app-main-button__button--primary {
+  background: var(--c-black);
+  color: var(--c-white);
+}
+.app-main-button__button:hover.app-main-button__button--secondary {
+  background: var(--c-dark-green);
+  color: var(--c-white);
 }
 
 .app-main-home__intro-text {

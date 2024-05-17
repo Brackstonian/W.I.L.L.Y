@@ -1,0 +1,20 @@
+{% set buttons = buttons is defined ? buttons : [] %}
+{% set wrapper = wrapper is defined ? wrapper : false %}
+
+{% if wrapper %}
+	<div class="app-main-button__button-wrapper">
+
+
+	{% endif %}
+
+	{% for button in buttons %}
+		<button id="{{ button.id }}" class="app-main-button__button app-main-button__button--{{ button.style }}">
+
+
+			{{ button.label }}
+		</button>
+	{% endfor %}
+
+	{% if wrapper %}
+	</div>
+{% endif %}
