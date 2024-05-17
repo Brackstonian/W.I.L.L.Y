@@ -515,7 +515,7 @@ body {
   font-weight: 700;
 }
 
-#videoContainer {
+.app-main-video-player {
   aspect-ratio: var(--video-aspect-ratio);
   display: none;
   margin: auto;

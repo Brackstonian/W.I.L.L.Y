@@ -1,10 +1,8 @@
-// Function to update the status message and show the retry button
-function updateStatus(message, showRetry) {
-    const statusMessage = document.getElementById('statusMessage');
-    const retryButton = document.getElementById('retryButton');
+import { addLog } from '../components/log.js';
 
-    statusMessage.textContent = message;
-    retryButton.style.display = showRetry ? 'block' : 'none';
+// Function to update the status message and show the retry button
+async function updateLog(message) {
+    await addLog(message);
     console.log('Status updated:', message);
 }
 export function setupStreamPeerEventHandlers(peerManager, onPeerOpen) {
@@ -18,9 +16,8 @@ export function setupStreamPeerEventHandlers(peerManager, onPeerOpen) {
         }
     });
 
-    peer.on('error', err => {
-        console.error('Peer error:', err);
-        updateStatus('Connection failed. Please retry.', true); // Update the status message and show retry button
+    peer.on('error', async err => {
+        updateLog('Connection failed. Please retry.'); // Update the status message and show retry button
         peer.destroy(); // Destroy peer on error
         console.log('Peer destroyed due to error');
         // Retry logic
@@ -47,6 +44,7 @@ export function setupStreamPeerEventHandlers(peerManager, onPeerOpen) {
 
         conn.on('error', err => {
             console.error('Data connection error:', err);
+
         });
     });
 
@@ -70,7 +68,7 @@ export function setupStreamPeerEventHandlers(peerManager, onPeerOpen) {
         });
         call.on('error', (err) => {
             console.error('Call error:', err);
-            updateStatus('Call error occurred. Please retry.', true); // Update the status message and show retry button
+            updateLog('Call error occurred. Please retry.'); // Update the status message and show retry button
         });
     });
 
@@ -78,7 +76,7 @@ export function setupStreamPeerEventHandlers(peerManager, onPeerOpen) {
     setTimeout(() => {
         if (!peer.open) {
             console.error('Peer connection timeout');
-            updateStatus('Connection timed out. Please retry.', true);
+            updateLog('Connection timed out. Please retry.');
             peer.destroy();
         }
     }, 10000); // 10 seconds timeout
@@ -97,7 +95,7 @@ export function setupViewPeerEventHandlers(peerManager, onPeerOpen) {
 
     peer.on('error', err => {
         console.error('Peer error:', err);
-        updateStatus('Connection failed. Please retry.', true); // Update the status message and show retry button
+        updateLog('Connection failed. Please retry.'); // Update the status message and show retry button
         // Retry logic
         setTimeout(() => {
             console.log('Retrying peer connection...');
@@ -146,7 +144,7 @@ export function setupViewPeerEventHandlers(peerManager, onPeerOpen) {
         });
         call.on('error', err => {
             console.error('Call error in viewer:', err);
-            updateStatus('Call error occurred. Please retry.', true); // Update the status message and show retry button
+            updateLog('Call error occurred. Please retry.'); // Update the status message and show retry button
         });
     });
 
@@ -154,7 +152,7 @@ export function setupViewPeerEventHandlers(peerManager, onPeerOpen) {
     setTimeout(() => {
         if (!peer.open) {
             console.error('Peer connection timeout');
-            updateStatus('Connection timed out. Please retry.', true);
+            updateLog('Connection timed out. Please retry.', true);
             peer.destroy();
         }
     }, 10000); // 10 seconds timeout

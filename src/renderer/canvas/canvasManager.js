@@ -87,7 +87,7 @@ export default class CanvasManager {
     }
 
     resizeCanvas() {
-        var videoContainer = document.getElementById('localVideo');
+        let videoContainer = document.getElementById('localVideo');
 
         function gcd(a, b) {
             return b ? gcd(b, a % b) : a;

@@ -556,7 +556,7 @@ body {
   background: #000;
 }
 
-#videoContainer {
+.app-main-video-player {
   aspect-ratio: var(--video-aspect-ratio);
   display: none;
   margin: auto;

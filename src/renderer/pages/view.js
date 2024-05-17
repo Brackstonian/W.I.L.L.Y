@@ -4,7 +4,6 @@ import { addLog } from '../components/log.js';
 
 document.addEventListener('DOMContentLoaded', async () => {
     const viewButton = document.getElementById('viewButton');
-    const retryButton = document.getElementById('retryButton');
     // const inputWrapper = document.getElementById('inputWrapper');
 
     const drawingMenu = document.getElementById('drawingMenu');
@@ -27,18 +26,15 @@ document.addEventListener('DOMContentLoaded', async () => {
 
         peerManager.peer.on('disconnected', async () => {
             await addLog('Disconnected. Please retry.');
-            retryButton.style.display = 'block';
         });
 
         peerManager.peer.on('close', async () => {
             await addLog('Connection closed. Please retry.');
-            retryButton.style.display = 'block';
         });
 
         peerManager.peer.on('error', async (err) => {
             console.error('Peer error:', err);
             await addLog('Connection error. Please retry.');
-            retryButton.style.display = 'block';
         });
     };
 
@@ -55,7 +51,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             .then(stream => {
                 call = peerManager.peer.call(peerId, stream);
                 call.on('stream', remoteStream => {
-                    const videoContainer = document.getElementById('videoContainer');
+                    const videoContainer = document.querySelector('.app-main-video-player');
 
                     videoContainer.classList.add('active');
                     videoContainer.style.display = "block";
@@ -111,18 +107,16 @@ document.addEventListener('DOMContentLoaded', async () => {
 
                 call.on('close', async () => {
                     await addLog('Call closed. Please retry.');
-                    retryButton.style.display = 'block';
+
                 });
 
                 call.on('error', async err => {
                     console.error('Call error:', err);
                     await addLog('Connection failed. Please retry.');
-                    retryButton.style.display = 'block';
                 });
             }).catch(async err => {
                 console.error('Failed to get local stream', err);
                 await addLog('Could not access your camera. Please check device permissions.');
-                retryButton.style.display = 'block';
             });
     };
 
@@ -138,23 +132,7 @@ document.addEventListener('DOMContentLoaded', async () => {
             return;
         }
         handleConnection(peerId, userName);
-    });
 
-    retryButton.addEventListener('click', async () => {
-        const peerId = document.getElementById('inputField').value;
-        const userName = document.getElementById('nameField').value;
-        if (!peerId) {
-            await addLog('Please enter a Peer ID.');
-            return;
-        }
-        if (!userName) {
-            await addLog('Please enter your name.');
-            return;
-        }
-        await addLog('Retrying connection...');
-
-        retryButton.style.display = 'none';
-        handleConnection(peerId, userName);
     });
 
     penContainer.addEventListener('click', () => {
