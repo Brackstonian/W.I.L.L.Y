@@ -12,21 +12,14 @@
 
 {% block content %}
 	<div class="app-main__content-inner app-main-home">
-
-		<div class="app-main-home__intro-text">
-			<h2>Welcome.</h2>
-			<p>Effortless screen sharing and real-time collaboration at your fingertips. No Slack Required!</p>
-			<ul>
-				<li>
-					<strong>Share:</strong>
-					Broadcast your screen and share the viewing link.
-				</li>
-				<li>
-					<strong>Draw:</strong>
-					Enter a viewing link, see the shared screen, and draw on it.
-				</li>
-			</ul>
-		</div>
+		{% include '../partials/text-box.twig' with {
+			heading: 'Welcome.',
+			paragraph: 'Effortless screen sharing and real-time collaboration at your fingertips. No Slack Required!',
+			list_items: [
+				{ strong: 'Share:', text: 'Broadcast your screen and share the viewing link.' },
+				{ strong: 'Draw:', text: 'Enter a viewing link, see the shared screen, and draw on it.' }
+			]
+		} %}
 
 		{% include '../partials/buttons.twig' with { 
 			buttons: [
@@ -35,8 +28,6 @@
 			],
 			wrapper: true
 		} %}
-
-
 	</div>
 {% endblock %}
 

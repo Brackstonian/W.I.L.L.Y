@@ -435,6 +435,6 @@ body {
   color: var(--c-white);
 }
 
-.app-main-home__intro-text {
-  margin: 1em 0;
+.app-main-text-box {
+  margin: 1.5em 0 1em;
 }
