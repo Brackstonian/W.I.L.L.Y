@@ -7,8 +7,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputWrapper = document.getElementById('inputWrapper');
     const statusWrapper = document.getElementById('statusWrapper');
     const statusMessage = document.getElementById('statusMessage');
+    const menuPositionSelect = document.getElementById('menuPositionSelect');
+    const drawingMenu = document.getElementById('drawingMenu');
+    const penColorInput = document.getElementById('penColor');
+    const penWidthInput = document.getElementById('penWidth');
 
-    const handleConnection = (peerId) => {
+    const handleConnection = (peerId, userName) => {
         const peerManager = getPeerManager();
 
         statusMessage.textContent = 'Connecting...';
@@ -29,19 +33,13 @@ document.addEventListener('DOMContentLoaded', () => {
                     const localVideo = document.getElementById('localVideo');
                     localVideo.srcObject = remoteStream;
                     localVideo.onloadedmetadata = function () {
-                        // Function to calculate the greatest common divisor
                         function gcd(a, b) {
                             return b ? gcd(b, a % b) : a;
                         }
 
-                        // Calculate the GCD of the video dimensions
                         let divisor = gcd(this.videoWidth, this.videoHeight);
-
-                        // Simplify the width and height by the GCD
                         let simplifiedWidth = this.videoWidth / divisor;
                         let simplifiedHeight = this.videoHeight / divisor;
-
-                        // Display the aspect ratio as a fraction
                         videoContainer.style.setProperty('--video-aspect-ratio', `${simplifiedWidth}/${simplifiedHeight}`);
                     }
 
@@ -52,12 +50,25 @@ document.addEventListener('DOMContentLoaded', () => {
 
                     const canvasManager = new CanvasManager((data) => {
                         if (peerManager.dataConnection && peerManager.dataConnection.open) {
-                            peerManager.dataConnection.send(data);
+                            peerManager.dataConnection.send({ ...data, userName });
                         } else {
                             console.log('Data connection not ready or open.');
                         }
                     });
                     canvasManager.init();
+
+                    // Set the user's name in CanvasManager
+                    canvasManager.setUserName(userName);
+
+                    // Update CanvasManager with pen settings
+                    penColorInput.addEventListener('input', () => {
+                        canvasManager.setPenColor(penColorInput.value);
+                    });
+
+                    penWidthInput.addEventListener('input', () => {
+                        canvasManager.setPenWidth(penWidthInput.value);
+                    });
+
                     window.api.send('view-page-maximized');
                 });
                 call.on('error', err => {
@@ -74,17 +85,42 @@ document.addEventListener('DOMContentLoaded', () => {
 
     viewButton.addEventListener('click', () => {
         const peerId = document.getElementById('inputField').value;
+        const userName = document.getElementById('nameField').value;
         if (!peerId) {
             alert('Please enter a Peer ID.');
             return;
         }
-        handleConnection(peerId);
+        if (!userName) {
+            alert('Please enter your name.');
+            return;
+        }
+        handleConnection(peerId, userName);
     });
 
     retryButton.addEventListener('click', () => {
         const peerId = document.getElementById('inputField').value;
+        const userName = document.getElementById('nameField').value;
+        if (!peerId) {
+            alert('Please enter a Peer ID.');
+            return;
+        }
+        if (!userName) {
+            alert('Please enter your name.');
+            return;
+        }
         statusMessage.textContent = 'Retrying connection...';
         retryButton.style.display = 'none';
-        handleConnection(peerId);
+        handleConnection(peerId, userName);
+    });
+
+
+    menuPositionSelect.addEventListener('change', (event) => {
+        if (event.target.value === 'top') {
+            drawingMenu.classList.remove('bottom-menu');
+            drawingMenu.classList.add('top-menu');
+        } else {
+            drawingMenu.classList.remove('top-menu');
+            drawingMenu.classList.add('bottom-menu');
+        }
     });
 });

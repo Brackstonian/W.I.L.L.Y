@@ -10,17 +10,14 @@
 {% block sideContent %}
 	<h1 class="app-main__title">W.I.L.L.Y</h1>
 	<h1 class="app-main__title">DRAW</h1>
-
 {% endblock %}
-
 
 {% block content %}
 	<div class="app-main__content-inner app-main-view">
-
 		<div class="app-main-view__input-wrapper" id="inputWrapper">
+			<input placeholder="Enter your name" id="nameField" type="text">
 			<input placeholder="Input Share ID" id="inputField" type="text">
 			<button id="viewButton" class="app__button app-main-view__button--connect">Connect</button>
-
 		</div>
 		<div id="statusWrapper" class="app-main-view__input-wrapper" style="display: none;">
 			<p id="statusMessage">Connecting...</p>
@@ -30,6 +27,18 @@
 			<button class="app__button app-main-view__button" onclick="location.href='index.html'">Go Back</button>
 		</div>
 		{% include '../components/videoPlayer.twig' %}
+
+		<!-- Drawing Menu -->
+		<div id="drawingMenu" class="bottom-menu">
+			<label for="penColor">Pen Color:</label>
+			<input type="color" id="penColor" name="penColor" value="#ff0000">
+			<label for="penWidth">Pen Width:</label>
+			<input type="range" id="penWidth" name="penWidth" min="1" max="10" value="2">
+			<select id="menuPositionSelect">
+				<option value="bottom">Bottom</option>
+				<option value="top">Top</option>
+			</select>
+		</div>
 	</div>
 {% endblock %}
 

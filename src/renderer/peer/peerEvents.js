@@ -7,7 +7,6 @@ function updateStatus(message, showRetry) {
     retryButton.style.display = showRetry ? 'block' : 'none';
     console.log('Status updated:', message);
 }
-
 export function setupStreamPeerEventHandlers(peerManager, onPeerOpen) {
     const { peer, localStream } = peerManager;
     console.log('Setting up stream peer event handlers with localStream:', localStream ? localStream.id : 'undefined');
