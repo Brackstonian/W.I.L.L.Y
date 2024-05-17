@@ -3,7 +3,7 @@
 
 ![alt text](https://i.giphy.com/sjkvxdFSqIWTJXshKr.webp)
 
-**Version: 0.3**
+**Version: 0.3.01**
 
 
 ## Installation (Mac Osx)
