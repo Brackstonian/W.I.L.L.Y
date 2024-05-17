@@ -4,7 +4,7 @@ import CanvasManager from '../canvas/canvasManager.js';
 document.addEventListener('DOMContentLoaded', () => {
     const viewButton = document.getElementById('viewButton');
     const retryButton = document.getElementById('retryButton');
-    const inputWrapper = document.getElementById('inputWrapper');
+    // const inputWrapper = document.getElementById('inputWrapper');
     const statusWrapper = document.getElementById('statusWrapper');
     const statusMessage = document.getElementById('statusMessage');
 
@@ -48,7 +48,7 @@ document.addEventListener('DOMContentLoaded', () => {
         initializePeerManager();
 
         statusMessage.textContent = 'Connecting...';
-        inputWrapper.style.display = 'none';
+        // inputWrapper.style.display = 'none';
         statusWrapper.style.display = 'block';
 
         navigator.mediaDevices.getUserMedia({ video: true })

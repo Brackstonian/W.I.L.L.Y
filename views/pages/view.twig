@@ -14,14 +14,18 @@
 
 {% block content %}
 	<div class="app-main__content-inner app-main-view">
+		{% include '../partials/log.twig' with {'theme': 'dos', 'hide': false} %}
+		{% include '../partials/inputs.twig' with { 
+			inputs: [
+				{ placeholder: 'Enter your name', id: 'nameField', type: 'text', maxlength: '12' },
+				{ placeholder: 'Input Share ID', id: 'inputField', type: 'text' }
+			],
+			wrapper: true,
+		} %}
 
-		<div class="app-main-view__input-wrapper" id="inputWrapper">
-			<input placeholder="Enter your name" id="nameField" type="text" maxlength="12">
+		<button id="viewButton" class="app__button app-main-view__button--connect">Connect</button>
 
 
-			<input placeholder="Input Share ID" id="inputField" type="text">
-			<button id="viewButton" class="app__button app-main-view__button--connect">Connect</button>
-		</div>
 		<div id="statusWrapper" class="app-main-view__input-wrapper" style="display: none;">
 			<p id="statusMessage">Connecting...</p>
 			<button id="retryButton" class="app__button app-main-view__button--retry" style="display: none;">Retry</button>

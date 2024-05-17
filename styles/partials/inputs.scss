@@ -1,0 +1,21 @@
+.app-main-input {
+    &__wrapper {
+        display: flex;
+        flex-direction: column;
+        gap: 1em;
+    }
+
+    &__input {
+        font-size: 1em;
+        color: var(--c-black);
+        background: transparent;
+        border: solid 2px var(--c-black);
+        font-weight: 900;
+        text-transform: uppercase;
+        padding: .5em;
+
+        &::placeholder {
+            font-weight: 700;
+        }
+    }
+}
