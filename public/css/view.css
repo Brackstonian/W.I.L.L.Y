@@ -494,7 +494,8 @@ svg {
   font-weight: 700;
 }
 
-.bottom-menu {
+#drawingMenu {
+  margin: 1em 0;
   z-index: 999;
   position: fixed;
   bottom: 0;
@@ -502,20 +503,46 @@ svg {
   transform: translateX(-50%);
   display: flex;
   gap: 10px;
-  background-color: #fff;
-  padding: 10px;
-  border: 1px solid #ccc;
+  opacity: 0.2;
+}
+#drawingMenu:hover {
+  opacity: 1;
+  transition: 0.4s;
 }
 
-.top-menu {
-  z-index: 999;
-  position: fixed;
-  top: 0;
+.pen-container {
+  position: relative;
+  height: 50px;
+  width: 200px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+  border: solid 1px var(--c-black);
+  border-radius: 5px;
+}
+
+.pen-body {
+  height: 20px;
+  width: 150px;
+  background-color: #ff0000; /* Default color */
+  border-radius: 5px;
+  position: relative;
+  position: absolute;
+  top: 50%;
+  transform: translate(0%, -50%);
+}
+
+.slider-container {
+  display: none;
+  flex-direction: column;
+  position: absolute;
+  top: -300%;
   left: 50%;
   transform: translateX(-50%);
-  display: flex;
-  gap: 10px;
-  background-color: #fff;
-  padding: 10px;
+  background: #fff;
   border: 1px solid #ccc;
+  border-radius: 5px;
+  gap: 10px;
+  padding: 10px;
 }

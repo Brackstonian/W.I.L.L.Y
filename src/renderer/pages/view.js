@@ -7,10 +7,13 @@ document.addEventListener('DOMContentLoaded', () => {
     const inputWrapper = document.getElementById('inputWrapper');
     const statusWrapper = document.getElementById('statusWrapper');
     const statusMessage = document.getElementById('statusMessage');
-    const menuPositionSelect = document.getElementById('menuPositionSelect');
+
     const drawingMenu = document.getElementById('drawingMenu');
     const penColorInput = document.getElementById('penColor');
     const penWidthInput = document.getElementById('penWidth');
+    const penContainer = document.getElementById('penContainer');
+    const penBody = document.getElementById('penBody');
+    const sliderContainer = document.getElementById('sliderContainer');
 
     const handleConnection = (peerId, userName) => {
         const peerManager = getPeerManager();
@@ -60,13 +63,19 @@ document.addEventListener('DOMContentLoaded', () => {
                     // Set the user's name in CanvasManager
                     canvasManager.setUserName(userName);
 
-                    // Update CanvasManager with pen settings
+                    // Set initial pen settings in CanvasManager
+                    canvasManager.setPenColor(penColorInput.value);
+                    canvasManager.setPenWidth(penWidthInput.value);
+
+                    // Update CanvasManager with pen settings in real-time
                     penColorInput.addEventListener('input', () => {
                         canvasManager.setPenColor(penColorInput.value);
+                        penBody.style.backgroundColor = penColorInput.value;
                     });
 
                     penWidthInput.addEventListener('input', () => {
                         canvasManager.setPenWidth(penWidthInput.value);
+                        penBody.style.height = `${penWidthInput.value}px`;
                     });
 
                     window.api.send('view-page-maximized');
@@ -113,14 +122,11 @@ document.addEventListener('DOMContentLoaded', () => {
         handleConnection(peerId, userName);
     });
 
-
-    menuPositionSelect.addEventListener('change', (event) => {
-        if (event.target.value === 'top') {
-            drawingMenu.classList.remove('bottom-menu');
-            drawingMenu.classList.add('top-menu');
-        } else {
-            drawingMenu.classList.remove('top-menu');
-            drawingMenu.classList.add('bottom-menu');
-        }
+    penContainer.addEventListener('click', () => {
+        sliderContainer.style.display = sliderContainer.style.display === 'none' ? 'flex' : 'none';
     });
+
+    // Set initial pen width and color
+    penBody.style.backgroundColor = penColorInput.value;
+    penBody.style.height = `${penWidthInput.value}px`;
 });
