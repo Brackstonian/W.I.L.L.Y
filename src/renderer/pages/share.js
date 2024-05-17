@@ -25,13 +25,14 @@ document.addEventListener('DOMContentLoaded', async () => {
         .then(async (sources) => {
             await addLog('Screen sources received.');
             let selectedListItem;
-            const screenPicker = document.getElementById('screen-picker');
-            const screenList = document.getElementById('screen-list');
+            const screenPicker = document.querySelector('.app-main-screen-picker');
+            const screenList = document.querySelector('.app-main-screen-picker__screen-list');
             screenList.innerHTML = '';
             screenPicker.prepend("Select A Screen To Share:");
             sources.forEach((source, index) => {
                 const li = document.createElement('li');
-                li.classList.add('app__button');
+                li.classList.add('app-main-button__button');
+                li.classList.add('app-main-button__button--primary');
                 const img = document.createElement('img');
                 img.src = source.thumbnail;
                 img.alt = `Screen ${index + 1}`;

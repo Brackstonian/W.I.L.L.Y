@@ -15,8 +15,7 @@
 				{{ button.label }}
 			</a>
 		{% else %}
-			<button id="{{ button.id }}" class="app-main-button__button app-main-button__button--{{ button.style }}">
-
+			<button id="{{ button.id }}" class="app-main-button__button app-main-button__button--{{ button.style }}" onclick="{{button.onclick}}">
 				{{ button.label }}
 			</button>
 		{% endif %}

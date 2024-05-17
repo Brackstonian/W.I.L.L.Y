@@ -18,16 +18,14 @@
 	<div class="app-main__content-inner app-main-share">
 
 		{% include '../partials/log.twig' with {'theme': 'dos', 'hide': false} %}
-
-
 		{% include '../components/screenPicker.twig' %}
-
 		{% include '../partials/log.twig' with {'theme': 'ps', 'logMessage': 'Connection Succesful!', 'hide': true} %}
-
-
-		<div class="app-main-share__button-wrapper">
-			<button id="backButton" class="app__button app-main-share__button" onclick="location.href='index.html'">Go Back</button>
-		</div>
+		{% include '../partials/buttons.twig' with { 
+			buttons: [
+				{ id: 'shareScreenButton', style: 'primary', label: 'Go Back', onclick: "location.href='index.html'" },
+			],
+			wrapper: true
+		} %}
 	</div>
 
 {% endblock %}

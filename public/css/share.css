@@ -497,16 +497,24 @@ body {
   color: white;
 }
 
-#screen-list {
+.app-main-screen-picker {
   list-style: none;
   margin: 0;
   display: flex;
+  flex-direction: column;
   gap: 0.5em;
   padding: 10px 0px 10px;
   max-width: 45vw;
   overflow-x: scroll;
 }
-#screen-list li {
+.app-main-screen-picker__screen-list {
+  display: flex;
+  flex-direction: row;
+  padding-inline-start: 0;
+  gap: 1em;
+  margin: 0;
+}
+.app-main-screen-picker li {
   position: relative;
   display: flex;
   align-items: center;
@@ -514,20 +522,20 @@ body {
   padding: 0.5em;
   cursor: pointer;
 }
-#screen-list li:hover img {
+.app-main-screen-picker li:hover img {
   display: block;
 }
-#screen-list li.selected {
+.app-main-screen-picker li.selected {
   background: var(--c-black);
   color: var(--c-white);
   border: 2px solid var(--c-black);
 }
-#screen-list li.selected img,
-#screen-list li.selected video {
+.app-main-screen-picker li.selected img,
+.app-main-screen-picker li.selected video {
   display: block;
 }
-#screen-list li img,
-#screen-list li video {
+.app-main-screen-picker li img,
+.app-main-screen-picker li video {
   position: fixed;
   top: 0;
   left: 50%;
@@ -538,12 +546,13 @@ body {
   display: none;
   mask-image: linear-gradient(to left, black 50%, transparent 100%);
 }
-#screen-list::-webkit-scrollbar {
+.app-main-screen-picker::-webkit-scrollbar {
   width: 5px;
   height: 8px;
-  background-color: transparent; /* or add it to the track */
+  background-color: transparent;
+  /* or add it to the track */
 }
-#screen-list::-webkit-scrollbar-thumb {
+.app-main-screen-picker::-webkit-scrollbar-thumb {
   background: #000;
 }
 
