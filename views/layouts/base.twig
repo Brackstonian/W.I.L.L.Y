@@ -11,26 +11,16 @@
 	<body>
 		<main class="app-main">
 			<div class="app-main__sidebar">
-				<svg height="100" width="100" xmlns="http://www.w3.org/2000/svg">
+
+				<svg class="app-main__logo" height="100" width="100" xmlns="http://www.w3.org/2000/svg">
 					<circle r="45" cx="50" cy="50" fill="transparent"/>
 				</svg>
-				{% block sideContent %}
+
+				{% block pageTitle %}
 					{#   #}
 				{% endblock %}
-				<ul class="app-main__sidebar-nav">
 
-					<li class="app-main__sidebar-nav-item">
-						<a class="app-main__sidebar-nav-item-link app__button" href="https://github.com/Brackstonian/W.I.L.L.Y/issues/new">Report Bug</a>
-					</li>
-					<li class="app-main__sidebar-nav-item">
-						<a class="app-main__sidebar-nav-item-link app__button" href="https://github.com/Brackstonian/W.I.L.L.Y/issues/new">Feature Request</a>
-
-
-					</li>
-					<li class="app-main__sidebar-nav-item">
-						<a class="app-main__sidebar-nav-item-link app__button" href="https://github.com/Brackstonian/W.I.L.L.Y/wiki">Help</a>
-					</li>
-				</ul>
+				{% include '../components/nav.twig' %}
 			</div>
 
 			<div class="app-main__content">
@@ -39,7 +29,7 @@
 				{% endblock %}
 			</div>
 		</main>
-		<script src="{{ assetPath }}/js/externalLink.bundle.js"></script>
 		{% block scripts %}{% endblock %}
+		<script src="{{ assetPath }}/js/externalLink.bundle.js"></script>
 	</body>
 </html>

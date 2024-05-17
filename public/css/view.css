@@ -337,22 +337,9 @@ body {
   background: var(--c-white);
 }
 
-.app-main,
-.modal-main {
-  min-height: 100vh;
-}
-
-svg {
-  outline: var(--c-black) solid 0.35em;
-  border-radius: 50%;
-  height: 2em;
-  width: 2em;
-  margin-bottom: 1.8em;
-  margin-left: 0.1em;
-}
-
 .app-main {
   display: flex;
+  min-height: 100vh;
 }
 .app-main__sidebar {
   background: linear-gradient(360deg, transparent, 98%, #466f86);
@@ -362,20 +349,25 @@ svg {
   display: block;
   overflow: hidden;
 }
-.app-main__sidebar-nav {
+.app-main__logo {
+  outline: var(--c-black) solid 0.35em;
+  border-radius: 50%;
+  height: 2em;
+  width: 2em;
+  margin-bottom: 1.8em;
+  margin-left: 0.1em;
+}
+.app-main__title {
+  font-size: 2em;
+  line-height: 1em;
   margin: unset;
-  padding: unset;
-  list-style: none;
-  margin-top: 2em;
+  color: var(--c-black);
 }
-.app-main__sidebar-nav li {
-  margin: 2em 0;
-}
-.app-main__sidebar-nav li:first-child {
-  margin-top: 3em;
-}
-.app-main__sidebar-nav a {
-  text-decoration: unset;
+.app-main__sub-title {
+  font-size: 1.2em;
+  line-height: 1em;
+  margin: unset;
+  color: var(--c-black);
 }
 .app-main__content {
   position: relative;
@@ -397,48 +389,133 @@ svg {
 .app-main__content-inner {
   margin: 2em 1em;
 }
-.app-main__title {
-  font-size: 2em;
-  line-height: 1em;
-  margin: unset;
-  color: var(--c-black);
-}
-.app-main__sub-title {
-  font-size: 1.2em;
-  line-height: 1em;
-  margin: unset;
-  color: var(--c-black);
-}
 
-.app__button,
-.modal__button,
-.log__button {
-  background-color: var(--c-white);
-  border: 0.1em solid var(--c-black);
+.app-main-button__button-wrapper {
+  display: flex;
+  gap: 1em;
+  padding: 1em 0;
+}
+.app-main-button__button-wrapper--vertical {
+  flex-direction: column;
+}
+.app-main-button__button-wrapper--horizontal {
+  flex-direction: row;
+}
+.app-main-button__button-wrapper--extra-padding {
+  padding: 2em 0;
+}
+.app-main-button__button {
   padding: 0.5em;
   font-size: 1em;
   text-transform: uppercase;
-  color: var(--c-black);
   font-weight: 500;
   transition: all 0.1s;
   white-space: nowrap;
+  text-decoration: none;
 }
-.app__button:hover,
-.modal__button:hover,
-.log__button:hover {
-  background: var(--c-black);
-  color: var(--c-white);
-  cursor: pointer;
+.app-main-button__button--primary {
+  background-color: var(--c-white);
+  border: 0.1em solid var(--c-black);
+  color: var(--c-black);
 }
-
-.log__button {
+.app-main-button__button--secondary {
+  background-color: var(--c-light-yellow);
+  border: 0.1em solid var(--c-black);
+  color: var(--c-black);
+}
+.app-main-button__button--log {
   position: absolute;
   right: 1em;
   background: white;
   border-radius: 5px;
 }
+.app-main-button__button:hover {
+  cursor: pointer;
+}
+.app-main-button__button:hover.app-main-button__button--primary {
+  background: var(--c-black);
+  color: var(--c-white);
+}
+.app-main-button__button:hover.app-main-button__button--secondary {
+  background: var(--c-dark-green);
+  color: var(--c-white);
+}
 
-#videoContainer {
+.app-main-log {
+  width: 100%;
+  padding: 0.5em;
+  border-radius: 5px;
+  font-size: 0.75em;
+  overflow-y: scroll;
+  position: relative;
+  margin-bottom: 2em;
+  height: 5em;
+  overflow: overlay;
+}
+.app-main-log--dos {
+  background: black;
+  color: var(--c-green);
+}
+.app-main-log--dos::-webkit-scrollbar-track {
+  border: 1px solid black;
+  background-color: black;
+  border-radius: 5px;
+}
+.app-main-log--dos::-webkit-scrollbar {
+  width: 10px;
+  background-color: black;
+}
+.app-main-log--dos::-webkit-scrollbar-thumb {
+  background-color: var(--c-green);
+  width: 75%;
+}
+.app-main-log--ps {
+  height: 15em;
+  background: blue;
+  color: white;
+}
+.app-main-log--ps::-webkit-scrollbar-track {
+  border: 1px solid blue;
+  background-color: blue;
+  border-radius: 5px;
+}
+.app-main-log--ps::-webkit-scrollbar {
+  width: 10px;
+  background-color: blue;
+}
+.app-main-log--ps::-webkit-scrollbar-thumb {
+  background-color: white;
+  width: 75%;
+}
+.app-main-log--ps a {
+  color: white;
+}
+.app-main-log__log {
+  margin: 0.5em;
+}
+.app-main-log__log a {
+  color: white;
+}
+
+.app-main-input__wrapper {
+  display: flex;
+  flex-direction: column;
+  gap: 1em;
+}
+.app-main-input__input {
+  font-size: 1em;
+  color: var(--c-black);
+  background: transparent;
+  border: solid 2px var(--c-black);
+  font-weight: 900;
+  text-transform: uppercase;
+  padding: 0.5em;
+}
+.app-main-input__input::placeholder {
+  font-weight: 700;
+}
+
+.app-main-video-player {
   aspect-ratio: var(--video-aspect-ratio);
   display: none;
   margin: auto;
@@ -462,39 +539,7 @@ svg {
   top: 0;
 }
 
-.app-main-view {
-  min-height: 100vh;
-}
-.app-main-view__button-wrapper {
-  text-align: left;
-}
-.app-main-view__input-wrapper {
-  display: flex;
-  flex-direction: row;
-  width: 26em;
-  gap: 2em;
-  margin: 2em 0;
-}
-.app-main-view__button.fullscreen {
-  position: fixed;
-  bottom: 1em;
-  right: 0;
-  z-index: 99;
-}
-
-#inputField {
-  font-size: 1em;
-  color: var(--c-black);
-  background: transparent;
-  border: solid 2px var(--c-black);
-  font-weight: 900;
-  text-transform: uppercase;
-}
-#inputField::placeholder {
-  font-weight: 700;
-}
-
-#drawingMenu {
+.app-main-pen-menu {
   margin: 1em 0;
   z-index: 999;
   position: fixed;
@@ -503,14 +548,9 @@ svg {
   transform: translateX(-50%);
   display: flex;
   gap: 10px;
-  opacity: 0.2;
+  opacity: 0.75;
 }
-#drawingMenu:hover {
-  opacity: 1;
-  transition: 0.4s;
-}
-
-.pen-container {
+.app-main-pen-menu__wrapper {
   position: relative;
   height: 50px;
   width: 200px;
@@ -521,19 +561,18 @@ svg {
   border: solid 1px var(--c-black);
   border-radius: 5px;
 }
-
-.pen-body {
+.app-main-pen-menu__pen-body {
   height: 20px;
   width: 150px;
-  background-color: #ff0000; /* Default color */
+  background-color: #ff0000;
+  /* Default color */
   border-radius: 5px;
   position: relative;
   position: absolute;
   top: 50%;
   transform: translate(0%, -50%);
 }
-
-.slider-container {
+.app-main-pen-menu__slider-wrapper {
   display: none;
   flex-direction: column;
   position: absolute;
@@ -545,4 +584,8 @@ svg {
   border-radius: 5px;
   gap: 10px;
   padding: 10px;
+}
+.app-main-pen-menu:hover {
+  opacity: 1;
+  transition: 0.4s;
 }

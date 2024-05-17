@@ -1,0 +1,23 @@
+<div class="app-main-text-box">
+
+	{% if heading is defined and heading %}
+		<h2>{{ heading }}</h2>
+	{% endif %}
+
+	{% if paragraph is defined and paragraph %}
+		<p>{{ paragraph }}</p>
+	{% endif %}
+
+	{% if list_items is defined and list_items|length %}
+		<ul>
+			{% for item in list_items %}
+				<li>
+					{% if item.strong is defined and item.strong %}
+						<strong>{{ item.strong }}</strong>
+					{% endif %}
+					{{ item.text }}
+				</li>
+			{% endfor %}
+		</ul>
+	{% endif %}
+</div>

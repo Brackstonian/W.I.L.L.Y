@@ -337,22 +337,9 @@ body {
   background: var(--c-white);
 }
 
-.app-main,
-.modal-main {
-  min-height: 100vh;
-}
-
-svg {
-  outline: var(--c-black) solid 0.35em;
-  border-radius: 50%;
-  height: 2em;
-  width: 2em;
-  margin-bottom: 1.8em;
-  margin-left: 0.1em;
-}
-
 .app-main {
   display: flex;
+  min-height: 100vh;
 }
 .app-main__sidebar {
   background: linear-gradient(360deg, transparent, 98%, #466f86);
@@ -362,20 +349,25 @@ svg {
   display: block;
   overflow: hidden;
 }
-.app-main__sidebar-nav {
+.app-main__logo {
+  outline: var(--c-black) solid 0.35em;
+  border-radius: 50%;
+  height: 2em;
+  width: 2em;
+  margin-bottom: 1.8em;
+  margin-left: 0.1em;
+}
+.app-main__title {
+  font-size: 2em;
+  line-height: 1em;
   margin: unset;
-  padding: unset;
-  list-style: none;
-  margin-top: 2em;
+  color: var(--c-black);
 }
-.app-main__sidebar-nav li {
-  margin: 2em 0;
-}
-.app-main__sidebar-nav li:first-child {
-  margin-top: 3em;
-}
-.app-main__sidebar-nav a {
-  text-decoration: unset;
+.app-main__sub-title {
+  font-size: 1.2em;
+  line-height: 1em;
+  margin: unset;
+  color: var(--c-black);
 }
 .app-main__content {
   position: relative;
@@ -397,82 +389,132 @@ svg {
 .app-main__content-inner {
   margin: 2em 1em;
 }
-.app-main__title {
-  font-size: 2em;
-  line-height: 1em;
-  margin: unset;
-  color: var(--c-black);
-}
-.app-main__sub-title {
-  font-size: 1.2em;
-  line-height: 1em;
-  margin: unset;
-  color: var(--c-black);
-}
 
-.app__button,
-.modal__button,
-.log__button {
-  background-color: var(--c-white);
-  border: 0.1em solid var(--c-black);
+.app-main-button__button-wrapper {
+  display: flex;
+  gap: 1em;
+  padding: 1em 0;
+}
+.app-main-button__button-wrapper--vertical {
+  flex-direction: column;
+}
+.app-main-button__button-wrapper--horizontal {
+  flex-direction: row;
+}
+.app-main-button__button-wrapper--extra-padding {
+  padding: 2em 0;
+}
+.app-main-button__button {
   padding: 0.5em;
   font-size: 1em;
   text-transform: uppercase;
-  color: var(--c-black);
   font-weight: 500;
   transition: all 0.1s;
   white-space: nowrap;
+  text-decoration: none;
 }
-.app__button:hover,
-.modal__button:hover,
-.log__button:hover {
-  background: var(--c-black);
-  color: var(--c-white);
-  cursor: pointer;
+.app-main-button__button--primary {
+  background-color: var(--c-white);
+  border: 0.1em solid var(--c-black);
+  color: var(--c-black);
 }
-
-.log__button {
+.app-main-button__button--secondary {
+  background-color: var(--c-light-yellow);
+  border: 0.1em solid var(--c-black);
+  color: var(--c-black);
+}
+.app-main-button__button--log {
   position: absolute;
   right: 1em;
   background: white;
   border-radius: 5px;
 }
+.app-main-button__button:hover {
+  cursor: pointer;
+}
+.app-main-button__button:hover.app-main-button__button--primary {
+  background: var(--c-black);
+  color: var(--c-white);
+}
+.app-main-button__button:hover.app-main-button__button--secondary {
+  background: var(--c-dark-green);
+  color: var(--c-white);
+}
 
-.app_log-zone {
-  background: black;
+.app-main-log {
   width: 100%;
   padding: 0.5em;
   border-radius: 5px;
-  color: var(--c-green);
   font-size: 0.75em;
-  height: 5em;
   overflow-y: scroll;
-  margin-bottom: 2em;
   position: relative;
+  margin-bottom: 2em;
+  height: 5em;
+  overflow: overlay;
 }
-.app_log-zone--ps {
+.app-main-log--dos {
+  background: black;
+  color: var(--c-green);
+}
+.app-main-log--dos::-webkit-scrollbar-track {
+  border: 1px solid black;
+  background-color: black;
+  border-radius: 5px;
+}
+.app-main-log--dos::-webkit-scrollbar {
+  width: 10px;
+  background-color: black;
+}
+.app-main-log--dos::-webkit-scrollbar-thumb {
+  background-color: var(--c-green);
+  width: 75%;
+}
+.app-main-log--ps {
   height: 15em;
   background: blue;
   color: white;
 }
-
-.app_log-zone-log {
+.app-main-log--ps::-webkit-scrollbar-track {
+  border: 1px solid blue;
+  background-color: blue;
+  border-radius: 5px;
+}
+.app-main-log--ps::-webkit-scrollbar {
+  width: 10px;
+  background-color: blue;
+}
+.app-main-log--ps::-webkit-scrollbar-thumb {
+  background-color: white;
+  width: 75%;
+}
+.app-main-log--ps a {
+  color: white;
+}
+.app-main-log__log {
   margin: 0.5em;
 }
-.app_log-zone-log a {
+.app-main-log__log a {
   color: white;
 }
 
-#screen-list {
+.app-main-screen-picker {
   list-style: none;
   margin: 0;
   display: flex;
+  flex-direction: column;
   gap: 0.5em;
   padding: 10px 0px 10px;
   max-width: 45vw;
   overflow-x: scroll;
 }
-#screen-list li {
+.app-main-screen-picker__screen-list {
+  display: flex;
+  flex-direction: row;
+  padding-inline-start: 0;
+  gap: 1em;
+  margin: 0;
+}
+.app-main-screen-picker li {
   position: relative;
   display: flex;
   align-items: center;
@@ -480,20 +522,20 @@ svg {
   padding: 0.5em;
   cursor: pointer;
 }
-#screen-list li:hover img {
+.app-main-screen-picker li:hover img {
   display: block;
 }
-#screen-list li.selected {
+.app-main-screen-picker li.selected {
   background: var(--c-black);
   color: var(--c-white);
   border: 2px solid var(--c-black);
 }
-#screen-list li.selected img,
-#screen-list li.selected video {
+.app-main-screen-picker li.selected img,
+.app-main-screen-picker li.selected video {
   display: block;
 }
-#screen-list li img,
-#screen-list li video {
+.app-main-screen-picker li img,
+.app-main-screen-picker li video {
   position: fixed;
   top: 0;
   left: 50%;
@@ -504,16 +546,17 @@ svg {
   display: none;
   mask-image: linear-gradient(to left, black 50%, transparent 100%);
 }
-#screen-list::-webkit-scrollbar {
+.app-main-screen-picker::-webkit-scrollbar {
   width: 5px;
   height: 8px;
-  background-color: transparent; /* or add it to the track */
+  background-color: transparent;
+  /* or add it to the track */
 }
-#screen-list::-webkit-scrollbar-thumb {
+.app-main-screen-picker::-webkit-scrollbar-thumb {
   background: #000;
 }
 
-#videoContainer {
+.app-main-video-player {
   aspect-ratio: var(--video-aspect-ratio);
   display: none;
   margin: auto;
@@ -535,16 +578,4 @@ svg {
   width: 100%;
   aspect-ratio: var(--video-aspect-ratio);
   top: 0;
-}
-
-.app-main-share {
-  min-height: 100vh;
-}
-.app-main-share__title {
-  font-size: 3em;
-  line-height: 1em;
-}
-.app-main-share__button-wrapper {
-  text-align: left;
-  margin-top: 1em;
 }

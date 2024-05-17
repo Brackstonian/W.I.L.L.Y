@@ -4,36 +4,29 @@
 	<link rel="stylesheet" type="text/css" href="{{ assetPath }}/css/home.css">
 {% endblock %}
 
-{% block sideContent %}
+{% block pageTitle %}
 	<h1 class="app-main__title">W.I.L.L.Y</h1>
-	Version: 0.3.1
+	Version: 0.3.2
 {% endblock %}
 
 
 {% block content %}
 	<div class="app-main__content-inner app-main-home">
-		<div class="app-main-home__intro-text">
-			<h2>Welcome.</h2>
-			<p>Effortless screen sharing and real-time collaboration at your fingertips. No Slack Required!</p>
-			<ul>
-				<li>
-					<strong>Share:</strong>
-					Broadcast your screen and share the viewing link.
-				</li>
-				<li>
-					<strong>Draw:</strong>
-					Enter a viewing link, see the shared screen, and draw on it.
-				</li>
-			</ul>
-		</div>
-		<div class="app-main-home__function-selector-inner">
-			<div class="app-main-home__function-selector-left">
-				<button id="shareScreenButton" class="app__button">Share</button>
-			</div>
-			<div class="app-main-home__function-selector-right">
-				<button id="viewScreenButton" class="app__button">Draw</button>
-			</div>
-		</div>
+		{% include '../partials/text-box.twig' with {
+			heading: 'Welcome.',
+			paragraph: 'Effortless screen sharing and real-time collaboration at your fingertips. No Slack Required!',
+			list_items: [
+				{ strong: 'Share:', text: 'Broadcast your screen and share the viewing link.' },
+				{ strong: 'Draw:', text: 'Enter a viewing link, see the shared screen, and draw on it.' }
+			]
+		} %}
+		{% include '../partials/buttons.twig' with { 
+			buttons: [
+				{ id: 'shareScreenButton', style: 'primary', label: 'Share' },
+				{ id: 'viewScreenButton', style: 'primary', label: 'Draw' }
+			],
+			wrapper: true
+		} %}
 	</div>
 {% endblock %}
 

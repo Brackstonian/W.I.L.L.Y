@@ -1,0 +1,68 @@
+// Styles for app log component to be built.
+.app-main-log {
+  width: 100%;
+  padding: 0.5em;
+  border-radius: 5px;
+  font-size: 0.75em;
+  overflow-y: scroll;
+  position: relative;
+  margin-bottom: 2em;
+  height: 5em;
+
+  overflow: overlay;
+
+  &--dos {
+    background: black;
+    color: var(--c-green);
+
+    &::-webkit-scrollbar-track {
+      border: 1px solid black;
+      background-color: black;
+      border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar {
+      width: 10px;
+      background-color: black;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: var(--c-green);
+      width: 75%;
+    }
+  }
+
+  &--ps {
+    height: 15em;
+    background: blue;
+    color: white;
+
+    &::-webkit-scrollbar-track {
+      border: 1px solid blue;
+      background-color: blue;
+      border-radius: 5px;
+    }
+
+    &::-webkit-scrollbar {
+      width: 10px;
+      background-color: blue;
+    }
+
+    &::-webkit-scrollbar-thumb {
+      background-color: white;
+      width: 75%;
+    }
+
+    a {
+      color: white;
+    }
+  }
+
+  &__log {
+    margin: 0.5em;
+
+    a {
+      color: white;
+    }
+  }
+}

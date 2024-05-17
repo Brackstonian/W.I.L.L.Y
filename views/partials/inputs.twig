@@ -1,0 +1,15 @@
+{% set inputs = inputs is defined ? inputs : [] %}
+{% set wrapper = wrapper is defined ? wrapper : false %}
+{% set wrapper_class = wrapper_class is defined ? wrapper_class : '' %}
+
+{% if wrapper %}
+	<div class="app-main-input__wrapper app-main-input__wrapper--{{ wrapper_class }}">
+	{% endif %}
+
+	{% for input in inputs %}
+		<input placeholder="{{ input.placeholder }}" id="{{ input.id }}" type="{{ input.type }}" maxlength="{{ input.maxlength is defined ? input.maxlength : '' }}" class="app-main-input__input app-main-input--{{ input.class is defined ? input.class : '' }}">
+	{% endfor %}
+
+	{% if wrapper %}
+	</div>
+{% endif %}

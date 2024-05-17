@@ -1,16 +1,6 @@
 @import "../layouts/base.scss";
 @import "../partials/button.scss";
+@import "../partials/text-box.scss";
 
 
-.app-main-home {
-
-  &__intro-text {
-    margin: 1em 0;
-  }
-
-  &__function-selector-inner {
-    display: flex;
-    flex-direction: row;
-    gap: 1em;
-  }
-}
+.app-main-home {}

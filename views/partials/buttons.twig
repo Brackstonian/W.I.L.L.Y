@@ -1,0 +1,26 @@
+{# buttons.twig #}
+{% set buttons = buttons is defined ? buttons : [] %}
+{% set wrapper = wrapper is defined ? wrapper : false %}
+
+{% if wrapper %}
+	<div class="app-main-button__button-wrapper app-main-button__button-wrapper--{{ wrapper_class }}">
+
+
+	{% endif %}
+
+
+	{% for button in buttons %}
+		{% if button.url is defined and button.url %}
+			<a href="{{ button.url }}" id="{{ button.id }}" class="app-main-button__button app-main-button__button--{{ button.style }}">
+				{{ button.label }}
+			</a>
+		{% else %}
+			<button id="{{ button.id }}" class="app-main-button__button app-main-button__button--{{ button.style }}" onclick="{{button.onclick}}">
+				{{ button.label }}
+			</button>
+		{% endif %}
+	{% endfor %}
+
+	{% if wrapper %}
+	</div>
+{% endif %}
