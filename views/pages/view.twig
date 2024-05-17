@@ -22,17 +22,14 @@
 			],
 			wrapper: true,
 		} %}
+		{% include '../partials/buttons.twig' with { 
+			buttons: [
+				{ id: 'viewButton', style: 'primary', label: 'Connect' },
+				{ id: 'shareScreenButton', style: 'primary', label: 'Go Back', onclick: "location.href='index.html'" },
+			],
+			wrapper: true
+		} %}
 
-		<button id="viewButton" class="app__button app-main-view__button--connect">Connect</button>
-
-
-		<div id="statusWrapper" class="app-main-view__input-wrapper" style="display: none;">
-			<p id="statusMessage">Connecting...</p>
-			<button id="retryButton" class="app__button app-main-view__button--retry" style="display: none;">Retry</button>
-		</div>
-		<div class="app-main-view__button-wrapper">
-			<button class="app__button app-main-view__button" onclick="location.href='index.html'">Go Back</button>
-		</div>
 		{% include '../components/videoPlayer.twig' %}
 
 		<div id="drawingMenu" class="bottom-menu">

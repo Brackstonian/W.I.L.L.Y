@@ -1,12 +1,11 @@
 import getPeerManager from '../peer/peerManager.js';
 import CanvasManager from '../canvas/canvasManager.js';
+import { addLog } from '../components/log.js';
 
-document.addEventListener('DOMContentLoaded', () => {
+document.addEventListener('DOMContentLoaded', async () => {
     const viewButton = document.getElementById('viewButton');
     const retryButton = document.getElementById('retryButton');
     // const inputWrapper = document.getElementById('inputWrapper');
-    const statusWrapper = document.getElementById('statusWrapper');
-    const statusMessage = document.getElementById('statusMessage');
 
     const drawingMenu = document.getElementById('drawingMenu');
     const penColorInput = document.getElementById('penColor');
@@ -19,37 +18,38 @@ document.addEventListener('DOMContentLoaded', () => {
     let canvasManager;
     let call;
 
-    const initializePeerManager = () => {
+    await addLog('Ready! Add your Name and ID!');
+
+
+    const initializePeerManager = async () => {
         peerManager = getPeerManager();
         peerManager.initializePeer('view');
 
-        peerManager.peer.on('disconnected', () => {
-            statusMessage.textContent = 'Disconnected. Please retry.';
+        peerManager.peer.on('disconnected', async () => {
+            await addLog('Disconnected. Please retry.');
             retryButton.style.display = 'block';
         });
 
-        peerManager.peer.on('close', () => {
-            statusMessage.textContent = 'Connection closed. Please retry.';
+        peerManager.peer.on('close', async () => {
+            await addLog('Connection closed. Please retry.');
             retryButton.style.display = 'block';
         });
 
-        peerManager.peer.on('error', (err) => {
+        peerManager.peer.on('error', async (err) => {
             console.error('Peer error:', err);
-            statusMessage.textContent = 'Connection error. Please retry.';
+            await addLog('Connection error. Please retry.');
             retryButton.style.display = 'block';
         });
     };
 
-    const handleConnection = (peerId, userName) => {
+    const handleConnection = async (peerId, userName) => {
         if (peerManager && peerManager.peer && peerManager.peer.open) {
             peerManager.peer.destroy();
         }
 
         initializePeerManager();
 
-        statusMessage.textContent = 'Connecting...';
-        // inputWrapper.style.display = 'none';
-        statusWrapper.style.display = 'block';
+        await addLog('Connecting...');
 
         navigator.mediaDevices.getUserMedia({ video: true })
             .then(stream => {
@@ -109,49 +109,50 @@ document.addEventListener('DOMContentLoaded', () => {
                     canvasManager.resizeCanvas();
                 });
 
-                call.on('close', () => {
-                    statusMessage.textContent = 'Call closed. Please retry.';
+                call.on('close', async () => {
+                    await addLog('Call closed. Please retry.');
                     retryButton.style.display = 'block';
                 });
 
-                call.on('error', err => {
+                call.on('error', async err => {
                     console.error('Call error:', err);
-                    statusMessage.textContent = 'Connection failed. Please retry.';
+                    await addLog('Connection failed. Please retry.');
                     retryButton.style.display = 'block';
                 });
-            }).catch(err => {
+            }).catch(async err => {
                 console.error('Failed to get local stream', err);
-                statusMessage.textContent = 'Could not access your camera. Please check device permissions.';
+                await addLog('Could not access your camera. Please check device permissions.');
                 retryButton.style.display = 'block';
             });
     };
 
-    viewButton.addEventListener('click', () => {
+    viewButton.addEventListener('click', async () => {
         const peerId = document.getElementById('inputField').value;
         const userName = document.getElementById('nameField').value;
         if (!peerId) {
-            alert('Please enter a Peer ID.');
+            await addLog('Please enter a Peer ID.');
             return;
         }
         if (!userName) {
-            alert('Please enter your name.');
+            await addLog('Please enter your name.');
             return;
         }
         handleConnection(peerId, userName);
     });
 
-    retryButton.addEventListener('click', () => {
+    retryButton.addEventListener('click', async () => {
         const peerId = document.getElementById('inputField').value;
         const userName = document.getElementById('nameField').value;
         if (!peerId) {
-            alert('Please enter a Peer ID.');
+            await addLog('Please enter a Peer ID.');
             return;
         }
         if (!userName) {
-            alert('Please enter your name.');
+            await addLog('Please enter your name.');
             return;
         }
-        statusMessage.textContent = 'Retrying connection...';
+        await addLog('Retrying connection...');
+
         retryButton.style.display = 'none';
         handleConnection(peerId, userName);
     });
