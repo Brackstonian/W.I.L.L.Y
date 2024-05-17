@@ -362,21 +362,6 @@ svg {
   display: block;
   overflow: hidden;
 }
-.app-main__sidebar-nav {
-  margin: unset;
-  padding: unset;
-  list-style: none;
-  margin-top: 2em;
-}
-.app-main__sidebar-nav li {
-  margin: 2em 0;
-}
-.app-main__sidebar-nav li:first-child {
-  margin-top: 3em;
-}
-.app-main__sidebar-nav a {
-  text-decoration: unset;
-}
 .app-main__content {
   position: relative;
   width: 70%;
@@ -415,6 +400,15 @@ svg {
   gap: 1em;
   padding: 1em 0;
 }
+.app-main-button__button-wrapper--vertical {
+  flex-direction: column;
+}
+.app-main-button__button-wrapper--horizontal {
+  flex-direction: row;
+}
+.app-main-button__button-wrapper--extra-padding {
+  padding: 2em 0;
+}
 .app-main-button__button {
   padding: 0.5em;
   font-size: 1em;
@@ -422,6 +416,7 @@ svg {
   font-weight: 500;
   transition: all 0.1s;
   white-space: nowrap;
+  text-decoration: none;
 }
 .app-main-button__button--primary {
   background-color: var(--c-white);

@@ -6,18 +6,18 @@
 
 // Css Variables
 :root {
-    // Colours
-    --c-black: #363837;
-    --c-white: #fffffa;
-    --c-yellow: #faea31;
-    --c-green: #109648;
-    --c-red: #D62828;
-    --c-gray: #b4b6ac;
-    --c-light-green: #2a6365;
-    --c-light-yellow: #eee8b8;
-    --c-dark-green: #004b4f;
-    // Fonts
-    --f-primary: "IBM Plex Mono", monospace;
+  // Colours
+  --c-black: #363837;
+  --c-white: #fffffa;
+  --c-yellow: #faea31;
+  --c-green: #109648;
+  --c-red: #D62828;
+  --c-gray: #b4b6ac;
+  --c-light-green: #2a6365;
+  --c-light-yellow: #eee8b8;
+  --c-dark-green: #004b4f;
+  // Fonts
+  --f-primary: "IBM Plex Mono", monospace;
 }
 
 // Defaults
@@ -63,28 +63,11 @@ svg {
     overflow: hidden;
   }
 
-  &__sidebar-nav {
-    margin: unset;
-    padding: unset;
-    list-style: none;
-    margin-top: 2em;
-
-    li {
-      margin: 2em 0;
-
-      &:first-child {
-        margin-top: 3em;
-      }
-    }
-
-    a {
-      text-decoration: unset;
-    }
-  }
 
   &__content {
     position: relative;
     width: 70%;
+
     &::before {
       content: '';
       display: block;
@@ -94,12 +77,12 @@ svg {
       top: 0;
       left: 0;
       background-size: 1em 1em;
-        background-image:
-          linear-gradient(to right, var(--c-gray) 1px, transparent 1px),
-          linear-gradient(to bottom, var(--c-gray) 1px, transparent 1px);
-          opacity: 0.3;
-          z-index: -1;
-      }
+      background-image:
+        linear-gradient(to right, var(--c-gray) 1px, transparent 1px),
+        linear-gradient(to bottom, var(--c-gray) 1px, transparent 1px);
+      opacity: 0.3;
+      z-index: -1;
+    }
   }
 
   &__content-inner {
@@ -112,6 +95,7 @@ svg {
     margin: unset;
     color: var(--c-black);
   }
+
   &__sub-title {
     font-size: 1.2em;
     line-height: 1em;

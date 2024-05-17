@@ -362,21 +362,6 @@ svg {
   display: block;
   overflow: hidden;
 }
-.app-main__sidebar-nav {
-  margin: unset;
-  padding: unset;
-  list-style: none;
-  margin-top: 2em;
-}
-.app-main__sidebar-nav li {
-  margin: 2em 0;
-}
-.app-main__sidebar-nav li:first-child {
-  margin-top: 3em;
-}
-.app-main__sidebar-nav a {
-  text-decoration: unset;
-}
 .app-main__content {
   position: relative;
   width: 70%;
