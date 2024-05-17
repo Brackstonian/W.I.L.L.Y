@@ -1,6 +1,5 @@
 // Normalize
 @import "../normalize.scss";
-
 // IBM Plex Mono
 @import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Mono:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;1,100;1,200;1,300;1,400;1,500;1,600;1,700&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
 
@@ -31,26 +30,9 @@ body {
   background: var(--c-white);
 }
 
-.app-main,
-.modal-main {
-  min-height: 100vh;
-}
-
-
-//base.twig styles
-
-svg {
-  outline: var(--c-black) solid 0.35em;
-  border-radius: 50%;
-  height: 2em;
-  width: 2em;
-  margin-bottom: 1.8em;
-  margin-left: 0.1em;
-}
-
 .app-main {
-
   display: flex;
+  min-height: 100vh;
 
   &__sidebar {
     background: linear-gradient(360deg, transparent, 98%, #466f86);
@@ -63,6 +45,28 @@ svg {
     overflow: hidden;
   }
 
+  &__logo {
+    outline: var(--c-black) solid 0.35em;
+    border-radius: 50%;
+    height: 2em;
+    width: 2em;
+    margin-bottom: 1.8em;
+    margin-left: 0.1em;
+  }
+
+  &__title {
+    font-size: 2em;
+    line-height: 1em;
+    margin: unset;
+    color: var(--c-black);
+  }
+
+  &__sub-title {
+    font-size: 1.2em;
+    line-height: 1em;
+    margin: unset;
+    color: var(--c-black);
+  }
 
   &__content {
     position: relative;
@@ -88,19 +92,4 @@ svg {
   &__content-inner {
     margin: 2em 1em;
   }
-
-  &__title {
-    font-size: 2em;
-    line-height: 1em;
-    margin: unset;
-    color: var(--c-black);
-  }
-
-  &__sub-title {
-    font-size: 1.2em;
-    line-height: 1em;
-    margin: unset;
-    color: var(--c-black);
-  }
-
 }

@@ -337,22 +337,9 @@ body {
   background: var(--c-white);
 }
 
-.app-main,
-.modal-main {
-  min-height: 100vh;
-}
-
-svg {
-  outline: var(--c-black) solid 0.35em;
-  border-radius: 50%;
-  height: 2em;
-  width: 2em;
-  margin-bottom: 1.8em;
-  margin-left: 0.1em;
-}
-
 .app-main {
   display: flex;
+  min-height: 100vh;
 }
 .app-main__sidebar {
   background: linear-gradient(360deg, transparent, 98%, #466f86);
@@ -361,6 +348,26 @@ svg {
   padding: 2em;
   display: block;
   overflow: hidden;
+}
+.app-main__logo {
+  outline: var(--c-black) solid 0.35em;
+  border-radius: 50%;
+  height: 2em;
+  width: 2em;
+  margin-bottom: 1.8em;
+  margin-left: 0.1em;
+}
+.app-main__title {
+  font-size: 2em;
+  line-height: 1em;
+  margin: unset;
+  color: var(--c-black);
+}
+.app-main__sub-title {
+  font-size: 1.2em;
+  line-height: 1em;
+  margin: unset;
+  color: var(--c-black);
 }
 .app-main__content {
   position: relative;
@@ -381,18 +388,6 @@ svg {
 }
 .app-main__content-inner {
   margin: 2em 1em;
-}
-.app-main__title {
-  font-size: 2em;
-  line-height: 1em;
-  margin: unset;
-  color: var(--c-black);
-}
-.app-main__sub-title {
-  font-size: 1.2em;
-  line-height: 1em;
-  margin: unset;
-  color: var(--c-black);
 }
 
 body,
