@@ -1,10 +1,10 @@
 // log.js
-export function addLog(message, elmID = 'log-zone', isHtml = false) {
+export function addLog(message, selector = '.app-main-log--dos', isHtml = false) {
     return new Promise((resolve) => {
         setTimeout(() => {
-            const logZone = document.getElementById(elmID);
+            const logZone = document.querySelector(selector);
             const logEntry = document.createElement('p');
-            logEntry.classList.add('app_log-zone-log');
+            logEntry.classList.add('app-main-log__log');
             if (isHtml) {
                 logEntry.innerHTML = message;
             } else {
@@ -13,7 +13,7 @@ export function addLog(message, elmID = 'log-zone', isHtml = false) {
             logZone.appendChild(logEntry);
             logZone.scrollTop = logZone.scrollHeight; // Scroll to the bottom
 
-            if (elmID === 'log-zone-ps') {
+            if (selector === '.app-main-log--ps') {
                 logZone.style.display = 'block';
             }
 

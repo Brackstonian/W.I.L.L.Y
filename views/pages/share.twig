@@ -13,11 +13,16 @@
 {% endblock %}
 
 {% block content %}
+
+
 	<div class="app-main__content-inner app-main-share">
 
-		{% include '../components/logZone.twig' %}
+		{% include '../partials/log.twig' with {'theme': 'dos', 'hide': false} %}
+
+
 		{% include '../components/screenPicker.twig' %}
-		{% include '../components/logZonePs.twig' %}
+
+		{% include '../partials/log.twig' with {'theme': 'ps', 'logMessage': 'Connection Succesful!', 'hide': true} %}
 
 
 		<div class="app-main-share__button-wrapper">

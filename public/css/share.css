@@ -435,28 +435,59 @@ body {
   color: var(--c-white);
 }
 
-.app_log-zone {
-  background: black;
+.app-main-log {
   width: 100%;
   padding: 0.5em;
   border-radius: 5px;
-  color: var(--c-green);
   font-size: 0.75em;
-  height: 5em;
   overflow-y: scroll;
-  margin-bottom: 2em;
   position: relative;
+  margin-bottom: 2em;
+  height: 5em;
+  overflow: overlay;
 }
-.app_log-zone--ps {
+.app-main-log--dos {
+  background: black;
+  color: var(--c-green);
+}
+.app-main-log--dos::-webkit-scrollbar-track {
+  border: 1px solid black;
+  background-color: black;
+  border-radius: 5px;
+}
+.app-main-log--dos::-webkit-scrollbar {
+  width: 10px;
+  background-color: black;
+}
+.app-main-log--dos::-webkit-scrollbar-thumb {
+  background-color: var(--c-green);
+  width: 75%;
+}
+.app-main-log--ps {
   height: 15em;
   background: blue;
   color: white;
 }
-
-.app_log-zone-log {
+.app-main-log--ps::-webkit-scrollbar-track {
+  border: 1px solid blue;
+  background-color: blue;
+  border-radius: 5px;
+}
+.app-main-log--ps::-webkit-scrollbar {
+  width: 10px;
+  background-color: blue;
+}
+.app-main-log--ps::-webkit-scrollbar-thumb {
+  background-color: white;
+  width: 75%;
+}
+.app-main-log--ps a {
+  color: white;
+}
+.app-main-log__log {
   margin: 0.5em;
 }
-.app_log-zone-log a {
+.app-main-log__log a {
   color: white;
 }
 
@@ -532,16 +563,4 @@ body {
   width: 100%;
   aspect-ratio: var(--video-aspect-ratio);
   top: 0;
-}
-
-.app-main-share {
-  min-height: 100vh;
-}
-.app-main-share__title {
-  font-size: 3em;
-  line-height: 1em;
-}
-.app-main-share__button-wrapper {
-  text-align: left;
-  margin-top: 1em;
 }

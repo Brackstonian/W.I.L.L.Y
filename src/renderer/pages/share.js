@@ -2,12 +2,12 @@ import getPeerManager from '../peer/peerManager.js';
 import { addLog } from '../components/log.js';
 
 function logPeerId(peerId) {
-    addLog(`Peer ID: ${peerId}`, 'log-zone-ps');
-    addLog(`To share this connection, use the following link:`, 'log-zone-ps');
-    addLog(`<a href="https://w-i-l-l-y-web.onrender.com/view/${peerId}" target="_blank">https://w-i-l-l-y-web.onrender.com/view/${peerId}</a>`, 'log-zone-ps', true);
+    addLog(`Peer ID: ${peerId}`, '.app-main-log--ps');
+    addLog(`To share this connection, use the following link:`, '.app-main-log--ps');
+    addLog(`<a href="https://w-i-l-l-y-web.onrender.com/view/${peerId}" target="_blank">https://w-i-l-l-y-web.onrender.com/view/${peerId}</a>`, '.app-main-log--ps', true);
 
     document.querySelector('.log__button').addEventListener('click', () => {
-        const fullText = document.querySelector('log-zone-ps').innerText;
+        const fullText = document.querySelector('.app-main-log--ps').innerText;
         const lines = fullText.split('\n');
         let modifiedText = lines.slice(2).join('\n');
         modifiedText = modifiedText.replace(
