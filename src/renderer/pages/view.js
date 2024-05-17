@@ -15,18 +15,45 @@ document.addEventListener('DOMContentLoaded', () => {
     const penBody = document.getElementById('penBody');
     const sliderContainer = document.getElementById('sliderContainer');
 
+    let peerManager;
+    let canvasManager;
+    let call;
+
+    const initializePeerManager = () => {
+        peerManager = getPeerManager();
+        peerManager.initializePeer('view');
+
+        peerManager.peer.on('disconnected', () => {
+            statusMessage.textContent = 'Disconnected. Please retry.';
+            retryButton.style.display = 'block';
+        });
+
+        peerManager.peer.on('close', () => {
+            statusMessage.textContent = 'Connection closed. Please retry.';
+            retryButton.style.display = 'block';
+        });
+
+        peerManager.peer.on('error', (err) => {
+            console.error('Peer error:', err);
+            statusMessage.textContent = 'Connection error. Please retry.';
+            retryButton.style.display = 'block';
+        });
+    };
+
     const handleConnection = (peerId, userName) => {
-        const peerManager = getPeerManager();
+        if (peerManager && peerManager.peer && peerManager.peer.open) {
+            peerManager.peer.destroy();
+        }
+
+        initializePeerManager();
 
         statusMessage.textContent = 'Connecting...';
         inputWrapper.style.display = 'none';
         statusWrapper.style.display = 'block';
 
-        peerManager.initializePeer('view');
-
         navigator.mediaDevices.getUserMedia({ video: true })
             .then(stream => {
-                const call = peerManager.peer.call(peerId, stream);
+                call = peerManager.peer.call(peerId, stream);
                 call.on('stream', remoteStream => {
                     const videoContainer = document.getElementById('videoContainer');
 
@@ -44,14 +71,14 @@ document.addEventListener('DOMContentLoaded', () => {
                         let simplifiedWidth = this.videoWidth / divisor;
                         let simplifiedHeight = this.videoHeight / divisor;
                         videoContainer.style.setProperty('--video-aspect-ratio', `${simplifiedWidth}/${simplifiedHeight}`);
-                    }
+                    };
 
                     peerManager.dataConnection = peerManager.peer.connect(peerId);
                     peerManager.dataConnection.on('error', err => {
                         console.error('Data connection error:', err);
                     });
 
-                    const canvasManager = new CanvasManager((data) => {
+                    canvasManager = new CanvasManager((data) => {
                         if (peerManager.dataConnection && peerManager.dataConnection.open) {
                             peerManager.dataConnection.send({ ...data, userName });
                         } else {
@@ -79,7 +106,14 @@ document.addEventListener('DOMContentLoaded', () => {
                     });
 
                     window.api.send('view-page-maximized');
+                    canvasManager.resizeCanvas();
                 });
+
+                call.on('close', () => {
+                    statusMessage.textContent = 'Call closed. Please retry.';
+                    retryButton.style.display = 'block';
+                });
+
                 call.on('error', err => {
                     console.error('Call error:', err);
                     statusMessage.textContent = 'Connection failed. Please retry.';
