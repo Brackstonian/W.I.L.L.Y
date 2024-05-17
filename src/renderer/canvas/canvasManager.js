@@ -2,28 +2,35 @@ export default class CanvasManager {
     constructor(sendDataCallback) {
         this.canvas = document.getElementById('drawingCanvas');
         this.ctx = this.canvas.getContext('2d');
-        this.fadeTimeout = null;
         this.paths = [];
         this.IS_DRAWING = false;
         this.sendData = sendDataCallback;
+        this.penColor = '#ff0000';  // Default pen color
+        this.penWidth = 2;  // Default pen width
+        this.userName = '';  // Default user name
     }
 
     init() {
-        console.log('this triggered');
+        console.log('CanvasManager initialized');
         this.resizeCanvas(); // Adjust canvas size.
-        // this.drawPaths(); // Start the drawing process.
         window.onresize = this.resizeCanvas.bind(this); // Ensure canvas resizes properly on window resize.
 
         this.canvas.onmousedown = (e) => {
-            clearTimeout(this.fadeTimeout);
             this.IS_DRAWING = true;
             const normalizedX = e.offsetX / this.canvas.width;
             const normalizedY = e.offsetY / this.canvas.height;
-            const newPath = { points: [{ x: e.offsetX, y: e.offsetY + 10 }], alpha: 1, IS_DRAWING: true };
+            const newPath = {
+                points: [{ x: e.offsetX, y: e.offsetY + 10 }],
+                alpha: 1,
+                IS_DRAWING: true,
+                color: this.penColor,
+                width: this.penWidth,
+                name: this.userName,
+                lastUpdated: Date.now()
+            };
             this.paths.push(newPath);
-            this.sendData({ type: 'mousedown', x: normalizedX, y: normalizedY });
+            this.sendData({ type: 'mousedown', x: normalizedX, y: normalizedY, color: this.penColor, width: this.penWidth, name: this.userName });
         };
-
 
         this.canvas.onmousemove = (e) => {
             if (this.IS_DRAWING) {
@@ -31,7 +38,8 @@ export default class CanvasManager {
                 const normalizedY = e.offsetY / this.canvas.height;
                 let currentPath = this.paths[this.paths.length - 1];
                 currentPath.points.push({ x: e.offsetX, y: e.offsetY + 10 });
-                this.sendData({ type: 'mousemove', x: normalizedX, y: normalizedY });
+                currentPath.lastUpdated = Date.now();
+                this.sendData({ type: 'mousemove', x: normalizedX, y: normalizedY, color: this.penColor, width: this.penWidth, name: this.userName });
             }
         };
 
@@ -39,10 +47,21 @@ export default class CanvasManager {
             if (this.IS_DRAWING) {
                 this.IS_DRAWING = false;
                 this.paths[this.paths.length - 1].IS_DRAWING = false;
-                this.sendData({ type: 'mouseup' });
-                // this.startFading();
+                this.sendData({ type: 'mouseup', name: this.userName });
             }
         };
+    }
+
+    setPenColor(color) {
+        this.penColor = color;
+    }
+
+    setPenWidth(width) {
+        this.penWidth = width;
+    }
+
+    setUserName(name) {
+        this.userName = name;
     }
 
     drawPaths() {
@@ -52,69 +71,44 @@ export default class CanvasManager {
             this.ctx.beginPath();
             this.ctx.moveTo(path.points[0].x, path.points[0].y);
             path.points.forEach(point => this.ctx.lineTo(point.x, point.y));
-            this.ctx.strokeStyle = `rgba(255, 0, 0, ${path.alpha})`;
-            this.ctx.lineWidth = 2;
+            this.ctx.strokeStyle = path.color;
+            this.ctx.lineWidth = path.width;
             this.ctx.stroke();
+
+            // Draw the user's name near the last point if the current name is provided
+            if (path.IS_DRAWING) {
+                const lastPoint = path.points[path.points.length - 1];
+                this.ctx.font = '12px Arial';
+                this.ctx.fillStyle = path.color;
+                this.ctx.fillText(path.name, lastPoint.x + 5, lastPoint.y);
+            }
         });
         requestAnimationFrame(this.drawPaths.bind(this));
     }
+
     resizeCanvas() {
-        // Set the desired aspect ratio
-        // const aspectRatio = 16 / 9;
         var videoContainer = document.getElementById('localVideo');
 
-        // Function to calculate the greatest common divisor
         function gcd(a, b) {
             return b ? gcd(b, a % b) : a;
         }
 
-        // Calculate the GCD of the video dimensions
         let divisor = gcd(videoContainer.offsetWidth, videoContainer.offsetHeight);
-
-        // Simplify the width and height by the GCD
         let simplifiedWidth = videoContainer.offsetWidth / divisor;
         let simplifiedHeight = videoContainer.offsetHeight / divisor;
+        let aspectRatio = simplifiedWidth / simplifiedHeight;
 
-        let aspectRatio = simplifiedWidth / simplifiedHeight
-
-        // Get the window dimensions
         const windowWidth = window.innerWidth;
         const windowHeight = window.innerHeight;
-
-        // Calculate the width and height keeping the aspect ratio
         let canvasWidth = windowWidth;
         let canvasHeight = canvasWidth / aspectRatio;
 
-        // Adjust height if it's too high to fit into the window
         if (canvasHeight > windowHeight) {
             canvasHeight = windowHeight;
             canvasWidth = canvasHeight * aspectRatio;
         }
 
-        // Apply the calculated dimensions to the canvas
         this.canvas.width = canvasWidth;
         this.canvas.height = canvasHeight;
-    }
-
-    startFading() {
-        this.fadeTimeout = setTimeout(() => {
-            let fadeInterval = setInterval(() => {
-                let allFaded = true;
-                this.paths.forEach(path => {
-                    if (!path.isDrawing && path.alpha > 0) {
-                        path.alpha -= 0.01;
-                        allFaded = false;
-                    }
-                });
-                this.drawPaths(); // Redraw paths with updated alpha
-                if (allFaded) clearInterval(fadeInterval);
-            }, 50);
-        }, 500);
-    }
-
-    sendData(data) {
-        console.log('sending data')
-        console.log('Sending data:', data);
-        this.sendDataCallback(data);
     }
 }
