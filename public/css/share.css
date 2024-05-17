@@ -423,6 +423,12 @@ body {
   border: 0.1em solid var(--c-black);
   color: var(--c-black);
 }
+.app-main-button__button--log {
+  position: absolute;
+  right: 1em;
+  background: white;
+  border-radius: 5px;
+}
 .app-main-button__button:hover {
   cursor: pointer;
 }

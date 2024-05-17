@@ -6,7 +6,10 @@
 	</div>
 {% elseif theme == 'ps' %}
 	<div class="app-main-log app-main-log--ps" {% if hide %} style="display: none;" {% endif %}>
-		<button class="log__button">Copy to clipboard</button>
+		{% include '../partials/buttons.twig' with { 
+			buttons: [ { id: 'copyToClipboard', style: 'log', label: 'Copy to clipboard' } ],
+			wrapper: false
+		} %}
 		<div class="app-main-log__log">
 			{% if logMessage is not empty %}
 				<strong>{{ logMessage }}</strong>
